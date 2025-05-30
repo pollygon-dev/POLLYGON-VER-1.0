@@ -1,0 +1,151 @@
+/* Windows 98 Taskbar Styles */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background: #c0c0c0;
+    border-top: 1px solid #fff;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+}
+
+.start-button {
+    display: flex;
+    align-items: center;
+    padding: 2px 6px;
+    height: 39px;
+    font-weight: bold;
+    margin-right: 4px;
+    border: 1px solid;
+    border-color: #fff #000 #000 #fff;
+    background: #c0c0c0;
+    position: relative;
+    cursor: pointer;
+}
+
+.start-button:active,
+.start-button.active {
+    border-color: #000 #fff #fff #000;
+    padding: 3px 5px 1px 7px;
+}
+
+.start-button img {
+    width: 25px;
+    height: 25px;
+    margin-right: 4px;
+}
+
+.clock {
+    border: 1px solid;
+    border-color: #808080 #fff #fff #808080;
+    padding: 4px 12px;
+    margin-left: auto;
+    margin-right: 8px;
+    min-width: 85px;
+    text-align: center;
+    font-size: 14px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Start Menu Styles */
+.start-menu {
+    position: fixed;
+    bottom: 45px;
+    left: 2px;
+    width: 390px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #000 #000 #fff;
+    padding: 2px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s;
+    z-index: 10000;
+}
+
+.start-menu.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.menu-wrapper {
+    display: flex;
+    height: 390px;
+}
+
+.banner {
+    width: 27px;
+    background: linear-gradient(to right, #000080, #1084d0);
+    margin-right: 2px;
+    position: relative;
+}
+
+.banner::after {
+    content: "Windows98";
+    color: white;
+    position: absolute;
+    left: -110px;
+    bottom: 25px;
+    transform-origin: right;
+    transform: rotate(-90deg);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menu-items {
+    flex: 1;
+    padding: 3px 4px;
+}
+
+.menu-item {
+    height: 32px;
+    padding: 4px 24px 4px 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.menu-item:hover {
+    background: #000080;
+    color: white;
+}
+
+.has-submenu::after {
+    content: '►';
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+}
+
+.submenu {
+    position: absolute;
+    left: 100%;
+    top: -2px;
+    width: 260px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #000 #000 #fff;
+    padding: 2px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.menu-item:hover > .submenu {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Adjust window bottom position for new taskbar height */
+.window.fullSizeWindow {
+    bottom: 45px !important;
+}

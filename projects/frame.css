@@ -1,0 +1,76 @@
+@font-face {
+	font-family: Kubasta;
+src: url('../font/Kubasta.ttf')  format("truetype");
+}
+
+@font-face {
+	font-family: Newsgeek;
+		src: url('../font/Newsgeek.ttf')  format("truetype");
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('../font/Newsgeek.ttf')  format("truetype");
+		font-weight: bold; /* bold */
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('../font/Newsgeek.ttf')  format("truetype");
+		font-style: italic; /* italic */
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('../font/Newsgeek.ttf')  format("truetype");
+		font-style: italic; /* italic */
+		font-weight: bold; /* bold */
+	}
+
+body {
+    font-family: Kubasta; 
+    margin: 0;
+    /* you can delete the line below if you'd prefer to not use an image */
+    background-color: #e4e8ff;
+    color: #8d93b3;
+    
+}
+
+h1,
+h2,
+h3 {
+	font-family: Newsgeek, sans-serif;
+	color: #756bc4;
+}
+
+h1 {
+	font-size: 25px;
+}
+
+.links{
+	display:flex;
+    flex-wrap:wrap;
+	align-items: flex-start;
+}
+.links img {
+	width:100px;
+	height:100px;
+	object-fit:cover;
+	margin: 0.8em;
+	border: 2px dotted #dace82;
+}
+
+#hoverS{
+	-webkit-mask-image: url(https://i.imgur.com/WPTnhzY.png);
+	-webkit-mask-size: 250%;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	 transform:rotate(0deg);
+	transition:0.3s;
+	}
+	
+	#hoverS:hover {
+	  -webkit-mask-size: 100%;
+	  transform:rotate(-15deg);
+	  transition:0.3s;
+	}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>polly</title>
+        <link></link>
+        <description>the murder... it's dramatical...</description>
+        <webMaster>Apollo</webMaster>
+        <generator>@pollygon</generator>
+        <image>
+            <url>../blog/flanbw.png</url>
+        </image>
+        
+        <!-- posts down here -->
+        <item>
+          <title>Listening to DMMD ending songs rn (committed the horrible crime of skipping them everytime i finished the endings) and so far I really like ENDE=NEU and Tears</title>
+          <description></description>
+          <pubDate>Tue, 12 Nov 2024 22:54:51 GMT</pubDate>
+          <guid>1731423291939</guid>
+        </item>
+        
+        <item>
+            <title>Getting into e7 in this year of 2024 god save me </title>
+            <description></description>
+            <pubDate>Fri, 08 Nov 2024 15:53:40 GMT</pubDate>
+            <guid>1731052420655</guid>
+        </item>
+
+        <item>
+            <title>Twitter going up in flames so i finally decided to add my own microblog here. hi!</title>
+            <description></description>
+            <pubDate>Tue, 04 Nov 2024 12:00:00 GMT</pubDate>
+            <guid>1</guid>
+        </item>
+    </channel>
+</rss>

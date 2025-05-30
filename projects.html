@@ -1,0 +1,148 @@
+<!-- base template by teppyslayouts.neocities.org -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>POLLYGON's Project Corner</title>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Silkscreen&display=swap');
+		body {
+			font-family: "IBM Plex Mono", monospace;
+			background: #f3d9e5;
+			background-image: url('face-04.png');
+		}
+
+		.wrapper {
+			border: 3px solid #380D41;
+			width: 815px;
+			height: 925px;
+            background: #cea8c3;
+			box-shadow: 3px 3px 0 #c092c9; 
+			background-image: url('consolebg.png');
+			border-radius: 5px;
+			margin: auto;
+			margin-top: calc(50vh - 500px);
+		}
+
+		.wrapper::after {
+			content: " ";
+			display: block;
+			border: 3px solid #380D41;
+			border-top: 0;
+			width: 815px;
+			height: 10px;
+			box-shadow: 0 2px 0 #c092c9;
+			position: relative;
+			left: -2.5px;
+			top: -2px;
+			border-radius: 0 0 5px 5px;
+		}
+
+		.content {
+			background: #97688a;
+			border-radius: 5px;
+		}
+
+		.menu a {
+			font-family: "Silkscreen", sans-serif;
+			border: 3px solid #380D41;
+			border-bottom-color: #97688a;
+			color: #380D41;
+			text-decoration: none;
+			display: inline-block;
+			height: 41px;
+			font-size: 13px;
+			width: 128px;
+			margin-left: -3px;
+            top: 8px;
+			border-radius: 3px;
+			line-height: 33px;
+			position: relative;
+		}
+
+		.menu a:hover {
+			position: relative;
+			top: 11px;
+		}
+
+		.menu a:hover::before {
+			background-color: #380D41;
+			display: block;
+			content: " " ;
+			height: 6px;
+			width: calc(100% + 6px);
+			position: absolute;
+			top: -7px;
+			left: -3px;
+		}
+
+		.menu a::after {
+			background-color: #c092c9;
+			display: block;
+			content: " " ;
+			height: 3px;
+			width: 90px;
+			margin: auto;
+		}
+
+		.screen {
+			width: 712px;
+			height: 821px;
+			background: #c092c9;
+			border: 3px solid #380D41;
+			margin: auto;
+			margin-top: 20px;
+			position: relative;
+			border-radius: 5px;
+		}
+
+		iframe {
+			border: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.menu {
+			margin: auto;
+			text-align: center;
+			margin-top: 18px;
+		}
+
+		#pagedoll {
+			position: fixed;
+			top: 610px;
+			left:1600px;
+			z-index: 1;
+		}
+
+
+		.floating {  
+			animation-name: floating;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+			animation-timing-function: ease-in-out;
+			margin-left: 30px;
+			margin-top: 5px;
+		}
+ 
+		@keyframes floating {
+			0% { transform: translate(0,  0px); }
+			50%  { transform: translate(0, 15px); }
+			100%   { transform: translate(0, -0px); }    
+		}
+	</style>
+</head>
+<body>
+	<img src="ditherflan.png" alt="" id="pagedoll" class="floating">
+
+	<div class="wrapper">
+		<div class="screen">
+			<iframe name="content" src="projects/home.html"></iframe>
+		</div>
+		<div class="subtext"></div>
+		<div class="menu">
+			<a href="projects/home.html" target="content">home</a><a href="projects/completed.html" target="content">completed</a><a href="projects/ongoing.html" target="content">ongoing</a>
+            
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Post Creator</title>
+    <style>
+        body {
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #c0c0c0;
+        }
+        .window {
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .title-bar {
+            background: #000080;
+            color: white;
+            padding: 3px;
+            margin: -10px -10px 10px -10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 5px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+        }
+        button {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 5px 15px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        button:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        #output {
+            background: #ffffff;
+            padding: 10px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        #imagePreview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 2px;
+            display: none;
+        }
+        .file-input-wrapper {
+            margin: 10px 0;
+        }
+        .status {
+            color: #000080;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        .image-section {
+            border: 1px solid #808080;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .image-section-title {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #808080;
+            margin: 15px 0;
+        }
+        .or-divider {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            color: #000080;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">RSS Post Creator</div>
+        <div class="form-group">
+            <label for="title">Post Title:</label>
+            <input type="text" id="title" placeholder="Enter post title">
+        </div>
+        <div class="form-group">
+            <label for="content">Post Content:</label>
+            <textarea id="content" rows="4" placeholder="Enter post content"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Image (choose one method):</label>
+            
+            <div class="image-section">
+                <div class="image-section-title">Method 1: Upload File</div>
+                <div class="file-input-wrapper">
+                    <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
+                    <div class="status" id="imageStatus"></div>
+                </div>
+            </div>
+
+            <div class="or-divider">- OR -</div>
+
+            <div class="image-section">
+                <div class="image-section-title">Method 2: Image URL</div>
+                <input type="text" id="imageUrl" placeholder="Enter image URL" onchange="previewImageUrl(this.value)">
+                <div class="status" id="urlStatus"></div>
+            </div>
+
+            <img id="imagePreview" src="" alt="Preview">
+        </div>
+
+        <button onclick="generatePost()">Generate XML</button>
+        <button onclick="copyToClipboard()">Copy XML</button>
+        <button onclick="clearForm()">Clear Form</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        let imageBase64 = '';
+        let currentImageMethod = null; // 'file' or 'url'
+        
+        function getRSSDate() {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            const now = new Date();
+            const dayName = days[now.getUTCDay()];
+            const monthName = months[now.getUTCMonth()];
+            const day = String(now.getUTCDate()).padStart(2, '0');
+            const year = now.getUTCFullYear();
+            const time = now.toTimeString().split(' ')[0];
+            
+            return `${dayName}, ${day} ${monthName} ${year} ${time} GMT`;
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const preview = document.getElementById('imagePreview');
+                const status = document.getElementById('imageStatus');
+                document.getElementById('imageUrl').value = ''; // Clear URL input
+                document.getElementById('urlStatus').textContent = '';
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    imageBase64 = e.target.result;
+                    status.textContent = `Image loaded: ${file.name}`;
+                    currentImageMethod = 'file';
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewImageUrl(url) {
+            if (url) {
+                const preview = document.getElementById('imagePreview');
+                const status = document.getElementById('urlStatus');
+                document.getElementById('imageFile').value = ''; // Clear file input
+                document.getElementById('imageStatus').textContent = '';
+                
+                preview.src = url;
+                preview.style.display = 'block';
+                imageBase64 = '';
+                status.textContent = 'Using URL image';
+                currentImageMethod = 'url';
+            }
+        }
+
+        function generatePost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            let descriptionContent = content;
+
+            if (currentImageMethod === 'file' && imageBase64) {
+                const fileName = document.getElementById('imageFile').files[0].name;
+                descriptionContent += `\n<![CDATA[<img src="${imageBase64}" alt="${fileName}">]]>`;
+            } else if (currentImageMethod === 'url') {
+                const imageUrl = document.getElementById('imageUrl').value;
+                if (imageUrl) {
+                    descriptionContent += `\n<![CDATA[<img src="${imageUrl}" alt="Post image">]]>`;
+                }
+            }
+            
+            const date = getRSSDate();
+            const guid = Date.now();
+            
+            const xmlItem = `    <item>
+        <title>${title}</title>
+        <description>${descriptionContent}</description>
+        <pubDate>${date}</pubDate>
+        <guid>${guid}</guid>
+    </item>`;
+            
+            document.getElementById('output').textContent = xmlItem;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const text = output.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('XML copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('imageFile').value = '';
+            document.getElementById('imageUrl').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('imageStatus').textContent = '';
+            document.getElementById('urlStatus').textContent = '';
+            document.getElementById('output').textContent = '';
+            imageBase64 = '';
+            currentImageMethod = null;
+        }
+    </script>
+</body>
+</html>

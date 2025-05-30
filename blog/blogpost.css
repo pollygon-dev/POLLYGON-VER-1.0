@@ -1,0 +1,234 @@
+@font-face {
+    font-family:'Scribbles';
+    src:url(ScribblesNo_ligatures-Regular.ttf);
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 40px;
+    min-height: 100vh;
+    font-family: 'Scribbles';
+    color: #747474;
+    background: rgb(255,239,249);
+    background: -moz-radial-gradient(circle, rgba(255,239,249,1) 0%, rgba(255,255,255,1) 15%, rgba(240,254,237,1) 35%, rgba(255,236,248,1) 80%, rgba(239,255,253,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,239,249,1) 0%, rgba(255,255,255,1) 15%, rgba(240,254,237,1) 35%, rgba(255,236,248,1) 80%, rgba(239,255,253,1) 100%);
+    background: radial-gradient(circle, rgba(255,239,249,1) 0%, rgba(255,255,255,1) 15%, rgba(240,254,237,1) 35%, rgba(255,236,248,1) 80%, rgba(239,255,253,1) 100%);
+}
+
+.page-wrapper {
+    max-width: 1300px; /* Reduced from 1400px */
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Side Cards Container */
+.sidebar {
+    width: 325px;
+    position: fixed;
+    left: calc(50% - 600px); /* Half of max-width */
+    top: 40px;
+}
+
+.profile-card, .back-card {
+    width: 100%;
+    background-color: #f2f6f8;
+    border: 2px solid #818080;
+}
+
+.title-bar, .box-title-bar {
+    background: #6cd1fc;
+    border-bottom: 2px solid #818080;
+    color: white;
+    padding: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.right {
+    float: right;
+    margin-right: 5px;
+    line-height: 12px;
+}
+
+.profile-card {
+    margin-bottom: 20px;
+}
+
+.back-card {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+
+.profile-info {
+    font-size: 17px;
+    padding: 10px;
+}
+
+.profile-info p {
+    margin: 2px 0;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+    padding: 2px;
+  }
+
+  .profile-img {
+    border-radius: 50%;
+  }
+
+.back-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#statuscafe {
+    padding: 5px;
+    border: 3px dashed rgb(143, 190, 145);
+    }
+  #statuscafe-username {
+        margin-bottom: .5em;
+    }
+  #statuscafe-content {
+        margin: 0 0.2em 0.2em 0.2em;
+    }
+
+
+/* Main Content */
+.container {
+    width: 900px;
+    margin-left: 75px; /* Reduced from 140px */
+}
+
+.main-content {
+    background-color: #f2f6f8;
+    padding: 40px;
+    border: 2px solid #7c8081;
+}
+
+.blog-title {
+    color: #2e8b57;
+    filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px 1px 0 black) drop-shadow(0 2px 0 black) drop-shadow(0 -1px 0 black);
+    color: #ceeabd;
+    font-size: 5em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+h2, h3 {
+    margin-bottom: 10px;
+}
+
+.date {
+    color: #ff69b4;
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.featured-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.blog-image {
+    width: 100%;
+    height: auto;
+}
+
+figcaption {
+    font-size: 0.75em;
+    font-style: italic;
+    margin-bottom: 25px;
+  }
+
+article {
+    text-align: left;
+    font-size: 23px;
+    padding: 10px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+article p {
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 30px;
+}
+
+hr {
+    border-top: 2px dashed #818080 ;
+  }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .page-wrapper {
+        justify-content: center;
+    }
+    
+    .sidebar {
+        left: 40px;
+    }
+
+    .container {
+        margin-left: 365px; /* 325px + 40px */
+        margin-right: 40px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: calc(100% - 405px); /* Account for sidebar width + margins */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .blog-title {
+        font-size: 2em;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}

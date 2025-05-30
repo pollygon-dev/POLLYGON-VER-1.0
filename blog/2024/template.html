@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <link rel="stylesheet" href="../blogpost.css">
+    <link rel="stylesheet" href="../modal.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Profile Card -->
+            <div class="profile-card"><div class=box-title-bar>Status<div class=right><i class="fa-solid fa-x"></i></div></div>
+                <div class="profile-info">
+                    <div class="profile-grid">
+                        <div class="div1"><br><img src="../flanbw.png" alt="" class="profile-img"><br></div>
+                        <div class="div2"><br> I'm feeling <a href="https://www.imood.com/users/pollygon"><img src="https://moods.imood.com/display/uname-pollygon/trans-1/imood.gif" alt="The current mood of pollygon at www.imood.com" border="0"></a>...<div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div><script src="https://status.cafe/current-status.js?name=1863rdturn" defer></script><br></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Card -->
+            <div class="back-card">
+                <div class="back-text">
+                    <a href="../index.html"><img src="../goback.png" alt="Go back"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Container -->
+        <div class="container">
+            <div class="main-content">
+                <h1 class="blog-title">DRAMatical Murder Review</h1>
+                <div class="date">October 19, 2024</div>
+                <hr>
+                <article>
+                    <img src="../pics/10192024/aoba.png" alt="Aoba's first CG" class="featured-image">
+                    <p>
+                        I finally got to finish DMMD after a month of playing and I got to say that I'm surprised by how much I enjoyed it! I actually tried it around a few years ago but I think I stopped around the part in the warehouse because I thought it was becoming too long (I wasn't a big fan of visual novels before and only liked Action RPGs, look at me now... ). Here's the synopsis from the Official Steam Page:
+                    </p>
+
+                
+                    <p>
+                        And as a celebration for finishing DMMd, I drew the best boy, Aoba :) Hopefully I get to draw other cast as well since I love all of their character designs!
+                    </p>
+                    <figure>
+                        <img src="../pics/10192024/aoblue.png" alt="My art of Aoba" class="blog-image">
+                        <figcaption>Have an Aoba :D</figcaption>
+                    </figure>
+
+                </article>
+            </div>
+        </div>
+    </div>
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Modal -->
+    <!-- <div class="modal" id="welcomeModal">
+        <div class="modal-header">
+            <h2 class="modal-title"><i class="fa-solid fa-triangle-exclamation"></i> Read before you proceed!</h2>
+            <button class="close-button" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>This blog contains content that may not be suitable for all audiences.</p>
+            <p>If you are under the age of 18, please exercise caution before reading.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal()">Proceed</button>
+            <a href="../index.html" class="btn btn-primary">Go back</a>
+        </div>
+    </div> -->
+
+    <script src="https://kit.fontawesome.com/05483ba04f.js" crossorigin="anonymous"></script>
+    <!-- <script>
+        // Get modal elements
+        const modal = document.getElementById('welcomeModal');
+        const overlay = document.getElementById('modalOverlay');
+    
+        // Function to show modal
+        function showModal() {
+            overlay.classList.add('show');
+            modal.classList.add('show');
+            modal.classList.remove('hiding');
+        }
+    
+        // Function to close modal with animation
+        function closeModal() {
+            modal.classList.add('hiding');
+            modal.classList.remove('show');
+            overlay.classList.remove('show');
+            
+            // Remove hiding class after animation completes
+            setTimeout(() => {
+                modal.classList.remove('hiding');
+            }, 300);
+        }
+    
+        // Close modal when clicking outside
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+    
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    
+         // Show modal automatically when page loads
+         document.addEventListener('DOMContentLoaded', function() {
+            showModal();
+        });
+    </script> -->
+    
+</body>
+</html>

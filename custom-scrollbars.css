@@ -1,0 +1,35 @@
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 16px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f2e6ef; /* Light pink background */
+  border: 1px solid #8b728b; /* Purple border */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8b728b; /* Purple thumb */
+  border: 3px solid #f2e6ef; /* Light pink border */
+  border-radius: 8px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a691a6; /* Lighter purple on hover */
+}
+
+::-webkit-scrollbar-button {
+  display: none; /* Hide default buttons */
+}
+
+/* Firefox scrollbar (if needed) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8b728b #f2e6ef; /* thumb and track colors */
+}
+
+/* For the content areas specifically */
+.notification-content, .microblog-content, .player-content {
+  scrollbar-width: thin;
+  scrollbar-color: #8b728b #f2e6ef;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bluesky Feed</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bsky-embed/dist/bsky-embed.es.js" async></script>
+    <style>
+        /* Previous styles remain the same */
+        .profile-container {
+            background: #e8e6f2;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            max-width: 700px;  /* Reduced from 800px */
+            margin: 20px auto;  /* Center align with auto margins */
+        }
+
+        .profile-section {
+            padding: 15px;  /* Reduced padding */
+            background: #e8e6f2;
+            display: flex;
+            gap: 15px;  /* Reduced gap */
+            align-items: flex-start;
+        }
+
+        .profile-pic {
+            width: 64px;  /* Reduced from 80px */
+            height: 64px;  /* Reduced from 80px */
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 3px;
+            background: white;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-size: 1.2em;  /* Slightly reduced */
+            font-weight: bold;
+            margin-bottom: 3px;  /* Reduced spacing */
+        }
+
+        .profile-handle {
+            color: #666;
+            margin-bottom: 8px;  /* Reduced spacing */
+        }
+
+        .profile-bio {
+            margin-top: 8px;  /* Reduced spacing */
+            line-height: 1.4;
+        }
+
+        .follow-button {
+            background: #c8d7e6;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 4px 12px;  /* Reduced padding */
+            cursor: pointer;
+            font-family: 'basiic';
+        }
+
+        .follow-button:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        bsky-embed {
+            display: block;
+            background: #e8e6f2;
+            padding: 20px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #container {
+            background: #e8e6f2;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 0;
+            max-width: 900px;
+            width: 95%;
+            margin: 20px auto;
+        }
+
+        .container-title {
+            background: #c8d7e6;
+            color: black;
+            padding: 3px 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="window-title">
+            polly.log
+            <div class="window-controls">
+                <a href="#" class="window-button">_</a>
+                <a href="#" class="window-button">□</a>
+                <a href="#" class="window-button">×</a>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <div class="container-title">Profile</div>
+            <div class="profile-section">
+                <img src="../flan.png" alt="Profile" class="profile-pic">
+                <div class="profile-info">
+                    <div class="profile-name">Polly</div>
+                    <div class="profile-handle">@pollygon.bsky.social</div>
+                    <div class="profile-bio">
+                        a gamedev student who prioritizes the wrong things
+                    </div>
+                </div>
+                <a href="https://bsky.app/profile/pollygon.bsky.social" target="_blank"><button class="follow-button">Follow</button></a>
+            </div>
+        </div>
+
+        <bsky-embed
+            username="pollygon.bsky.social"
+            mode="light"
+            limit="5"
+            load-more="true"
+            custom-styles="
+                #bsky-load-more { 
+                    background: #c8d7e6 !important;
+                    border: 2px solid !important;
+                    border-color: #ffffff #808080 #808080 #ffffff !important;
+                    color: black !important;
+                    font-family: 'basiic' !important;
+                    border-radius: 0 !important;
+                    padding: 8px 16px !important;
+                }
+                #bsky-load-more:active {
+                    border-color: #808080 #ffffff #ffffff #808080 !important;
+                }
+            "
+        >
+        </bsky-embed>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+/* 
+    Don't use this file to edit your site style! Create a different CSS file for that.
+    This file defines how custom elements (like sitebox) will look like.
+    Setting CSS that breaks main nekoweb site on purpose is prohibited and may result in ban and site deletion! 
+*/
+
+/* Must start with ".site-box". Change how your website will appear on main nekoweb site: https://lune.dimden.dev/405a44b7e5.png */
+.site-box {
+    background-color: #ffffff;
+    background-image: url('https://pollygon.nekoweb.org/pollygonbox.gif');
+    background-size: 100% 100%;
+    font-size: 12px;
+    font-weight: bold !important;
+    font-style: normal;
+    text-decoration: none;
+    font-family: Tahoma;
+    box-shadow: inset -1px -1px #916892, inset 1px 1px #fff, inset -2px -2px #b491b4, inset 2px 2px #dfdfdf;
+    border: 2px solid #916892;
+    transition: transform 0.3s ease;
+    border-radius: 3px;
+    position: relative
+}
+
+.site-box:hover {
+    transform: scale(1.05);
+    box-shadow: inset -1px -1px #916892, inset 1px 1px #fff, inset -2px -2px #b491b4, inset 2px 2px #dfdfdf, 0 0 10px rgba(145,104,146,0.4)
+}
+
+.site-box .sitefeature {
+    display: none
+}
+
+.site-box .sitefeature .screenshot {
+    display: none
+}
+
+.site-box > a > p {
+	color: rgba(0, 0, 0, 0);
+    display: block
+}
+
+.site-box > a > span {
+    color: #634c53;
+    display: none
+}
+
+.site-box .follow {
+    content: url('https://pollygon.nekoweb.org/followbutton.png');
+    color: black;
+    background: silver;
+    box-shadow: inset -3px -3px #916892, inset 3px 3px #fff, inset -6px -6px #b491b4, inset 6px 6px #dfdfdf;
+    top: 170px;
+    left: 70px;
+    z-index: 5
+}
+
+.site-box .following {
+    content: url('https://pollygon.nekoweb.org/followed.png');
+    color: black;
+    background: silver;
+    box-shadow: inset -3px -3px #916892, inset 3px 3px #fff, inset -6px -6px #b491b4, inset 6px 6px #dfdfdf;
+    top: 170px;
+    left: 70px;
+    z-index: 5
+}
+
+/* Style for your 'Follow on Nekoweb' button (<iframe src="https://nekoweb.org/frame/follow" frameborder="0" width="170" height="28"></iframe>) */
+.follow {
+    background-color: #f2e6ef;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.post-box{
+    background-color: #e1ecf8;
+    border: 2px solid #805980;
+    font-family: 'MS Sans Serif', Arial;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080
+}
+.post-box .post-author{
+    color: #805980
+}
+.post-box .post-date{
+    color: #805980
+}
+.post-box .post-title{
+    color: #805980;
+    background: #fce0ee
+}
+.post-box .post-description{
+    color: #805980
+}

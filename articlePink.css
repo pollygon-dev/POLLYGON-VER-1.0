@@ -1,0 +1,221 @@
+@font-face {
+	font-family: Newsgeek;
+		src: url('font/Newsgeek.ttf')  format("truetype");
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('font/Newsgeek.ttf')  format("truetype");
+		font-weight: bold; /* bold */
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('font/Newsgeek.ttf')  format("truetype");
+		font-style: italic; /* italic */
+	}
+	
+	@font-face {
+		font-family: Newsgeek;
+		src: url('font/Newsgeek.ttf')  format("truetype");
+		font-style: italic; /* italic */
+		font-weight: bold; /* bold */
+	}
+
+    @font-face {
+        font-family: Monogram;
+		src: url('font/monogram-extended.ttf')  format("truetype");
+        }
+        
+        @font-face {
+            font-family: Monogram;
+		src: url('font/monogram-extended.ttf')  format("truetype");
+            font-weight: bold; /* bold */
+        }
+        
+        @font-face {
+            font-family: Monogram;
+            src: url('font/monogram-extended.ttf')  format("truetype");
+            font-style: italic; /* italic */
+        }
+        
+        @font-face {
+            font-family: Monogram;
+            src: url('font/monogram-extended.ttf')  format("truetype");
+            font-style: italic; /* italic */
+            font-weight: bold; /* bold */
+        }
+
+        @font-face {
+            font-family: M6;
+            src: url('font/m6x11.ttf')  format("truetype");
+            }
+            
+            @font-face {
+                font-family: M6;
+            src: url('font/m6x11.ttf')  format("truetype");
+                font-weight: bold; /* bold */
+            }
+            
+            @font-face {
+                font-family: M6;
+            src: url('font/m6x11.ttf')  format("truetype");
+                font-style: italic; /* italic */
+            }
+            
+            @font-face {
+                font-family: M6;
+            src: url('font/m6x11.ttf')  format("truetype");
+                font-style: italic; /* italic */
+                font-weight: bold; /* bold */
+            }
+
+            @font-face {
+                font-family: Tomorrow Night;
+                src: url('font/Tomorrow_Night.ttf')  format("truetype");
+                }
+                
+                @font-face {
+                    font-family: Tomorrow Night;
+                    src: url('font/Tomorrow_Night.ttf')  format("truetype");
+                    font-weight: bold; /* bold */
+                }
+                
+                @font-face {
+                    font-family: Tomorrow Night;
+                src: url('font/Tomorrow_Night.ttf')  format("truetype");
+                    font-style: italic; /* italic */
+                }
+                
+                @font-face {
+                    font-family: Tomorrow Night;
+                src: url('font/Tomorrow_Night.ttf')  format("truetype");
+                    font-style: italic; /* italic */
+                    font-weight: bold; /* bold */
+                }
+
+                @font-face {
+                    font-family: Kubasta;
+                src: url('font/Kubasta.ttf')  format("truetype");
+                }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    
+    body {
+        /*background-color: #222; */
+        background-image: url(about/bg.gif);
+    }
+    
+    article {
+        display: flex;
+        flex-direction: column;
+        color: #222;
+        max-width: 50em;
+        margin: 0 auto; 
+        padding: 1.5rem;
+        border: 8px outset #38a1bf;
+      box-shadow: inset 0 0 4px #fff;
+        background-color: #ffffff; 
+    }
+    
+    h1 {
+        font-size: 2.4rem;
+        color: #f487b6;
+        text-align: center;
+        padding: 0.4em;
+        font-family: Newsgeek;
+    }
+
+    h2 {
+        font-family: M6;
+    }
+    
+    article p {
+        font-size: 1.0rem;
+        padding: 0.5rem;
+        text-align: justify;
+        text-justify: inter-word;
+        text-indent: 5%;
+        font-family: Kubasta;
+    }
+    
+    blockquote p {
+        position: relative;
+        color: #f487b6;
+        font-size: 1.6rem;
+        font-weight: bold;
+      padding: 1.8em;
+    }
+    
+    blockquote::before {
+        content: open-quote;
+        position: absolute;
+      font-size: 4rem;
+    }
+    
+    blockquote::after {
+        content: close-quote;
+        position: relative;
+      float: right;
+      font-size: 4rem;
+    transform: translate(0, -50px);
+    }
+    
+    .author {
+    display:block;
+    text-align: right;
+        font-style: italic;
+        font-size: 1.4rem;
+        color: #fff;
+        padding-top: 0.5em;
+    }
+    
+    .stat-icon {
+        width: 7em;
+        margin: auto;
+        padding-bottom: 2em;
+    }
+    
+    .info-btn {
+        width: 60%;
+        background: #222;
+        color: #fc9;
+        margin: 1em auto;
+        padding: 0.4em;
+        border: 2px solid #f487b6;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .info-btn:hover {
+        background: #f487b6;
+        color: #222;
+    }
+    
+    .center {
+        text-align: center;
+      }
+
+    .float {
+        float: right;
+        vertical-align: top;
+        overflow-clip-margin: content-box;
+        overflow: clip;
+        animation-name: floating;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }    
+}
+
+    

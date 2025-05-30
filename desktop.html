@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://kit.fontawesome.com/05483ba04f.js" crossorigin="anonymous"></script>
+	<link rel="canonical" href="https://html5-templates.com/" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="preload" as="image" href="spinningtowa.gif">
+	<link rel="stylesheet" type="text/css" href="icons.css" />
+	<link rel="stylesheet" type="text/css" href="loader.css" />
+	<link rel="stylesheet" href="boxes.css">
+	<link rel="icon" type="image/png" href="windose.png">
+	<link rel="stylesheet" type="text/css" href="custom-scrollbars.css">
+	<title>POLLYGON</title>
+</head>
+<body>
+	 <div id="loader">
+        <div class="loader-content">
+            <div class="loader-gif"></div>
+            <div class="lebounce">
+                <mark>L</mark>
+                <mark>o</mark>
+                <mark>a</mark>
+                <mark>d</mark>
+                <mark>i</mark>
+                <mark>n</mark>
+                <mark>g</mark>
+            </div>
+        </div>
+    </div>
+
+
+	<div id="desktop">
+
+		  <!-- flan -->
+		  <div class="gif-box">
+			<div class="gif-title-bar">
+				<div class="title-bar-text">
+					<i class="fa-solid fa-camera"></i> Webcam
+				</div>
+		
+				<div class="window-controls">
+					<a href="#" class="window-button minimize-gif">_</a>
+					<a href="#" class="window-button maximize-gif">□</a>
+					<a href="#" class="window-button close-gif">×</a>
+				</div>
+			</div>
+		
+			<div class="gif-content">
+				<div class="gif-inner-container">
+					<div class="gif-container">
+						<img src="flan.gif" alt="Animation" onload="this.classList.add('loaded')">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		  <!-- microblog -->
+		  <div class="microblog-box">
+			<div class="microblog-title-bar">
+				<div class="title-bar-text">
+					<i class="fa-brands fa-bluesky"></i> Feed
+				</div>
+		
+				<div class="window-controls">
+					<a href="#" class="window-button minimize-microblog">_</a>
+					<a href="#" class="window-button maximize-microblog">□</a>
+					<a href="#" class="window-button close-microblog">×</a>
+				</div>
+			</div>
+		
+			<div class="microblog-content">
+				<div class="content-area">
+					<div class="bsky-container">
+						<script src="https://cdn.jsdelivr.net/npm/bsky-embed/dist/bsky-embed.es.js" async></script>
+						<bsky-embed
+							username="pollygon.dev"
+							mode="light"
+							limit="1"
+						></bsky-embed>
+					</div>
+					<div class="read-more">
+						<a class="openWindow" data-id="5">read more →</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- music player -->
+		<div class="music-player">
+			<div class="music-title-bar">
+				<div class="title-bar-text">
+					Music
+				</div>
+		
+				<div class="window-controls">
+					<a href="#" class="window-button minimize-player">_</a>
+					<a href="#" class="window-button maximize-player">□</a>
+					<a href="#" class="window-button close-player">×</a>
+				</div>
+			</div>
+		
+			<div class="player-content">
+				<div class="player-info">
+					<div class="track-info">
+						<div class="track-name">
+							Song
+						</div>
+		
+						<div class="track-artist">
+							Artist
+						</div>
+					</div>
+				</div>
+		
+				<div class="player-controls">
+					<div class="controls">
+						<a href="#" class="control-button prev-track">
+							<i class="fas fa-backward-step"></i>
+						</a>
+						<a href="#" class="control-button playpause-track">
+							<i class="fas fa-play"></i>
+						</a>
+						<a href="#" class="control-button next-track">
+							<i class="fas fa-forward-step"></i>
+						</a>
+					</div>
+		
+					<div class="time-controls">
+						<input type="range" class="seek_slider" min="0" max="100" value="0">
+						<div class="time-display">
+							<span class="current-time">00:00</span> / <span class="total-duration">00:00</span>
+						</div>
+					</div>
+		
+					<div class="volume-control">
+						<a href="#" class="control-button volume-btn mute-button">
+							<i class="fas fa-volume-up"></i>
+						</a>
+						<input type="range" class="volume_slider" min="0" max="100" value="100">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- windows -->
+		<div class="window closed" data-title="Shrines"> <!--0-->
+			<iframe width="100%" height="100%" src="shrines.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="Projects"> <!--1-->
+			<iframe width="100%" height="100%" src="new-projects/index.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="OCs"> <!--2-->
+			<h1>Still a work-in-progress.... come back later!</h1>
+
+		</div>
+
+		<div class="window" data-title="Welcome.txt"> <!--3-->
+			<!--<img src="logo-smaller.png">-->
+			<h1><img src="newpollygon2.png" class="float"></h1>
+			<P> Thanks for stopping by! This is my little website, POLLYGON! In here, you'll find stuff about me and my interests, as well as my projects and OCs. (and maybe many more?)
+				<br> <br>
+				So.. Let me introduce myself! I'm Apollo, a gamedev student who enjoys playing games and reading stuff. I also have millions of interests and into way too many things. (haha) Feel free to explore around and hope you enjoy your stay! (P.S. the windows can be minimized and maximized!) <br> <br> Also! The code here on my site is meant to be shared! Feel free to get any code, and if you need anything, just reach out to me and I'll help! <br> <br> <i>Is the site looking funny? Try doing a hard reload (Ctrl+Shift+R)</i></P>
+		</div>
+
+		<!--MUSIC-->
+		<div class="window closed" data-title="POLLY'S BLOG"> <!--4-->
+			<iframe width="100%" height="100%" src="blog/index.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="polly.log"> <!--5-->
+			<iframe width="100%" height="100%" src="bsky/index.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="Corpse Husband"> <!--6-->
+			<iframe width="100%" height="100%" src="corpsehusband.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="R.F. Kuang"> <!--7-->
+			<iframe width="100%" height="100%" src="rfkuang.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="WiP"> <!--8-->
+			<h1>Still a work-in-progress.... come back later!</h1>
+		</div>
+
+		<div class="window closed fullSizeWindow" data-title="Guestbook"> <!--9-->
+			<iframe width="100%" height="100%" src="https://pollygon.atabook.org/"></iframe>
+		</div>
+
+		<div class="window closed fullSizeWindow" data-title="Art"> <!--10-->
+			<iframe width="100%" height="100%" src="art/index.html"></iframe>
+			
+		</div>
+
+		<div class="window closed fullSizeWindow" data-title="About me"> <!--11-->
+			<iframe width="100%" height="100%" src="about/about.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="Links"> <!--12-->
+			<iframe width="100%" height="100%" src="links.html"></iframe>
+		</div>
+		
+		<!-- taskbar footer -->
+		<div id="taskbar">
+			<div class="start" id="startButton"><img src="windose-2.png" alt="Windows logo">Start</div>
+			<div class="button-row">
+				<a class="show-gif"><i class="fa-solid fa-camera"></i></a>
+				<a class="show-microblog"><i class="fa-brands fa-bluesky"></i></a>
+				<a class="show-player"><i class="fa-solid fa-music"></i></a>	 
+			</div>
+        <div class="time" id="time">5:53PM</div>	
+		</div>
+
+		<div class="start-menu" id="startMenu">
+			<div class="menu-wrapper">
+				<div class="banner"></div>
+				<div class="menu-items">
+					<a id="menu-item" class="openWindow" data-id="11">
+						<span><u>A</u>bout the Webmaster</span>
+					</a>
+					<div class="separator"></div>
+					<div class="menu-item has-submenu">
+						<span><u>P</u>rograms</span>
+						<div class="submenu">
+							<div class="menu-item has-submenu">
+								<span><u>P</u>ersonal</span>
+								<div class="submenu">
+									<a id="menu-item" class="openWindow" data-id="0">
+										<span><u>S</u>hrines</span>
+									</a>
+									<a id="menu-item" class="openWindow" data-id="9">
+										<span><u>B</u>log</span>
+									</a>
+									<a id="menu-item" class="openWindow" data-id="2">
+										<span><u>O</u>Cs</span>
+									</a>
+								</div>
+							</div>
+							<div class="menu-item has-submenu">
+								<span><u>W</u>orks</span>
+								<div class="submenu">
+									<a id="menu-item" class="openWindow" data-id="1">
+										<span><u>P</u>rojects</span>
+									</a>
+									<a id="menu-item" class="openWindow" data-id="10">
+										<span><u>A</u>rt</span>
+									</a>
+								</div>
+							</div>
+							<div class="menu-item has-submenu">
+								<span><u>O</u>utgoing</span>
+								<div class="submenu">
+									<a id="menu-item" class="openWindow" data-id="12">
+										<span><u>L</u>inks</span>
+									</a>
+									<a id="menu-item" class="openWindow" data-id="9">
+										<span><u>G</u>uestbook</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a id="menu-item" class="openWindow" data-id="9">
+						<span><u>H</u>elp</span>
+					</a>
+					<a id="menu-item" class="openWindow" data-id="8">
+						<span><u>S</u>itemap</span>
+					</a>
+					<div class="separator"></div>
+					<a id="menu-item" href="index.html">
+						<span><u>L</u>og Off...</span>
+					</a>
+					<a id="menu-item" href="https://nekoweb.org">
+						<span><u>S</u>hut Down...</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<section id="WindowsIcons">
+        
+            <div class="icon">
+				<a class="openWindow" data-id="3"><img src="new-icons/notepad.png" alt="Welcome" title="Welcome"/><span class="icon-text">Welcome.txt</span></a>
+            </div>
+        
+            <div class="icon">
+                <a class="openWindow" data-id="11"><img src="new-icons/flan.png" alt="About" title="About"/><span class="icon-text">About me</span></a>
+            </div>
+
+			<div class="icon">
+                <a class="openWindow" data-id="0"><img src="new-icons/heart.png" alt="Shrines" title="Shrines"/><span class="icon-text">Shrines</span></a>
+            </div>
+
+			<div class="icon">
+                <a class="openWindow" data-id="4"><img src="new-icons/tv.png" alt="Blog" title="Blog"/><span class="icon-text">Blog</span></a>
+            </div>
+            
+            <div class="icon">
+                <a class="openWindow" data-id="1"><img src="new-icons/pc.png" alt="Projects" title="Projects"/><span class="icon-text">Projects</span></a>
+            </div>
+    
+            <div class="icon">
+                <a class="openWindow" data-id="2"><img src="new-icons/pudding.png" alt="OCs" title="OCs"/><span class="icon-text">OCs</span></a>
+            </div>
+    
+            <div class="icon">
+                <a class="openWindow" data-id="10"><img src="new-icons/palette.png" alt="Art" title="Art"/><span class="icon-text">Art</span></a>
+            </div>
+    
+    
+             <div class="icon">
+                <a class="openWindow" data-id="12"><img src="new-icons/phone.png" alt="Links" title="Links"/><span class="icon-text">Links</span></a>
+            </div>
+
+			<div class="icon">
+                <a class="openWindow" data-id="9"><img src="new-icons/book.png" alt="Guestbook" title="Guestbook"/><span class="icon-text"> Guestbook</span></a>
+            </div>
+    
+             <!--<div class="icon">
+                <a class="openWindow" data-id="10"><img src="paint.png" alt="Paint" title="Paint"/><span class="icon-text">Paint.exe</span></a>
+            </div>-->
+
+            </div>
+    
+        </section>
+		
+		<!-- You can use this template freely if you leave a visible link to HTML5-Templates.com  -->
+	</div>
+	<script src="loader.js"></script>
+	<script src="desktop.js"></script>
+	<script src="script.js"></script>
+
+</body>
+
+</html>

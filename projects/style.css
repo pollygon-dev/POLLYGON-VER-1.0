@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Silkscreen&display=swap');
+html {
+	scrollbar-width: thin;
+	scrollbar-color: #536982 #53698270;
+}
+
+body {
+	font-family: "IBM Plex Mono", monospace;
+	overflow-x: hidden;
+	font-size: 13px;
+	color: #380D41;
+	background: #f0d8e9;
+	padding: 0;
+	margin: 0;
+	padding: 15px;
+	border-top: 3px solid #866e94;
+	/* border-left: 3px solid #536982; */
+}
+
+.title {
+	font-family: "Silkscreen", sans-serif;
+	position: fixed;
+	display: inline-block;
+	padding: 3px 6px;
+	background: #380D41;
+	color: #f5f1de;
+	font-size: 13px;
+	top: 0;
+	left: 0;
+}
+
+h1, h2, h3 {
+	font-size: 14px;
+	font-family: "Silkscreen", sans-serif;
+}
+
+h1::after {
+	display: block;
+	content: " ";
+	height: 3px;
+	width: 14px;
+	background: #271d38;
+	margin-top: 8px;
+}
+
+img {
+	max-width: 100%;
+}
+
+h2 {
+	color: #271d38;
+}
+
+.center {
+	text-align: center;
+}
+
+.links{
+	display:flex;
+    flex-wrap:wrap;
+	align-items: flex-start;
+}
+.links img {
+	width:100px;
+	height:100px;
+	object-fit:cover;
+	margin: 0.8em;
+	border: 3px dotted #584d63;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #ccc0db;
+	color: #7c557c;
+	text-align: center;
+	font-size: 13px;
+	border: 3px solid #7c557c;
+	padding: 5px 0;
+	
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -60px;
+  }
+
+  .tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #7c557c transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+  }
+
+  .link:link {
+	font-size: 14px;
+	font-family: "Silkscreen", sans-serif;
+	color: black;
+	border: 2px solid rgb(138, 90, 165);
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+  }
+  
+  .link:hover, .link:active {
+	background-color: rgb(138, 90, 165);
+	color: white;
+  }

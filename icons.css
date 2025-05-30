@@ -1,0 +1,68 @@
+#WindowsIcons {
+    width: 300px;
+    padding: 50px 0 0 30px;
+    overflow: auto;
+}
+#WindowsIcons .icon {
+    overflow: none;
+    width: 130px;
+    float: left;
+    height: 125px;
+    margin: 0 15px 0 0;
+}
+#WindowsIcons .icon a {
+    text-decoration: none;
+    display: block;
+    overflow: none;
+    color: #000000;
+    font-size: 12px;
+}
+#WindowsIcons .icon a img, #WindowsIcons .icon a span {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+}
+#WindowsIcons .icon a img {
+    width: 70px
+}
+
+#WindowsIcons a:hover {
+    /*background-color: rgb(162, 191, 224);*/
+    color: rgb(71, 61, 66);
+    filter: drop-shadow( 0 1px #A2BFE0) drop-shadow( 1px 0 #A2BFE0) drop-shadow( 0 -1px #A2BFE0) drop-shadow( -1px 0 #A2BFE0) drop-shadow( 0 2px white) drop-shadow( 2px 0 white) drop-shadow( 0 -2px white) drop-shadow( -2px 0 white) drop-shadow( 0 3px #A2BFE0) drop-shadow( 3px 0 #A2BFE0) drop-shadow( 0 -3px #A2BFE0) drop-shadow(-3px 0 #A2BFE0) drop-shadow(1px 1px 0 #7a696c) drop-shadow(-1px 1px 0 #7a696c);
+}
+/* tv lines*/
+.lines {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 300;
+    opacity: 0.03;
+    }
+     
+    .lines:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, .5) 51%);
+    background-size: 100% 4px;
+    will-change: /*background,*/ background-size; animation: scanlines 0.2s linear infinite;
+    }
+     
+    @keyframes scanlines {
+    from {
+    background: linear-gradient(to bottom, transparent 10%, rgba(0, 0, 0, .5) 51%); background-size: 100% 4px; }
+    to {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .5) 50%, transparent 51%);
+    background-size: 100% 4px;
+    }
+    }
+    /*@media only screen and (max-width: 600px);*/

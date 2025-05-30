@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BLOG</title>
+	<meta name="description" content="SHORT DESCRIPTION OF YOUR PAGE" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./style.css" rel="stylesheet" />
+  </head>
+  <body>
+    
+    <div id="container"><div id="header" style="height: 197px; margin-bottom: 10px; border: 2px solid #818080;"><h1>Polly's Blog</h1></div>
+    <div id="headerArea">
+        
+    </div>
+
+    <div id="flex">
+        
+        <main>
+            <h2>Blog Entries</h2>
+            <hr>
+            <div class="grid">
+                <div class="info-contentbox" data-id="">
+                    <div class="blog-box-title-bar">Welcome!<span class="star-left"><i class="fa-solid fa-star"></i></span></div>
+                    <div class="item-content"><br> Thanks for checking out my blog! You'll probably see me post some reviews of stuff I get into like games, books, etc. or just me talking about happenings in my life. <br> <br> You can navigate through the blogs using the tags section on the right by filtering or sorting them. :] <br> <br> Also, the content is draggable! Feel free to move them around. <br><br><img src="talk.png" alt="" width="188px"></div>
+                </div>
+              <div class="contentbox" data-id="personal">
+                  <div class="blog-box-title-bar">Saturday <span class="left">土</span></div>
+                  <div class="item-content">
+                    <div class="blogpost">
+                        <div class="number">1</div>
+                        <div class="content">
+                            <h1 class="header">My first blog post!</h1>
+                            <p class="date">October 12, 2024</p>
+                            <p class="description">A short blog about why I started blogging! My journey begins...</p>
+                          </div>
+                          <div class="bottom-content">
+                            <div class="tags-container">
+                              <a class="tag">Personal</a>
+                            </div>
+                            <a href="2024/10152024.html" class="keep-reading">Keep reading <i class="fa-solid fa-arrow-right"></i></a>
+                          </div>
+                    </div>    
+                  </div>
+              </div>
+
+              <div class="contentbox" data-id="game,review">
+                <div class="blog-box-title-bar">Saturday <span class="left">土</span></div>
+                <div class="item-content">
+                  <div class="blogpost">
+                      <div class="number">2</div>
+                      <div class="content">
+                          <h1 class="header">DRAMAtical Murder Review</h1>
+                          <p class="date">October 19, 2024</p>
+                          <p class="description">A review blog of my DMMd experience and personal thoughts about it!</p>
+                        </div>
+                        <div class="bottom-content">
+                          <div class="tags-container">
+                            <a href="#" class="tag">Game</a>
+                            <a href="#" class="tag">Review</a>
+                          </div>
+                          <a href="2024/10192024.html" class="keep-reading">Keep reading <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                  </div>    
+                </div>
+            </div>
+
+             <!-- Unused, Placeholder -->
+
+              <!-- <div class="contentbox" data-id="personal">
+                  <div class="blog-box-title-bar">Sunday <span class="left">日</span></div>
+                  <div class="item-content">some stuff here</div>
+              </div>
+              <div class="contentbox" data-id="review">
+                  <div class="blog-box-title-bar">Monday <span class="left">月</span></div>
+                  <div class="item-content">some stuff here</div>
+              </div>
+              <div class="contentbox" data-id="game,personal">
+                  <div class="blog-box-title-bar">Tuesday <span class="left">火</span></div>
+                  <div class="item-content">some stuff here</div>
+              </div>
+              <div class="contentbox" data-id="personal,review">
+                  <div class="blog-box-title-bar">Wednesday <span class="left">水</span></div>
+                  <div class="item-content">some stuff here</div>
+              </div>
+              <div class="contentbox" data-id="game">
+                  <div class="blog-box-title-bar">Thursday <span class="left">木</span></div>
+                  <div class="item-content">some stuff here</div>
+              </div> -->
+          </div>
+
+        </main>
+        
+    <aside id="leftSidebar" style="margin-right: 10px;">
+    <div class="box"><div class=box-title-bar>Status<div class=right>x</div></div>
+        <div class="inner">  
+          <div class="profile">
+              <div class="div1"><br><img src="flanbw.png" alt="" class="profile-img"><br></div>
+              <div class="div2"><br> I'm feeling <a href="https://www.imood.com/users/pollygon"><img src="https://moods.imood.com/display/uname-pollygon/trans-1/imood.gif" alt="The current mood of pollygon at www.imood.com" border="0"></a>...<div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div><script src="https://status.cafe/current-status.js?name=1863rdturn" defer></script><br></div>
+          </div>
+        </div>
+    </div>
+
+    <div class="box"><div class=blog-box-title-bar style="text-align: center;">Tags<span class="blue"><i class="fa-solid fa-hashtag"></i></span></div>
+    <div class="inner-2">
+      <p>Filter</p>
+      <button id="filter-all" class="btn">All</button>
+      <button id="filter-game" class="btn">Game</button>
+      <button id="filter-personal" class="btn">Personal</button>
+      <button id="filter-review" class="btn">Review</button>
+      <hr>
+      <p>Sort</p>
+      <button id="sort-default" class="btn">Default Sort</button>
+      <button id="sort-game" class="btn">Game <i class="fa-solid fa-arrow-up"></i></button>
+      <button id="sort-personal" class="btn">Personal <i class="fa-solid fa-arrow-up"></i></button>
+      <button id="sort-review" class="btn">Review <i class="fa-solid fa-arrow-up"></i></button>
+    </div>
+</div>
+
+    </aside></div>
+    <br>
+    <footer id="footer">
+        <div class="marquee">
+            <div class="marquee-content">
+                <img src="toga.jpg" alt="" class="footer-img">
+                <img src="drama2.jpg" alt="" class="footer-img">
+                <img src="bnr_00.jpg" alt="" class="footer-img">
+                <img src="lam2.jpg" alt="" class="footer-img">
+                <img src="bn200.jpg" alt="" class="footer-img">
+                <img src="bnr_vitasw.jpg" alt="" class="footer-img">
+                <img src="bnr_dmmd-re.jpg" alt="" class="footer-img">
+                <img src="bnr_drama-cd.jpg" alt="" class="footer-img">
+                <img src="bnr_vita.jpg" alt="" class="footer-img">
+                <img src="bnr_slow-damage.jpg" alt="" class="footer-img">
+                <img src="slowdam.jpg" alt="" class="footer-img">
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+<script src="https://kit.fontawesome.com/05483ba04f.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
+<script src="muuri.js"></script>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    var grid = new Muuri('.grid', {
+        dragEnabled: true,
+        layout: {
+            fillGaps: true
+        },
+        sortData: {
+            id: function (item, element) {
+                return element.getAttribute('data-id');
+            }
+        }
+    });
+
+    // Store the original order of items
+    var originalOrder = grid.getItems();
+
+    function filterById(id) {
+        return function(item) {
+            if (id === 'all') return true;
+            var itemIds = item.getElement().getAttribute('data-id').split(',');
+            return itemIds.indexOf(id) !== -1;
+        };
+    }
+
+    function applySorting(id) {
+        grid.sort(function (a, b) {
+            // Always keep the first item in its original position
+            if (originalOrder.indexOf(a) === 0) return -1;
+            if (originalOrder.indexOf(b) === 0) return 1;
+
+            if (id === 'default') {
+                // For default sorting, return to the original order
+                return originalOrder.indexOf(a) - originalOrder.indexOf(b);
+            } else {
+                var aIds = a.getElement().getAttribute('data-id').split(',');
+                var bIds = b.getElement().getAttribute('data-id').split(',');
+                var aHasId = aIds.indexOf(id) !== -1;
+                var bHasId = bIds.indexOf(id) !== -1;
+                if (aHasId && !bHasId) return -1;
+                if (!aHasId && bHasId) return 1;
+                // If both items have (or don't have) the id, maintain their original order
+                return originalOrder.indexOf(a) - originalOrder.indexOf(b);
+            }
+        });
+    }
+
+    // Filter event listeners
+    document.getElementById('filter-all').addEventListener('click', function() {
+        grid.filter(filterById('all'));
+    });
+
+    document.getElementById('filter-game').addEventListener('click', function() {
+        grid.filter(filterById('game'));
+    });
+
+    document.getElementById('filter-personal').addEventListener('click', function() {
+        grid.filter(filterById('personal'));
+    });
+
+    document.getElementById('filter-review').addEventListener('click', function() {
+        grid.filter(filterById('review'));
+    });
+
+    // Sort event listeners
+    document.getElementById('sort-default').addEventListener('click', function() {
+        applySorting('default');
+    });
+
+    document.getElementById('sort-game').addEventListener('click', function() {
+        applySorting('game');
+    });
+
+    document.getElementById('sort-personal').addEventListener('click', function() {
+        applySorting('personal');
+    });
+
+    document.getElementById('sort-review').addEventListener('click', function() {
+        applySorting('review');
+    });
+});
+</script>
+    
+  </body>
+</html>

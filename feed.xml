@@ -1,0 +1,37 @@
+<rss version="2.0">
+    <channel>
+        <title>Pollygon's Posts</title>
+        <description>POLLYGON updates</description>
+        <link>https://pollygon.nekoweb.org</link>
+        
+        <item>
+		    <title>New Projects Section!</title>
+		    <description>Heyyy there! Updated my projects corner ;) please check it out!</description>
+		    <link>https://pollygon.dev</link>
+		    <guid>post20241229</guid>
+		    <pubDate>Sun 29 Dec 2024, 03:23:51 -0400</pubDate>
+		</item>
+        <item>
+		    <title>New art section look... again!</title>
+		    <description>Finally fixed the art section look I want LOL sadly not mobile responsive but it is what it is. The modals can be minimized and maximized btw so have fun checking it out! </description>
+		    <link>https://pollygon.dev</link>
+		    <guid>post20241228</guid>
+		    <pubDate>Sat 28 Dec 2024, 17:05:12 -0400</pubDate>
+		</item>
+        <item>
+		    <title>New art section!</title>
+		    <description>Made a new art section with my commissions posted there! I think it'll display pretty good but I'm still not sure about its responsiveness...</description>
+		    <link>https://pollygon.dev</link>
+		    <guid>post20241225</guid>
+		    <pubDate>Wed 25 Dec 2024, 23:36:48 -0400</pubDate>
+		</item>
+        <item>
+		    <title>New Domain!</title>
+		    <description>my site is now under the pollygon.dev domain!</description>
+		    <link>https://pollygon.dev</link>
+		    <guid>post20241222</guid>
+		    <pubDate>Sun 22 Dec 2024, 02:06:26 -0400</pubDate>
+		</item>
+           
+    </channel>
+</rss>
