@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLLYGON Doodle Gallery</title>
+    <style>
+        /* Neobrutalist Theme CSS */
+        body {
+            background: #FFE5F3;
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: #000;
+        }
+
+        .window {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 24px;
+            box-shadow: 6px 6px 0 #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .window-header {
+            background: #FF9FD6;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #000;
+        }
+
+        .window-title {
+            font-weight: 800;
+            font-size: 1.25em;
+            letter-spacing: -0.5px;
+        }
+
+        /* Date display in header */
+        .date-display {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 12px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 4px 4px 0 #000;
+            font-weight: bold;
+        }
+
+        /* Filter controls */
+        .filter-container {
+            padding: 20px;
+            background: #fff;
+            border-bottom: 3px solid #000;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 3px 3px 0 #000;
+            transition: all 0.1s ease;
+        }
+
+        .filter-tab:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .filter-tab:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        .filter-tab.active {
+            background: #FF9FD6;
+            color: #000;
+        }
+
+        /* Gallery grid */
+        .gallery-container {
+            padding: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: start;
+        }
+
+        /* Doodle cards */
+        .doodle-card {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 4px 4px 0 #000;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .doodle-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+
+        .doodle-image {
+            width: 100%;
+            height: auto;
+            min-height: 150px;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 2px solid #000;
+            margin-bottom: 12px;
+            background: #f5f5f5;
+        }
+
+        .doodle-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .doodle-artist {
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .doodle-date {
+            background: #FF9FD6;
+            border: 2px solid #000;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .doodle-title {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        /* Reaction buttons */
+        .reaction-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .reaction-button {
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 #000;
+            transition: all 0.1s ease;
+        }
+
+        .reaction-button:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 #000;
+        }
+
+        .reaction-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        /* Gallery stats */
+        .gallery-stats {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 4px 4px 0 #000;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: #FF9FD6;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            font-size: 1.5em;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal for full-size viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 16px;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 6px 6px 0 #000;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: #FF9FD6;
+            padding: 15px 20px;
+            border-bottom: 3px solid #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .modal-close:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 #000;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            background: #f5f5f5;
+        }
+
+        .modal-info {
+            padding: 20px;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .loading span {
+            width: 12px;
+            height: 12px;
+            background: #FF9FD6;
+            border: 2px solid #000;
+            border-radius: 50%;
+            animation: bounce 0.5s ease-in-out infinite;
+        }
+
+        .loading span:nth-child(2) { animation-delay: 0.1s; }
+        .loading span:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .filter-container {
+                padding: 15px;
+            }
+            
+            .gallery-container {
+                padding: 15px;
+            }
+            
+            .window {
+                margin: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-title">DOODLE GALLERY!</div>
+            <div class="date-display" id="date-display">
+                <span id="week-range"></span>
+                <span id="current-year"></span>
+            </div>
+        </div>
+
+
+
+        <!-- Gallery stats -->
+        <div class="gallery-container">
+            <div class="gallery-stats">
+                <div style="font-weight: bold; font-size: 1.1em;">Gallery Statistics</div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-doodles">42</span>
+                        <span class="stat-label">Total Doodles</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-artists">18</span>
+                        <span class="stat-label">Artists</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery grid -->
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Loading state -->
+                <div class="loading" id="loading">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for full-size viewing -->
+    <div class="modal" id="doodle-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div style="font-weight: bold;" id="modal-title">Doodle by Artist</div>
+                <button class="modal-close" onclick="closeModal()">✕ Close</button>
+            </div>
+            <img class="modal-image" id="modal-image" src="" alt="">
+            <div class="modal-info">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="font-weight: bold;" id="modal-artist">Artist Name</div>
+                    <div class="doodle-date" id="modal-date">Date</div>
+                </div>
+                <div id="modal-description" style="margin-bottom: 15px;">Description of the doodle...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample doodle data - replace with your API calls
+        const sampleDoodles = [
+            {
+                id: 1,
+                artist: "haluro",
+                date: "2025-01-07",
+                image: "doodles/haluro.png"
+            },
+            {
+                id: 2,
+                artist: "Pup",
+                date: "2025-01-19",
+                image: "doodles/pup.png"
+            },
+            {
+                id: 3,
+                artist: "Buns",
+                date: "2025-01-26",
+                image: "doodles/buns.png"
+            },
+            {
+                id: 4,
+                artist: "Whey",
+                date: "2025-02-23",
+                image: "doodles/whey.jpg"
+            },
+            {
+                id: 5,
+                artist: "rhymes",
+                date: "2025-03-05",
+                image: "doodles/rhymes.png"
+            },
+            {
+                id: 6,
+                artist: "Sky",
+                date: "2025-04-05",
+                image: "doodles/sky.png"
+            },
+            {
+                id: 7,
+                artist: "percy",
+                date: "2025-04-05",
+                image: "doodles/percy.png"
+            },
+            {
+                id: 8,
+                artist: "AppletheeApple",
+                date: "2025-04-06",
+                image: "doodles/appletheeapple.png"
+            },
+            {
+                id: 9,
+                artist: "miao",
+                date: "2025-04-09",
+                image: "doodles/miao.png"
+            },
+            {
+                id: 10,
+                artist: "burgerlettuce!",
+                date: "2025-04-16",
+                image: "doodles/burgerlettuce.png"
+            },
+            {
+                id: 11,
+                artist: "syn",
+                date: "2025-04-17",
+                image: "doodles/syn.png"
+            },
+            {
+                id: 12,
+                artist: "lava",
+                date: "2025-04-25",
+                image: "doodles/lava.png"
+            },
+            {
+                id: 13,
+                artist: "Ayze",
+                date: "2025-04-25",
+                image: "doodles/ayze.png"
+            },
+            {
+                id: 14,
+                artist: "fae",
+                date: "2025-04-26",
+                image: "doodles/fae.png"
+            },
+            {
+                id: 15,
+                artist: "JwuicyThiccMcChicken",
+                date: "2025-04-27",
+                image: "doodles/JwuicyThiccMcChicken.png"
+            }
+        ];
+
+        let currentDoodles = [...sampleDoodles];
+
+        // Date display functionality
+        function updateDateDisplay() {
+            const now = new Date();
+            const currentDay = now.getDay();
+            const diff = currentDay - 1;
+            
+            const monday = new Date(now);
+            monday.setDate(now.getDate() - diff);
+            
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+            
+            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const mondayMonth = months[monday.getMonth()];
+            const sundayMonth = months[sunday.getMonth()];
+            const mondayDate = monday.getDate();
+            const sundayDate = sunday.getDate();
+            
+            let dateRange;
+            if (mondayMonth === sundayMonth) {
+                dateRange = `${mondayMonth} ${mondayDate}-${sundayDate}`;
+            } else {
+                dateRange = `${mondayMonth} ${mondayDate}-${sundayMonth} ${sundayDate}`;
+            }
+            
+            document.getElementById('week-range').textContent = dateRange;
+            document.getElementById('current-year').textContent = now.getFullYear();
+        }
+
+        // Filter functionality
+        function setupFilters() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Apply filter
+                    const filter = tab.dataset.filter;
+                    currentFilter = filter;
+                    applyFilter(filter);
+                });
+            });
+        }
+
+        function applyFilter(filter) {
+            if (filter === 'all') {
+                currentDoodles = [...sampleDoodles];
+            } else if (filter === 'recent') {
+                const weekAgo = new Date();
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                currentDoodles = sampleDoodles.filter(d => new Date(d.date) > weekAgo);
+            } else if (filter === 'popular') {
+                currentDoodles = [...sampleDoodles].sort((a, b) => (b.hearts + b.stars + b.fire) - (a.hearts + a.stars + a.fire));
+            } else {
+                currentDoodles = sampleDoodles.filter(d => d.category === filter);
+            }
+            renderGallery();
+        }
+
+        // Gallery rendering
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            
+            if (currentDoodles.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <h3>🎨 No doodles found</h3>
+                        <p>No doodles match your current filter. Try selecting a different category!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = currentDoodles.map(doodle => `
+                <div class="doodle-card" onclick="openModal(${doodle.id})">
+                    <img class="doodle-image" src="${doodle.image}" alt="${doodle.title}" loading="lazy">
+                    <div class="doodle-info">
+                        <div class="doodle-artist">${doodle.artist}</div>
+                        <div class="doodle-date">${formatDate(doodle.date)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const month = date.toLocaleDateString('en', { month: 'short' });
+            return `${month} ${date.getDate()}`;
+        }
+
+        // Modal functionality
+        function openModal(doodleId) {
+            const doodle = sampleDoodles.find(d => d.id === doodleId);
+            if (!doodle) return;
+
+            document.getElementById('modal-artist').textContent = doodle.artist;
+            document.getElementById('modal-date').textContent = formatDate(doodle.date);
+            document.getElementById('modal-image').src = doodle.image;
+            document.getElementById('modal-description').textContent = `A beautiful doodle created with love in the paint app!`;
+            
+            document.getElementById('doodle-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('doodle-modal').style.display = 'none';
+        }
+
+        // Statistics
+        function updateStats() {
+            const totalDoodles = sampleDoodles.length;
+            const totalArtists = new Set(sampleDoodles.map(d => d.artist)).size;
+
+            document.getElementById('total-doodles').textContent = totalDoodles;
+            document.getElementById('total-artists').textContent = totalArtists;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDateDisplay();
+            
+            // Simulate loading
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                renderGallery();
+                updateStats();
+            }, 1000);
+
+            // Close modal when clicking outside
+            document.getElementById('doodle-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'doodle-modal') {
+                    closeModal();
+                }
+            });
+        });
+
+        // Update date every minute
+        setInterval(updateDateDisplay, 60000);
+    </script>
+</body>
+</html>

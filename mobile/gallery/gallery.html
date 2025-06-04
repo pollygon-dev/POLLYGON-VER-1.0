@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=alpino@100,300,500,700,400,900,1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        alpino: ['Alpino', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-scaleIn {
+            animation: scaleIn 0.3s ease-out forwards;
+        }
+        
+        .animate-slideDown {
+            animation: slideDown 0.5s ease-out forwards;
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 58, 138, 0.9);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .artwork-card {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Webkit browsers (Chrome, Safari, newer versions of Edge) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #EFF6FF;  /* blue-50 color */
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #FDF2F8, #DBEAFE);  /* pink-50 to blue-100 gradient */
+            border: 3px solid #EFF6FF;  /* blue-50 border */
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 1px rgba(251, 207, 232, 0.3);  /* subtle pink-200 inner shadow */
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #FCE7F3, #BFDBFE);  /* pink-100 to blue-200 gradient */
+        }
+        
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #DBEAFE #EFF6FF;  /* thumb and track colors */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen p-8 font-alpino">
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl p-6 shadow-lg border-4 border-pink-200 animate-slideDown">
+        <!-- Header -->
+        <header class="mb-8 relative">
+            <div class="bg-gray-50 rounded-full py-2 px-6 mb-4 mx-auto w-fit animate-fadeIn">
+                <h1 class="text-gray-700 font-medium tracking-wide">ARTWORK GALLERY</h1>
+            </div>
+            
+            <div class="bg-white rounded-full py-3 px-6 shadow-md mx-auto w-fit">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 tracking-tight">
+                    <div class="w-4 h-4 bg-pink-300 rounded-sm animate-pulse"></div>
+                    MY ART COLLECTION
+                </h2>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="mt-6 flex justify-center gap-2 flex-wrap" id="yearFilter">
+                <!-- Filters will be added here by JavaScript -->
+            </div>
+        </header>
+
+        <!-- Section Divider -->
+        <div class="my-12 flex items-center justify-center gap-4">
+            <div class="h-0.5 w-12 bg-pink-200 rounded-full"></div>
+            <div class="w-2 h-2 bg-pink-300 rounded-full animate-pulse"></div>
+            <div class="h-0.5 w-12 bg-pink-200 rounded-full"></div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="galleryGrid">
+            <!-- Artwork cards will be added here by JavaScript -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-sm text-gray-500 animate-fadeIn">
+            <div class="flex justify-center gap-4">
+                <span class="animate-bounce delay-100">♡</span>
+                <span>'22. POLLYGON</span>
+                <span class="animate-bounce delay-300">♡</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="relative max-w-2xl w-full animate-scaleIn">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-pink-300 transition-colors duration-300">
+                <i data-feather="x" class="w-8 h-8"></i>
+            </button>
+            <div class="bg-white rounded-3xl overflow-hidden shadow-xl border-4 border-pink-200">
+                <div class="relative">
+                    <img id="lightboxImage" src="" alt="" class="w-full h-auto">
+                    <div class="absolute top-4 right-4">
+                        <div id="lightboxCategory" class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-medium"></div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gradient-to-r from-blue-50 to-pink-50">
+                    <h2 id="lightboxTitle" class="text-xl font-semibold text-gray-800 mb-2"></h2>
+                    <p id="lightboxDescription" class="text-blue-600"></p>
+                    <p id="lightboxYear" class="text-sm text-gray-500 mt-2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="gallery.js"></script>
+</body>
+</html>

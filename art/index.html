@@ -3,27 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Desktop</title>
+    <title>D3SKTOP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gallery.css">
 </head>
 <body>
     
     <div class="desktop-container">
-        <div class="desktop-header">★ Polly's Desktop ★</div>
+        <div class="desktop-header">★ POLLY'S DESKTOP ★</div>
         <div class="sticky-note">
             <div class="note-title">Recent Updates</div>
             <div class="note-content">
                 <div class="update-card">
-                    <div class="update-text">Commissions are open!</div>
-                    <div class="update-date">2024.12.25</div>
-                </div>
-                <div class="update-card">
-                    <div class="update-text">The Art Section gets a new look!</div>
-                    <div class="update-date">2024.12.25</div>
+                    <div class="update-text">Added my 2025 art!</div>
+                    <div class="update-date">2025.05.31</div>
                 </div>
             </div>
         </div>
@@ -32,24 +27,24 @@
             <div class="section-card nav-section">
                 <div class="card-header">Art</div>
                 <div class="nav-icons">
-                    <div class="nav-icon" data-modal="galleryModal">
+                    <div class="nav-icon" data-modal="modal1">
                         <div class="icon-box">
                             <i class="fas fa-image"></i>
                         </div>
                         Gallery
                     </div>
-                    <div class="nav-icon" data-modal="commissionsModal">
+                    <!-- <div class="nav-icon" data-modal="modal2">
                         <div class="icon-box">
                             <i class="fas fa-palette"></i>
                         </div>
-                        Commissions
-                    </div>
-                    <div class="nav-icon" data-modal="trackerModal">
+                        Modal 2
+                    </div> -->
+                    <!-- <div class="nav-icon" data-modal="modal3">
                         <div class="icon-box">
                             <i class="fas fa-list-check"></i>
                         </div>
-                        Tracker
-                    </div>
+                        Modal 3
+                    </div> -->
                 </div>
             </div>
 
@@ -59,43 +54,27 @@
                     <div class="card-header">Status</div>
                     <div class="status-content">
                         <div class="status-avatar">
-                            <img src="pflan.png" alt="Profile" class="avatar-image">
+                            <img src="flan.png" alt="Profile" class="avatar-image">
                         </div>
                         <div class="status-info">
-                            <div class="status-name">Apollo @polygon.dev</div>
-                            <div class="status-message">My Commissions are finally open! Check them out!</div>
+                            <div class="status-name">Polly | @pollygon.dev</div>
+                            <div class="status-message">Thanks for checking out my desktop! You'll find my art in this computer.</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="section-card">
-                    <div class="card-header">Commission Status</div>
+                <!-- <div class="section-card">
+                    <div class="card-header">Status</div>
                     <div class="commission-status">
-                        <div class="status-item">Status: <span class="highlight">Open!</span></div>
-                        <div class="status-item">Available Slots: <span>0/2</span></div>
+                        <div class="status-item">Status: <span class="highlight">Lorem</span></div>
                     </div>
-                </div>
+                </div> -->
             </div>
             
-            <!-- Gallery Modal -->
-			<div class="modal" id="galleryModal">
-			    <div class="modal-header">
-			        <h3 class="modal-title">★ Art Gallery</h3>
-			        <div class="modal-controls">
-			            <button class="minimize-button"><i class="fas fa-minus"></i></button>
-			            <button class="fullscreen-button"><i class="fas fa-expand"></i></button>
-			            <button class="close-button">×</button>
-			        </div>
-			    </div>
-			    <div class="modal-content">
-			        <div id="gallery-root"></div>
-			    </div>
-			</div>
-
-            <!-- Commissions Modal -->
-            <div class="modal" id="commissionsModal">
+            <!-- Modals -->
+            <div class="modal" id="modal1">
                 <div class="modal-header">
-                    <h3 class="modal-title">★ Commissions</h3>
+                    <h3 class="modal-title">Gallery</h3>
                     <div class="modal-controls">
                         <button class="minimize-button"><i class="fas fa-minus"></i></button>
                         <button class="fullscreen-button"><i class="fas fa-expand"></i></button>
@@ -103,250 +82,66 @@
                     </div>
                 </div>
                 <div class="modal-content">
-                    <!-- Navigation -->
-                    <nav class="commission-nav">
-                        <ul class="commission-nav-list">
-                            <li class="commission-nav-item active" data-tab="Prices">Prices</li>
-                            <li class="commission-nav-item" data-tab="Terms">Terms of Service</li>
-                            <li class="commission-nav-item" data-tab="Order">Order</li>
-                        </ul>
-                    </nav>
-
-                    <!-- Status Section -->
-                    <div class="commission-status-section">
-                        <div class="commission-status">
-                            <h2>Commission Status: <span class="highlight">Open</span></h2>
-                            <p>Available Slots: <span>0/2</span></p>
+                    <!-- Your content goes here -->
+                      <div class="gallery-container">
+                        <div id="gallery-sections">
+                            <!-- Gallery sections will be generated by JavaScript -->
                         </div>
                     </div>
-
-                    <!-- Prices Section -->
-                    <div class="commission-section prices-section">
-                        <!-- Bust-up Section -->
-                        <div class="commission-card">
-                            <div class="commission-header">
-                                <h3>Bust-up</h3>
-                                <span class="commission-price">$54 USD</span>
-                            </div>
-                            <ul class="commission-details">
-                                <li>Two styles available:
-                                    <ul>
-                                        <li>A.) Pixelated</li>
-                                        <li>B.) Sketcherly</li>
-                                    </ul>
-                                </li>
-                                <li>Simple background included</li>
-                                <li>Additional character: +50%</li>
-                            </ul>
-                            <div class="commission-examples">
-                                <div class="example-image">
-                                    <img src="all/2024/cag.png" alt="Commission Example 1" style="width: 200px; height: 200px; object-fit: cover;">
-                                </div>
-                                <div class="example-image">
-                                    <img src="all/2023/leb.png" alt="Commission Example 2" style="width: 200px; height: 200px; object-fit: cover;">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Chibi Section -->
-                        <div class="commission-card">
-                            <h3 class="commission-title">Chibi</h3>
-                            
-                            <!-- Icon subsection -->
-                            <div class="commission-type">
-                                <div class="commission-header">
-                                    <h4>Icon</h4>
-                                    <span class="commission-price">$18 USD</span>
-                                </div>
-                                <div class="commission-examples">
-                                    <div class="example-image">
-                                        <img src="comms/icon1.png" alt="Chibi icon example 1 - Frankie from Monster High" loading="lazy">
-                                    </div>
-                                    <div class="example-image">
-                                        <img src="comms/icon2.png" alt="Chibi icon example 2 - Partitio from Octopath Traveler 2" loading="lazy">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Full Body subsection -->
-                            <div class="commission-type">
-                                <div class="commission-header">
-                                    <h4>Full Body</h4>
-                                    <span class="commission-price">$30 USD</span>
-                                </div>
-                                <div class="commission-examples">
-                                    <div class="example-image">
-                                        <img src="all/2024/luluuma.png" alt="Chibi full body example 1 - Lulu from Bang Bravern" loading="lazy">
-                                    </div>
-                                    <div class="example-image">
-                                        <img src="all/2023/IL.png" alt="Chibi full body example 2 - Dan Heng Imbibitor Lunae from Honkai: Star Rail" loading="lazy">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <ul class="commission-details">
-                                <li>Chibis in my pixelated artstyle</li>
-                                <li>Simple background included</li>
-                                <li>Additional character: +50%</li>
-                            </ul>
-                        </div>
+                    <div class="content-container">
+                        <!-- Add your specific content structure here -->
                     </div>
-
-                    <!-- Terms Section -->
-                    <div class="commission-section terms-section" style="display: none;">
-                        <div class="commission-info">
-                            <h3>Terms of Service</h3>
-                            <ul class="info-list">
-                                <li>Usage Rights
-                                    <ul>
-                                        <li>Commissioned art is for PERSONAL USE ONLY!</li>
-                                        <li>Feel free to post the commissioned piece as long as you credit me!</li>
-                                        <li>I can include the artwork in my portfolio unless you'd like to keep it private - just let me know!</li>
-                                        <li>Please don't remove my watermark from the commissioned piece.</li>
-                                    </ul>
-                                </li>
-                            
-                                <li>Payment Info
-                                    <ul>
-                                        <li>I accept PayPal for international payments</li>
-                                        <li>GCash/Maya for local payments</li>
-                                        <li>I'll need 50% upfront to start working on your commission. The other 50% is to be paid once I finish the piece!</li>
-                                    </ul>
-                                </li>
-                            
-                                <li>Timeline & Delivery
-                                    <ul>
-                                        <li>After we discuss your commission, I'll send you a sketch for approval. Once you're happy with it, you can pay the 50% downpayment so I can start working. The remaining balance can be paid when the artwork is complete!</li>
-                                        <li>I will regularly send updates about the commission!</li>
-                                        <li>Your piece will be finished in 1-4 weeks (depends on how complex it is and my current workload)</li>
-                                        <li>Heads up - I'm a student, so there might be some delays, but I'll let you know ASAP!</li>
-                                        <li>You'll get your artwork through email as a png, 300dpi.</li>
-                                    </ul>
-                                </li>
-                            
-                                <li>Revision Policy
-                                    <ul>
-                                        <li>You get 2 minor revisions included</li>
-                                        <li>Major changes will need an extra fee</li>
-                                        <li>I'll draw everything in my style 🎨</li>
-                                    </ul>
-                                </li>
-                            
-                                <li>What I Draw / Don't Draw
-                                    <ul>
-                                        <li>I'm happy to draw:
-                                            <ul>
-                                                <li>Original Characters</li>
-                                                <li>Fanart</li>
-                                                <li>Kemonomimi</li>
-                                            </ul>
-                                        </li>
-                                        <li>Sorry, I won't/can't draw:
-                                            <ul>
-                                                <li>NSFW</li>
-                                                <li>Real people</li>
-                                                <li>Mecha (sadly)</li>
-                                                <li>Heavy Gore</li>
-                                            </ul>
-                                        </li>
-                                        <li>I can try, but I'm not good at it:
-                                            <ul>
-                                                <li>Mild Gore</li>
-                                                <li>Furry</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            
-                                <li>Communication
-                                    <ul>
-                                        <li>Hit me up on Bluesky (@pollygon.dev) or discord (@1863rdturn) for any inquiries! I might reply more on Bluesky.</li>
-                                        <li>I might need to decline some commissions if it's out of my skill level or I'm uncomfortable with it.</li>
-                                        <li>If I can't finish your commission due to personal stuff, I'll let you know right away and give you a full refund.</li>
-                                    </ul>
-                                </li>
-                            
-                                <li>Important Stuff to Remember
-                                    <ul>
-                                        <li>Don't resell or claim my artwork as your own</li>
-                                        <li>The watermark stays on - please don't remove it!</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            
-                            <div class="divider"></div>
-                            <hr>
-                            <p class="footer">By sending a commission request, you're agreeing to all this stuff above! Thanks for reading! ✨</p>
-                            <p class="special-offer">20% discount if you send a sparkling heart emoji (💖) along your form! :D Thank you for reading my terms! <3</p>
-                        </div>
+                </div>
+            </div>
+            
+            <div class="modal" id="modal2">
+                <div class="modal-header">
+                    <h3 class="modal-title">Modal 2</h3>
+                    <div class="modal-controls">
+                        <button class="minimize-button"><i class="fas fa-minus"></i></button>
+                        <button class="fullscreen-button"><i class="fas fa-expand"></i></button>
+                        <button class="close-button">×</button>
                     </div>
-
-                    <!-- Order Section -->
-                    <div class="commission-section order-section" style="display: none;">
-                        <div class="commission-form">
-                            <h3>Commission Form</h3>
-                            <p>Answer the form and send it to my Bluesky (@pollygon.dev) or email at pollygondev(at)gmail.com :D</p>
-                            <div class="copy-area">
-                                <pre class="form-template">————————— COMMISSION FORM —————————
-Type: [Bust-Up/Chibi Icon/Chibi Full Body]
-References: [Link to character references]
-Additional Characters: [Yes/No - Max: 1]
-Extra Details: [Any specific requests]
-
-————————— CONTACT INFO —————————
-Discord:
-Email:
-Payment Method:
-Preferred Contact Method:
-
-————————————————————————————————</pre>
-                                <button class="copy-button">
-                                    <i class="fas fa-copy"></i>
-                                    Copy Form
-                                </button>
-                            </div>
-                        </div>
+                </div>
+                <div class="modal-content">
+                    <!-- Your content goes here -->
+                    <div class="content-container">
+                        <!-- Add your specific content structure here -->
                     </div>
                 </div>
             </div>
 
-            <!-- Tracker Modal -->
-        <div class="modal" id="trackerModal">
-            <div class="modal-header">
-                <h3 class="modal-title">Commission Tracker</h3>
-                <div class="modal-controls">
-                    <button class="minimize-button">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button class="fullscreen-button">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                    <button class="close-button">&times;</button>
+            <div class="modal" id="modal3">
+                <div class="modal-header">
+                    <h3 class="modal-title">Modal 3</h3>
+                    <div class="modal-controls">
+                        <button class="minimize-button"><i class="fas fa-minus"></i></button>
+                        <button class="fullscreen-button"><i class="fas fa-expand"></i></button>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <!-- Your content goes here -->
+                    <div class="content-container">
+                        <!-- Add your specific content structure here -->
+                    </div>
                 </div>
             </div>
-            <div class="modal-content">
-                <div id="tracker-root"></div>
-            </div>
-        
-
-            <!-- Lightbox Portal -->
-            <div id="lightbox-portal"></div>
-        </div>
 
         <!-- Taskbar -->
         <div class="taskbar">
             <div class="taskbar-start-container">
                 <button class="taskbar-start">Start</button>
                 <div class="start-menu">
-                    <button class="start-menu-item" data-modal="galleryModal">
-                        <i class="fas fa-image"></i><span>Gallery</span>
+                    <button class="start-menu-item" data-modal="modal1">
+                        <i class="fas fa-image"></i><span>Art</span>
                     </button>
-                    <button class="start-menu-item" data-modal="commissionsModal">
-                        <i class="fas fa-palette"></i><span>Commissions</span>
+                    <!-- <button class="start-menu-item" data-modal="modal2">
+                        <i class="fas fa-palette"></i><span>Modal 2</span>
                     </button>
-                    <button class="start-menu-item" data-modal="trackerModal">
-                        <i class="fas fa-tasks"></i><span>Tracker</span>
-                    </button>
+                    <button class="start-menu-item" data-modal="modal3">
+                        <i class="fas fa-tasks"></i><span>Modal 3</span>
+                    </button> -->
                     <div class="start-menu-divider"></div>
                     <button class="start-menu-item">
                         <i class="fas fa-power-off"></i><span>Power</span>
@@ -360,10 +155,316 @@ Preferred Contact Method:
         </div>
     </div>
 
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <button class="lightbox-nav lightbox-prev" onclick="prevImage()">‹</button>
+            <button class="lightbox-nav lightbox-next" onclick="nextImage()">›</button>
+            <img id="lightbox-image" src="" alt="">
+            <div class="lightbox-info" id="lightbox-info"></div>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script src="gallery.js"></script>
-    <script src="commissions.js"></script>
-    <script src="tracker.js"></script>
     <script src="script.js"></script>
+    <script>
+      // Sample images data organized by year
+         const imagesByYear = {
+            '2025': [
+                {
+                    src: "all/2025/ariake.png",
+                    title: "Ariake"
+                },
+                {
+                    src: "all/2025/ariake2.png",
+                    title: "Ariake 2"
+                },
+                {
+                    src: "all/2025/ariakebun.png",
+                    title: "Ariake Bun"
+                },
+                {
+                    src: "all/2025/ariakebust.png",
+                    title: "Ariake Bust"
+                },
+                {
+                    src: "all/2025/ariakemonitoring.gif",
+                    title: "Ariake Monitoring"
+                },
+                {
+                    src: "all/2025/belfaelor.png",
+                    title: "Belfaelor"
+                },
+                {
+                    src: "all/2025/hans.png",
+                    title: "Hans"
+                },
+                {
+                    src: "all/2025/morgann.png",
+                    title: "Morgann"
+                },
+                {
+                    src: "all/2025/neptune.png",
+                    title: "Neptune"
+                },
+                {
+                    src: "all/2025/purpleheart.png",
+                    title: "Purple Heart"
+                },
+                {
+                    src: "all/2025/shimbashiretr.png",
+                    title: "Shimbashi Retr"
+                }
+            ],
+            '2024': [
+                {
+                    src: "all/2024/alice.png",
+                    title: "Alice, the knight of a forgotten kingdom"
+                },
+                {
+                    src: "all/2024/hal.png",
+                    title: "Hal"
+                },
+                {
+                    src: "all/2024/deadringer.png",
+                    title: "Dead Ringer"
+                },
+                {
+                    src: "all/2024/lulu.png",
+                    title: "Lulu"
+                },
+                {
+                    src: "all/2024/luluuma.png",
+                    title: "Lulu - Uma Pyoi!"
+                },
+                {
+                    src: "all/2024/cag.png",
+                    title: "Cagliostro"
+                }
+            ],
+            '2023': [
+                {
+                    src: "all/2023/kdjj.png",
+                    title: "Kim Dokja"
+                },
+                {
+                    src: "all/2023/kdj.png",
+                    title: "Kim Dokja Chibi"
+                },
+                {
+                    src: "all/2023/newemil.png",
+                    title: "Emil"
+                },
+                {
+                    src: "all/2023/emilfbref.png",
+                    title: "Emil Chibi"
+                },
+                {
+                    src: "all/2023/leb.png",
+                    title: "Lebkuchen"
+                },
+                {
+                    src: "all/2023/yoojin.png",
+                    title: "Han Yoojin"
+                },
+                {
+                    src: "all/2023/aphelios.png",
+                    title: "HEARTSTEEL Aphelios"
+                },
+                {
+                    src: "all/2023/ezreal.png",
+                    title: "HEARTSTEEL Ezreal"
+                },
+                {
+                    src: "all/2023/IL.png",
+                    title: "Dan Heng: IL Chibi"
+                },
+                {
+                    src: "all/2023/arencaelan.png",
+                    title: "To a new dawn"
+                }
+            ],
+            '2022': [
+                {
+                    src: "all/2022/gorls.png",
+                    title: "Sunset"
+                },
+                {
+                    src: "all/2022/passenger.png",
+                    title: "SesaPasse gaming"
+                },
+                {
+                    src: "all/2022/kimdokja.png",
+                    title: "Kim Dokja Redraw"
+                },
+                {
+                    src: "all/2022/yoojoonghyuk.png",
+                    title: "Yoo Joonghyuk Redraw"
+                },
+                {
+                    src: "all/2022/brighteralicelol.png",
+                    title: "Alice"
+                },
+                {
+                    src: "all/2022/finaltestament.png",
+                    title: "Testament"
+                },
+                {
+                    src: "all/2022/melinacold.png",
+                    title: "Melina"
+                }
+            ],
+            '2021': [
+                {
+                    src: "all/2021/caleflower.png",
+                    title: "Cale"
+                },
+                {
+                    src: "all/2021/choihanwoh.png",
+                    title: "Choi Han"
+                },
+                {
+                    src: "all/2021/choikel.png",
+                    title: "April Shower"
+                },
+                {
+                    src: "all/2021/farmingwo.png",
+                    title: "His Dream"
+                },
+                {
+                    src: "all/2021/nekomancerwo.png",
+                    title: "Nekomancer KDJ"
+                }
+            ]
+        };
+
+        // Create a flat array of all images with year info for lightbox navigation
+        let allImages = [];
+        Object.keys(imagesByYear).forEach(year => {
+            imagesByYear[year].forEach(image => {
+                allImages.push({ ...image, year: year });
+            });
+        });
+
+        let currentImageIndex = 0;
+
+        function generateGallery() {
+            const container = document.getElementById('gallery-sections');
+            
+            // Sort years in descending order (newest first)
+            const sortedYears = Object.keys(imagesByYear).sort((a, b) => parseInt(b) - parseInt(a));
+            
+            sortedYears.forEach(year => {
+                // Create year section
+                const yearSection = document.createElement('div');
+                yearSection.className = 'year-section';
+                
+                // Create year header
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'year-header';
+                yearHeader.textContent = year;
+                yearSection.appendChild(yearHeader);
+                
+                // Create gallery grid for this year
+                const gallery = document.createElement('div');
+                gallery.className = 'gallery';
+                
+                // Add images for this year
+                imagesByYear[year].forEach((image, yearIndex) => {
+                    const globalIndex = allImages.findIndex(img => 
+                        img.src === image.src && img.title === image.title
+                    );
+                    
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.onclick = () => openLightbox(globalIndex);
+                    
+                    const img = document.createElement('img');
+                    img.src = image.src;
+                    img.alt = image.title;
+                    img.loading = 'lazy';
+                    
+                    item.appendChild(img);
+                    gallery.appendChild(item);
+                });
+                
+                yearSection.appendChild(gallery);
+                container.appendChild(yearSection);
+            });
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxInfo = document.getElementById('lightbox-info');
+            
+            lightboxImage.src = allImages[index].src;
+            lightboxInfo.textContent = `${allImages[index].title} (${allImages[index].year})`;
+            lightbox.classList.add('active');
+            
+            // Prevent parent page scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % allImages.length;
+            updateLightboxImage();
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxInfo = document.getElementById('lightbox-info');
+            
+            lightboxImage.src = allImages[currentImageIndex].src;
+            lightboxInfo.textContent = `${allImages[currentImageIndex].title} (${allImages[currentImageIndex].year})`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+            }
+        });
+
+        // Close lightbox when clicking outside content
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        // Prevent context menu for cleaner iframe experience
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Initialize
+        generateGallery();
+
+        // Expose functions for parent page communication (optional)
+        window.galleryAPI = {
+            openImage: openLightbox,
+            closeGallery: closeLightbox,
+            updateImages: function(newImages) {
+                images.splice(0, images.length, ...newImages);
+                document.getElementById('gallery').innerHTML = '';
+                generateGallery();
+            }
+        };
+    </script>
 </body>
 </html>

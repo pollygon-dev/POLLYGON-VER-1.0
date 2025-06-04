@@ -1,0 +1,433 @@
+/* Neobrutalist Theme CSS */
+body {
+    background: #FFE5F3;
+    margin: 0;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+    color: #000;
+}
+
+.window {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0 #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.window-header {
+    background: #FF9FD6;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #000;
+}
+
+.window-title {
+    font-weight: 800;
+    font-size: 1.25em;
+    letter-spacing: -0.5px;
+}
+
+/* Date display in header */
+.date-display {
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 4px 4px 0 #000;
+    font-weight: bold;
+}
+
+/* Form elements */
+.form-container {
+    padding: 20px;
+    background: #fff;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0 15px;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    color: #000;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 0 #000;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #FF9FD6;
+    box-shadow: 4px 4px 0 #FF9FD6;
+}
+
+/* Toolbar styling */
+.toolbar {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.toolbar button {
+    background: #FF9FD6;
+    border: 2px solid #000;
+    padding: 8px 16px;
+    min-width: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 3px 3px 0 #000;
+    transition: all 0.1s ease;
+}
+
+.toolbar button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 #000;
+}
+
+.toolbar button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+/* Submit button */
+button[type="submit"] {
+    background: #FF9FD6;
+    color: #000;
+    border: 3px solid #000;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1.1em;
+    box-shadow: 4px 4px 0 #000;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 #000;
+}
+
+button[type="submit"]:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+/* Messages section */
+.messages {
+    padding: 20px;
+}
+
+.message {
+    border: 3px solid #000;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.message-header {
+    color: #000;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.message-content {
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    color: #000;
+}
+
+.message-content code {
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 2px solid #000;
+    font-family: 'Courier New', monospace;
+    color: #000;
+}
+
+.message-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+}
+
+#preview-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    display: none;
+    border-radius: 8px;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* Labels and form elements */
+label {
+    display: block;
+    margin-top: 15px;
+    color: #000;
+    font-weight: 800;
+    font-size: 1.1em;
+}
+
+/* File input styling */
+input[type="file"] {
+    background: #fff;
+    padding: 8px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background: #FF9FD6;
+    border: 2px solid #000;
+    border-radius: 6px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 12px;
+    box-shadow: 2px 2px 0 #000;
+}
+
+/* Reply sections */
+.reply {
+    margin: 15px 0 0 20px;
+    padding: 15px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.reply-header {
+    color: #000;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Character counter */
+.char-counter {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.9em;
+    float: right;
+    box-shadow: 2px 2px 0 #000;
+    margin-bottom: 10px;
+}
+
+/* Timestamps */
+.timestamp {
+    background: #FF9FD6;
+    border: 2px solid #000;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+}
+
+/* Pagination */
+.pagination {
+    text-align: right;
+    padding: 10px 20px;
+    color: #000;
+    font-weight: 800;
+}
+
+/* Links */
+a {
+    color: #FF9FD6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #000;
+}
+
+/* Loading animation */
+.loading {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.loading span {
+    width: 12px;
+    height: 12px;
+    background: #FF9FD6;
+    border: 2px solid #000;
+    border-radius: 50%;
+    animation: bounce 0.5s ease-in-out infinite;
+}
+
+.loading span:nth-child(2) { animation-delay: 0.1s; }
+.loading span:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Reaction buttons */
+.reaction-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.reaction-button {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #000;
+    transition: all 0.1s ease;
+}
+
+.reaction-button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #000;
+}
+
+.reaction-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: 4px 4px 0 #000;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fff;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FF9FD6;
+    border: 2px solid #000;
+    border-radius: 8px;
+}
+
+/* Reply-specific styles */
+.reply-section {
+    margin-top: 15px;
+}
+
+.reply-form {
+    margin: 15px 0;
+    padding: 15px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.reply-button {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: all 0.1s ease;
+}
+
+.reply-button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #000;
+}
+
+.reply-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+.replies {
+    margin-top: 15px;
+}
+
+.reply {
+    margin: 10px 0 10px 20px;
+    padding: 15px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.reply-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.reply-content {
+    white-space: pre-wrap;
+}

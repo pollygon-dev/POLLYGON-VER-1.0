@@ -2,8 +2,34 @@
     <channel>
         <title>Pollygon's Posts</title>
         <description>POLLYGON updates</description>
-        <link>https://pollygon.nekoweb.org</link>
+        <link>https://pollygon.dev</link>
         
+        <item>
+    <title>New Guestbook!</title>
+    <description>I have a new guestbook! When i updated it last night, turns out it wasn't working (lol) it should be now!!! Feel free to leave me doodles you made on the paint app and/or a message!! :) </description>
+    <link>https://pollygon.dev</link>
+    <guid>post20250107</guid>
+    <pubDate>Tue 07 Jan 2025, 18:26:44 -0400</pubDate>
+</item>
+        <item>
+    <title>POLLYGON VER. 2.0!</title>
+            <description>Hey there! Said goodbye to my retro layout and decided to try a new one, so here's POLLYGON 2.0! it's fully mobile-responsive unlike its predecessor (though the content is not mobile-responsive atm..) and will have some apps like Paint and possibly more soon. :)
+        
+        Currently working on making mobile-friendly pages on my layout so I'll go back to coding OTL
+        
+        Really like how it turned out!</description>
+            <link>https://pollygon.dev</link>
+            <guid>post20250102</guid>
+            <pubDate>Thu 02 Jan 2025, 13:58:28 -0400</pubDate>
+        </item>
+
+        <item>
+		    <title>HAPPY NEW YEAR!</title>
+		    <description>Happy new year!! Since it's new year, I plan to change the layout of my site. Possibly more mobile friendly?? But still an OS site ofc :) Please look forward to it!</description>
+		    <link>https://pollygon.dev</link>
+		    <guid>post20250101</guid>
+		    <pubDate>Wed 01 Jan 2025, 15:02:07 -0400</pubDate>
+		</item>
         <item>
 		    <title>New Projects Section!</title>
 		    <description>Heyyy there! Updated my projects corner ;) please check it out!</description>

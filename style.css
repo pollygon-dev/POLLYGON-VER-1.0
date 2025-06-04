@@ -160,18 +160,6 @@ input,select{vertical-align:middle}
     cursor: move;
     height: 25px;
 }
-
-.windowHeader strong::before {
-    content: "";
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    background-color: black;
-    margin-right: 8px;
-    margin-top: -3px;
-    vertical-align: middle;
-  }
-
 .activeWindow .windowHeader {
     background: rgb(205,221,239);
     background: linear-gradient(90deg, rgba(205,221,239,1) 0%, rgba(244,200,221,1) 100%);
@@ -544,7 +532,10 @@ h1 {
 #window10 { top: 20%; left: calc(50% - 590px); }
 #window11 { top: 20%; left: calc(50% - 590px); }
 #window12 { top: 20%; left: calc(50% - 590px); }
-
+#window13 { top: 20%; left: calc(50% - 590px); }
+#window14 { top: 20%; left: calc(50% - 590px); }
+#window15 { top: 20%; left: calc(50% - 590px); }
+#window16 { top: 20%; left: calc(50% - 590px); }
 /* Set consistent window content sizes */
 #window0 .wincontent { width: 1181px; height: 774px; }
 #window1 .wincontent { width: 1181px; height: 774px; }
@@ -559,7 +550,10 @@ h1 {
 #window10 .wincontent { width: 1181px; height: 774px; }
 #window11 .wincontent { width: 1181px; height: 774px; }
 #window12 .wincontent { width: 1181px; height: 774px; }
-
+#window13 .wincontent { width: 500px; height: 500px; }
+#window14 .wincontent { width: 320px; height: 850px; }
+#window15 .wincontent { width: 850px; height: 780px; }
+#window16 .wincontent { width: 1181px; height: 774px; }
 /* Responsive breakpoints */
 @media screen and (max-width: 1280px) {
     #window0,

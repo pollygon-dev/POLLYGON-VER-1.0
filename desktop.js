@@ -1,161 +1,5 @@
-// Music Player Controls
-let track_name = document.querySelector(".track-name");
-let track_artist = document.querySelector(".track-artist");
-
-let playpause_btn = document.querySelector(".playpause-track");
-let next_btn = document.querySelector(".next-track");
-let prev_btn = document.querySelector(".prev-track");
-
-let seek_slider = document.querySelector(".seek_slider");
-let volume_slider = document.querySelector(".volume_slider");
-let curr_time = document.querySelector(".current-time");
-let total_duration = document.querySelector(".total-duration");
-let volume_icon = document.querySelector(".volume-btn i");
-let mute_btn = document.querySelector(".volume-btn");
-
-let track_index = 0;
-let isPlaying = false;
-let isMuted = false;
-let previousVolume = 1;
-let updateTimer;
-
-// Create new audio element
-let curr_track = document.createElement('audio');
-
-// Define the tracks that have to be played
-let track_list = [
-    {
-        name: "arlequin",
-        artist: "THE ANDS",
-        path: "music/arlequin.mp3"  // Replace with your audio file path
-    },
-    {
-        name: "Polaris",
-        artist: "Fujifabric",
-        path: "music/polaris.mp3"  // Replace with your audio file path
-    },
-    // Add more tracks as needed
-];
-
-function loadTrack(track_index) {
-    clearInterval(updateTimer);
-    resetValues();
-
-    curr_track.src = track_list[track_index].path;
-    curr_track.load();
-
-    track_name.textContent = track_list[track_index].name;
-    track_artist.textContent = track_list[track_index].artist;
-
-    updateTimer = setInterval(seekUpdate, 1000);
-    curr_track.addEventListener("ended", nextTrack);
-}
-
-function resetValues() {
-    curr_time.textContent = "00:00";
-    total_duration.textContent = "00:00";
-    seek_slider.value = 0;
-}
-
-function playpauseTrack() {
-    if (!isPlaying) playTrack();
-    else pauseTrack();
-}
-
-function playTrack() {
-    curr_track.play();
-    isPlaying = true;
-    playpause_btn.innerHTML = '<i class="fas fa-pause"></i>';
-}
-
-function pauseTrack() {
-    curr_track.pause();
-    isPlaying = false;
-    playpause_btn.innerHTML = '<i class="fas fa-play"></i>';
-}
-
-function nextTrack() {
-    if (track_index < track_list.length - 1)
-        track_index += 1;
-    else track_index = 0;
-    loadTrack(track_index);
-    playTrack();
-}
-
-function prevTrack() {
-    if (track_index > 0)
-        track_index -= 1;
-    else track_index = track_list.length - 1;
-    loadTrack(track_index);
-    playTrack();
-}
-
-function seekTo() {
-    let seekto = curr_track.duration * (seek_slider.value / 100);
-    curr_track.currentTime = seekto;
-}
-
-function setVolume() {
-    curr_track.volume = volume_slider.value / 100;
-    updateVolumeIcon();
-}
-
-function handleMuteClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleMute();
-}
-
-function toggleMute() {
-    isMuted = !isMuted;
-    if (isMuted) {
-        previousVolume = curr_track.volume;
-        curr_track.volume = 0;
-        volume_slider.value = 0;
-        volume_icon.className = "fas fa-volume-mute";
-    } else {
-        curr_track.volume = previousVolume;
-        volume_slider.value = previousVolume * 100;
-        updateVolumeIcon();
-    }
-}
-
-function updateVolumeIcon() {
-    if (curr_track.volume === 0) {
-        volume_icon.className = "fas fa-volume-mute";
-    } else if (curr_track.volume >= 0.7) {
-        volume_icon.className = "fas fa-volume-up";
-    } else if (curr_track.volume >= 0.1) {
-        volume_icon.className = "fas fa-volume-down";
-    } else {
-        volume_icon.className = "fas fa-volume-off";
-    }
-}
-
-function seekUpdate() {
-    let seekPosition = 0;
-
-    if (!isNaN(curr_track.duration)) {
-        seekPosition = curr_track.currentTime * (100 / curr_track.duration);
-        seek_slider.value = seekPosition;
-
-        let currentMinutes = Math.floor(curr_track.currentTime / 60);
-        let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
-        let durationMinutes = Math.floor(curr_track.duration / 60);
-        let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
-
-        if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
-        if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
-        if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
-        if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
-
-        curr_time.textContent = currentMinutes + ":" + currentSeconds;
-        total_duration.textContent = durationMinutes + ":" + durationSeconds;
-    }
-}
-
 // GIF handling function
-function handleGifLoad() {
+function handleDesktopGifLoad() {
     const gifContainers = document.querySelectorAll('.gif-container');
     
     gifContainers.forEach(container => {
@@ -190,30 +34,152 @@ function handleGifLoad() {
     });
 }
 
-// Initialize everything after DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Load first track
-    loadTrack(track_index);
+// Desktop Logo Class - Using unique class name to avoid conflicts
+class DesktopLogoManager {
+    constructor() {
+        this.logoElement = null;
+        
+        // Configuration
+        this.logoConfig = {
+            logoSize: { width: 200, height: 100 },
+            position: { bottom: 70, right: 20 } // Above taskbar
+        };
 
-    // Add event listeners for music player
-    playpause_btn.addEventListener('click', playpauseTrack);
-    next_btn.addEventListener('click', nextTrack);
-    prev_btn.addEventListener('click', prevTrack);
-    seek_slider.addEventListener('change', seekTo);
-    volume_slider.addEventListener('input', setVolume);
-    
-    // Add mute button event listeners
-    if (mute_btn) {
-        mute_btn.addEventListener('click', handleMuteClick);
-        // Also handle clicks on the icon
-        mute_btn.querySelector('i').addEventListener('click', handleMuteClick);
+        this.initLogo();
     }
 
-    // Initialize GIF handling
-    handleGifLoad();
+    initLogo() {
+        this.createDesktopLogo();
+        this.setupLogoResponsiveFeatures();
+    }
 
-    // Set initial volume
-    setVolume();
+    createDesktopLogo() {
+        this.logoElement = document.createElement('div');
+        this.logoElement.id = 'desktop-logo-element';
+        this.logoElement.innerHTML = `<img src="newpollygon2.png" alt="POLLYGON Logo" />`;
+
+        Object.assign(this.logoElement.style, {
+            position: 'fixed',
+            bottom: this.logoConfig.position.bottom + 'px',
+            right: this.logoConfig.position.right + 'px',
+            width: this.logoConfig.logoSize.width + 'px',
+            height: this.logoConfig.logoSize.height + 'px',
+            zIndex: '500',
+            opacity: '0.8',
+            pointerEvents: 'none',
+            userSelect: 'none'
+        });
+
+        const logoImg = this.logoElement.querySelector('img');
+        Object.assign(logoImg.style, {
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))'
+        });
+
+        document.getElementById('desktop').appendChild(this.logoElement);
+        console.log('Desktop logo created');
+    }
+
+    setupLogoResponsiveFeatures() {
+        // Adjust logo size based on screen size
+        window.addEventListener('resize', () => {
+            this.adjustDesktopLogoForScreen();
+        });
+        
+        // Initial adjustment
+        this.adjustDesktopLogoForScreen();
+    }
+
+    adjustDesktopLogoForScreen() {
+        if (!this.logoElement) return;
+
+        const screenWidth = window.innerWidth;
+        let newLogoSize, newLogoPosition;
+
+        if (screenWidth <= 479) {
+            // Mobile
+            newLogoSize = { width: 120, height: 60 };
+            newLogoPosition = { bottom: 60, right: 10 };
+        } else if (screenWidth <= 767) {
+            // Tablet
+            newLogoSize = { width: 160, height: 80 };
+            newLogoPosition = { bottom: 60, right: 15 };
+        } else {
+            // Desktop
+            newLogoSize = { width: 200, height: 100 };
+            newLogoPosition = { bottom: 70, right: 20 };
+        }
+
+        // Update logo size and position
+        Object.assign(this.logoElement.style, {
+            width: newLogoSize.width + 'px',
+            height: newLogoSize.height + 'px',
+            bottom: newLogoPosition.bottom + 'px',
+            right: newLogoPosition.right + 'px'
+        });
+    }
+
+    destroyLogo() {
+        if (this.logoElement) this.logoElement.remove();
+    }
+}
+
+// Simple Responsive Box Manager - Using unique class name
+class DesktopBoxManager {
+    constructor() {
+        this.initBoxManager();
+    }
+
+    initBoxManager() {
+        this.setupBoxResponsiveListeners();
+        this.adjustDesktopBoxesForScreen();
+    }
+
+    setupBoxResponsiveListeners() {
+        let boxResizeTimeout;
+        
+        window.addEventListener('resize', () => {
+            clearTimeout(boxResizeTimeout);
+            boxResizeTimeout = setTimeout(() => {
+                this.adjustDesktopBoxesForScreen();
+            }, 150);
+        });
+    }
+
+    adjustDesktopBoxesForScreen() {
+        const screenHeight = window.innerHeight;
+        const screenWidth = window.innerWidth;
+        
+        // Adjust microblog max height
+        const microblogContent = document.querySelector('.microblog-content');
+        if (microblogContent) {
+            let maxHeight;
+            if (screenWidth <= 479) {
+                maxHeight = Math.min(200, screenHeight - 180);
+            } else if (screenWidth <= 767) {
+                maxHeight = Math.min(300, screenHeight - 250);
+            } else {
+                maxHeight = screenHeight - 400;
+            }
+            microblogContent.style.maxHeight = `${maxHeight}px`;
+        }
+
+        // Adjust music player position
+        const musicPlayerElement = document.querySelector('.music-player');
+        if (musicPlayerElement) {
+            const taskbarElement = document.getElementById('taskbar');
+            const taskbarHeight = taskbarElement ? taskbarElement.offsetHeight : 45;
+            musicPlayerElement.style.bottom = `${taskbarHeight + 5}px`;
+        }
+    }
+}
+
+// Initialize everything after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GIF handling
+    handleDesktopGifLoad();
 
     // Show/Hide functionality for windows
     const showMicroblog = document.querySelector('.show-microblog');
@@ -306,4 +272,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Initialize desktop logo
+    window.desktopLogoManager = new DesktopLogoManager();
+    
+    // Initialize responsive box manager
+    window.desktopBoxManager = new DesktopBoxManager();
+
+    console.log('Desktop environment with webdeck player initialized successfully');
 });

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLLYGON Paint</title>
+    <style>
+        @font-face {
+            font-family: Kubasta;
+            src: url('font/Kubasta.ttf') format("truetype");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Kubasta, 'MS Sans Serif', sans-serif;
+            background: #f2e6ef;
+            margin: 0;
+            padding: 8px;
+            height: calc(100vh - 16px);
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .paint-container {
+            width: 100%;
+            height: 100%;
+            background-color: #e8e6f2;
+            border-top: 2px solid #808080;
+            border-left: 2px solid #808080;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .paint-header {
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 4px 8px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #7b547c;
+        }
+
+        .toolbar {
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 6px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .tool-group {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .tool-btn {
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 4px 6px;
+            font-family: Kubasta, sans-serif;
+            font-size: 10px;
+            cursor: pointer;
+            color: #7b547c;
+            font-weight: bold;
+            min-width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-btn:hover {
+            background: #f0b8d0;
+        }
+
+        .tool-btn:active,
+        .tool-btn.active {
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #e8a8c8;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 2px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .color-btn {
+            width: 20px;
+            height: 20px;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-btn:active,
+        .color-btn.active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        .color-btn.active::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px black;
+            font-size: 12px;
+        }
+
+        .custom-color-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 200% 200%;
+            animation: colorShift 3s ease-in-out infinite;
+        }
+
+        @keyframes colorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .custom-color-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .brush-size {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .size-slider {
+            -webkit-appearance: none;
+            width: 60px;
+            height: 4px;
+            background: #f6cbda;
+            border: 1px solid #7b547c;
+            cursor: pointer;
+        }
+
+        .size-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 12px;
+            background: #7b547c;
+            border: 1px solid #7b547c;
+            cursor: pointer;
+        }
+
+        .size-slider::-moz-range-thumb {
+            width: 8px;
+            height: 12px;
+            background: #7b547c;
+            border: 1px solid #7b547c;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .size-slider::-moz-range-track {
+            height: 4px;
+            background: #f6cbda;
+            border: 1px solid #7b547c;
+            border-radius: 0;
+        }
+
+        .canvas-container {
+            background: #ffffff;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 2px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #paintCanvas {
+            background: #ffffff;
+            border: 1px solid #c0c0c0;
+            cursor: crosshair;
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .size-display {
+            font-size: 10px;
+            color: #7b547c;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .separator {
+            width: 2px;
+            height: 20px;
+            background: #808080;
+            margin: 0 4px;
+        }
+
+        .canvas-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .canvas-size-input {
+            width: 50px;
+            padding: 2px 4px;
+            border: 1px solid #7b547c;
+            background: #ffffff;
+            font-family: Kubasta, sans-serif;
+            font-size: 10px;
+            color: #7b547c;
+        }
+
+        /* Responsive for iframe */
+        @media (max-width: 500px) {
+            .toolbar {
+                flex-direction: column;
+                gap: 4px;
+            }
+            
+            .tool-group {
+                justify-content: center;
+            }
+            
+            .paint-header {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-container">
+        <div class="paint-header">
+            <div>🎨 Paint</div>
+            <div class="canvas-size-controls">
+                <span style="font-size: 10px;">Canvas:</span>
+                <input type="number" class="canvas-size-input" id="canvasWidth" value="800" min="100" max="2000">
+                <span style="font-size: 10px;">×</span>
+                <input type="number" class="canvas-size-input" id="canvasHeight" value="600" min="100" max="2000">
+                <button class="tool-btn" onclick="resizeCanvasToSize()" style="margin-left: 4px;">↻</button>
+            </div>
+            <div id="canvasInfo">800×600</div>
+        </div>
+
+        <div class="toolbar">
+            <div class="tool-group">
+                <button class="tool-btn active" id="brushTool" data-tool="brush">🖌️</button>
+                <button class="tool-btn" id="eraserTool" data-tool="eraser">🧽</button>
+                <button class="tool-btn" id="lineTool" data-tool="line">📏</button>
+                <button class="tool-btn" id="rectTool" data-tool="rectangle">⬜</button>
+                <button class="tool-btn" id="circleTool" data-tool="circle">⭕</button>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="tool-group">
+                <div class="brush-size">
+                    <span style="font-size: 10px; color: #7b547c;">Size:</span>
+                    <input type="range" class="size-slider" id="brushSize" min="1" max="50" value="3">
+                    <div class="size-display" id="sizeDisplay">3</div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="tool-group">
+                <button class="tool-btn" onclick="clearCanvas()">🗑️</button>
+                <button class="tool-btn" onclick="saveImage()">💾</button>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="color-palette">
+                <div class="color-btn active" style="background: #000000;" data-color="#000000"></div>
+                <div class="color-btn" style="background: #ffffff;" data-color="#ffffff"></div>
+                <div class="color-btn" style="background: #ff0000;" data-color="#ff0000"></div>
+                <div class="color-btn" style="background: #00ff00;" data-color="#00ff00"></div>
+                <div class="color-btn" style="background: #0000ff;" data-color="#0000ff"></div>
+                <div class="color-btn" style="background: #ffff00;" data-color="#ffff00"></div>
+                <div class="color-btn" style="background: #ff00ff;" data-color="#ff00ff"></div>
+                <div class="color-btn" style="background: #00ffff;" data-color="#00ffff"></div>
+                <div class="color-btn" style="background: #ff69b4;" data-color="#ff69b4"></div>
+                <div class="color-btn" style="background: #7b547c;" data-color="#7b547c"></div>
+                <div class="color-btn" style="background: #f6cbda;" data-color="#f6cbda"></div>
+                <div class="color-btn" style="background: #808080;" data-color="#808080"></div>
+                <div class="color-btn custom-color-btn" title="Choose custom color">
+                    <input type="color" class="custom-color-input" id="customColorPicker" value="#000000">
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="paintCanvas" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Paint app variables
+        const canvas = document.getElementById('paintCanvas');
+        const ctx = canvas.getContext('2d');
+        const brushSizeSlider = document.getElementById('brushSize');
+        const sizeDisplay = document.getElementById('sizeDisplay');
+        const customColorPicker = document.getElementById('customColorPicker');
+        const canvasWidthInput = document.getElementById('canvasWidth');
+        const canvasHeightInput = document.getElementById('canvasHeight');
+        const canvasInfo = document.getElementById('canvasInfo');
+
+        let isDrawing = false;
+        let currentTool = 'brush';
+        let currentColor = '#000000';
+        let currentSize = 3;
+        let startX, startY;
+
+        // Tool state
+        let lastX = 0;
+        let lastY = 0;
+
+        // Initialize canvas
+        function initCanvas() {
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Resize canvas to fit container
+            resizeCanvas();
+            updateCanvasInfo();
+        }
+
+        function resizeCanvas() {
+            const container = document.querySelector('.canvas-container');
+            const maxWidth = container.clientWidth - 20;
+            const maxHeight = container.clientHeight - 20;
+            
+            // Calculate scale to fit
+            const scaleX = maxWidth / canvas.width;
+            const scaleY = maxHeight / canvas.height;
+            const scale = Math.min(scaleX, scaleY, 1);
+            
+            canvas.style.width = (canvas.width * scale) + 'px';
+            canvas.style.height = (canvas.height * scale) + 'px';
+        }
+
+        function resizeCanvasToSize() {
+            const newWidth = parseInt(canvasWidthInput.value);
+            const newHeight = parseInt(canvasHeightInput.value);
+            
+            if (newWidth < 100 || newWidth > 2000 || newHeight < 100 || newHeight > 2000) {
+                alert('Canvas size must be between 100x100 and 2000x2000 pixels');
+                return;
+            }
+
+            // Save current canvas content
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            // Resize canvas
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            
+            // Clear with white background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Restore previous content (will be clipped if new size is smaller)
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Reset drawing properties
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            resizeCanvas();
+            updateCanvasInfo();
+        }
+
+        function updateCanvasInfo() {
+            canvasInfo.textContent = `${canvas.width}×${canvas.height}`;
+        }
+
+        // Get mouse position relative to canvas
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        // Drawing functions
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getMousePos(e);
+            startX = pos.x;
+            startY = pos.y;
+            lastX = pos.x;
+            lastY = pos.y;
+
+            if (currentTool === 'brush' || currentTool === 'eraser') {
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            } else {
+                // For shape tools, save the current canvas state
+                saveCanvasState();
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const pos = getMousePos(e);
+
+            ctx.lineWidth = currentSize;
+            ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : currentColor;
+            ctx.fillStyle = currentColor;
+
+            switch (currentTool) {
+                case 'brush':
+                case 'eraser':
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(pos.x, pos.y);
+                    break;
+
+                case 'line':
+                    // Clear canvas and restore base state
+                    restoreCanvasState();
+                    // Draw preview line
+                    ctx.lineWidth = currentSize;
+                    ctx.strokeStyle = currentColor;
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                    break;
+
+                case 'rectangle':
+                    // Clear canvas and restore base state
+                    restoreCanvasState();
+                    // Draw preview rectangle
+                    ctx.lineWidth = currentSize;
+                    ctx.strokeStyle = currentColor;
+                    const width = pos.x - startX;
+                    const height = pos.y - startY;
+                    ctx.strokeRect(startX, startY, width, height);
+                    break;
+
+                case 'circle':
+                    // Clear canvas and restore base state
+                    restoreCanvasState();
+                    // Draw preview circle
+                    ctx.lineWidth = currentSize;
+                    ctx.strokeStyle = currentColor;
+                    const radius = Math.sqrt(Math.pow(pos.x - startX, 2) + Math.pow(pos.y - startY, 2));
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+            }
+
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        function stopDrawing() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            
+            // The final shape is already drawn on the canvas, no need to do anything special
+        }
+
+        // Canvas state management
+        let savedImageData = null;
+
+        function saveCanvasState() {
+            savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        }
+
+        function restoreCanvasState() {
+            if (savedImageData) {
+                ctx.putImageData(savedImageData, 0, 0);
+            }
+        }
+
+        // Tool selection
+        function selectTool(tool) {
+            currentTool = tool;
+            
+            // Update active tool button
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tool="${tool}"]`).classList.add('active');
+            
+            // Update cursor
+            canvas.style.cursor = tool === 'eraser' ? 'crosshair' : 'crosshair';
+        }
+
+        // Color selection
+        function selectColor(color) {
+            currentColor = color;
+            
+            // Update active color button
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find the color button that matches this color
+            const colorBtn = document.querySelector(`[data-color="${color}"]`);
+            if (colorBtn) {
+                colorBtn.classList.add('active');
+            } else {
+                // If it's a custom color, activate the custom color picker
+                document.querySelector('.custom-color-btn').classList.add('active');
+            }
+        }
+
+        // Brush size
+        function updateBrushSize() {
+            currentSize = parseInt(brushSizeSlider.value);
+            sizeDisplay.textContent = currentSize;
+        }
+
+        // Clear canvas
+        function clearCanvas() {
+            if (confirm('Clear the entire canvas?')) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        // Save image
+        function saveImage() {
+            const link = document.createElement('a');
+            link.download = 'pollygon-paint.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Event listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        // Tool button event listeners
+        document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectTool(btn.dataset.tool);
+            });
+        });
+
+        // Color button event listeners
+        document.querySelectorAll('.color-btn[data-color]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectColor(btn.dataset.color);
+            });
+        });
+
+        // Custom color picker
+        customColorPicker.addEventListener('change', (e) => {
+            selectColor(e.target.value);
+        });
+
+        // Canvas size input listeners
+        canvasWidthInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                resizeCanvasToSize();
+            }
+        });
+
+        canvasHeightInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                resizeCanvasToSize();
+            }
+        });
+
+        // Brush size slider
+        brushSizeSlider.addEventListener('input', updateBrushSize);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'b':
+                case 'B':
+                    selectTool('brush');
+                    break;
+                case 'e':
+                case 'E':
+                    selectTool('eraser');
+                    break;
+                case 'l':
+                case 'L':
+                    selectTool('line');
+                    break;
+                case 'r':
+                case 'R':
+                    selectTool('rectangle');
+                    break;
+                case 'c':
+                case 'C':
+                    selectTool('circle');
+                    break;
+                case 'Delete':
+                    clearCanvas();
+                    break;
+            }
+        });
+
+        // Window resize handler
+        window.addEventListener('resize', resizeCanvas);
+
+        // Initialize
+        window.addEventListener('load', () => {
+            initCanvas();
+            updateBrushSize();
+        });
+    </script>
+</body>
+</html>

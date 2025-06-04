@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Layout Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-image {
+            width: 450px;
+            height: 800px;
+            flex-shrink: 0;
+        }
+
+        .left-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        .content-panel {
+            background-color: white;
+            color: black;
+            width: 500px;
+            padding: 20px;
+            flex-shrink: 0;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .main-heading {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+        }
+
+        .content-section {
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+        }
+
+        .paragraph {
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 0.9rem;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .navigation {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: lowercase;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #ccc;
+        }
+
+        .nav-item:not(:last-child):after {
+            content: ". ";
+            color: white;
+        }
+
+        /* Characters section styles - adjusted for content panel */
+        .characters-header {
+            text-align: center;
+            margin: 30px 0 20px 0;
+            position: relative;
+        }
+
+        .characters-header::before,
+        .characters-header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+            border-radius: 2px;
+        }
+
+        .characters-header::before {
+            left: 0;
+        }
+
+        .characters-header::after {
+            right: 0;
+        }
+
+        .characters-header h2 {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 6px rgba(255,105,180,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .character-card {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .character-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .character-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .character-image {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.8em;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .character-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .character-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 3px;
+        }
+
+        .character-description {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.85em;
+            text-align: justify;
+        }
+
+        .character-description p {
+            margin-bottom: 8px;
+        }
+
+        .character-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 10px;
+            }
+            
+            .content-row {
+                flex-direction: column;
+            }
+            
+            .left-image {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .content-panel {
+                width: 100%;
+                max-height: none;
+            }
+            
+            .character-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .character-image {
+                width: 100px;
+                height: 120px;
+            }
+            
+            .characters-header::before,
+            .characters-header::after {
+                width: 25%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="content-row">
+            <div class="left-image">
+                <img src="ariakesann.png"/>
+            </div>
+            
+            <div class="content-panel">
+                <h1 class="main-heading">What is Ooe (大穢) about?</h1>
+                
+                <div class="content-section">
+                    <img src="../../about/games/owen.jpg" alt="" width="100%" height="100%">
+                    <p class="paragraph">
+                       Ooe (大穢) is a Murder Mystery BL Visual Novel made by ADELTA. Its completed version was released on April 19, 2025. <br> <br>
+                        The story follows detective Oosaki, who receives a request to attend a memorial ceremony on someone's behalf on the remote island of Ooejima, located beyond Hachijoujima, south of Tokyo. The ceremony commemorates the second anniversary of actress An Ooe's death. <br> <br>  However, things quickly go wrong when the ship meant to bring the attendees back fails to appear, the event coordinator goes missing, and an atmosphere of fear and hatred emerges among the ten attendees. <br> <br>
+                       The situation deteriorates further when the servant who had been helping them is found dead, only to be followed by a second and third crime. While stranded, the attendees must work together to unravel the mystery connecting them.
+                    </p>
+                </div>
+
+                <h1 class="main-heading">Characters</h1>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/oosaki.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Oosaki</h3>
+                            <div class="character-description">
+                                <p>A young detective working for the Shinkiba Detective Agency. He’s a large man, six feet tall, and when people meet him for the first time they say he’s too blunt or unfriendly. He’s often thought of as unapproachable, but in reality he’s just a serious and quiet person.</p>
+                                <p>Due to them both having a similar appearance, he accepts a strange request to attend a funeral on behalf of his client, Daiba Shizuma.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/ariake.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Ariake</h3>
+                            <div class="character-description">
+                                <p>Your self-appointed assistant.</p>
+                                <p>Crematorium employee involved in the funeral of An Ooe. He’s extremely caring and cannot look away from those in trouble. Since breaking his dominant arm, he has been constantly helped by those around him and has become accustomed to saying ‘thank you’. He was saved by Oosaki when he was about to fall off the boat on the way to their destination, and they have gotten along ever since.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/shinbashi.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Shimbashi</h3>
+                            <div class="character-description">
+                                <p>Your opponent.</p>
+                                <p>A stage playwright. He has a strange manner of talking, a combination of over-polite speech and venomous remarks, and always sets himself apart from the other attendees. He has a suspicious air about him, but wears elegant attire. Adjectives such as scrupulous and lofty suit him very well.</p>
+                                <p>He revered An Ooe as an actor, and her unfortunate death affected him as he had the intent of giving her the lead role in one of his plays.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/aomi.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Aomi</h3>
+                            <div class="character-description">
+                                <p>Your listener.</p>
+                                <p>A taciturn beauty who speaks in a small voice and makes use of short sentences. An inherent characteristic of his is being straightforward in every aspect of his life without making anyone uncomfortable. He teaches piano to a small number of people at the music school he runs.</p>
+                                <p>He also taught music to An Ooe. Has a successful career, but is reluctant to talk about his own achievements in life.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/shiodome.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Shiodome</h3>
+                            <div class="character-description">
+                                <p>Your loudspeaker.</p>
+                                <p>Second-year student belonging to the Folklore Society of the Faculty of Culture at Gakoku University. He’s researching the history and folklore of Ooejima. Has a very inquisitive mind, and seems like a strong-willed genius who can’t leave anything he doesn’t understand unexplained. He’s a fan of An Ooe, but has no real connection to her. Doesn’t question why he was invited to the second anniversary of her death, he was rather looking forward to attending the event.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/takeshiba.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Takeshiba</h3>
+                            <div class="character-description">
+                                <p>Candidate for being your partner.</p>
+                                <p>A successful illusionist with a gentle Kansai accent. His ‘plain clothes’ consist of a white suit and red tie, so it could be said that he’s quite extravagant. He has a strong aversion to dampened moods and arguments. He’s that kind of mature friend who acts like a buffoon to liven things up when everyone is at each other’s throat. When he got to play a minor role in a film, he was approached by An Ooe and immediately fell in love with her.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/shijoumae.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Shijoumae</h3>
+                            <div class="character-description">
+                                <p>Your gateway.</p>
+                                <p>Head of the surgery department at a hospital affiliated with the medical department of the Imperial University of Tokyo. He is considered the supreme authority on burns treatment in the country due to his skills. Has made many people regain a sense of beauty thanks to his delicate sensitivity. He has a very stern face, but he’s a gentle man deep down. He even gives a generous laugh whenever he sees young people being impolite.</p>
+                                <p>He is the doctor who attended An Ooe’s deathbed and regrets his inability to help her at the time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/funeno.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Funeno</h3>
+                            <div class="character-description">
+                                <p>Your suspect.</p>
+                                <p>A hired servant who runs two abandoned inns on Ooejima, the Crescent Moon and the Yaegaki. He is in charge of taking care of the meals for the attendees, making the preparations for the memorial service and all rituals carried on the island. He leaves nothing undone and is often seen running around as he’s very busy. He is usually laid-back and the purity of his heart is such that even the island’s butterflies are fond of him. …For some reason, he only fears Oosaki. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/toyosu.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Toyosu</h3>
+                            <div class="character-description">
+                                <p>Your Sabbath.</p>
+                                <p>Priest at Nisshuji, a small temple in Ibaraki. Affiliated with the True Pure Land sect of Buddhism. He is soft-spoken and his gestures are delicate. There is always a gentle air about him. He was invited to this memorial service as a monk, but has never interacted with the Ooe family so what ties him to the family remains unknown. He decided to come to the island in order to ascertain the true intentions of the event’s coordinator.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/hinode.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Hinode</h3>
+                            <div class="character-description">
+                                <p>Someone you have to protect.</p>
+                                <p>A boy who came on behalf of his mother. Has some sort of mental illness and cannot express himself clearly. Sometimes, his legs stop working all of a sudden. He weighs heavily on Oosaki’s mind. What’s more, he doesn’t even know what kind of person An Ooe was. He tends to be in low spirits when he thinks about life on the deserted island, which is being increasingly driven to extreme poverty, but he doesn’t blame anyone for it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-image"><img src="characters/daiba.jpg" alt=""></div>
+                        <div class="character-info">
+                            <h3 class="character-name">Daiba Shizuma</h3>
+                            <div class="character-description">
+                                <p>Your client.</p>
+                                <p>Next president of Daiba Constructions. A peculiar man in his 20s with management acumen and a flexible way of thinking. </p>
+                                <p>His dad’s dying wishes, which were to look for ‘someone who looks just like Shizuma’ and to ‘have someone else go to the memorial service’, led him to Oosaki. He is quite sensible when they first meet, but gradually his cunning side begins to show.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="main-heading">Where to buy?</h1>
+                You can grab a copy of Ooe for JPY 4400 @ <a href="https://www.dlsite.com/bl/work/=/product_id/RJ01235825.html/?unique_op=af&utm_medium=affiliate&utm_source=vndb.org%2F" target="_blank">DLSITE</a> or <a href="https://booth.pm/en/items/6187545" target="_blank">BOOTH</a>.
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <a href="../../shrines.html" class="nav-item">home</a>
+            <a href="index.html" class="nav-item">main</a>
+            <a href="loveletter.html" class="nav-item">my thoughts</a>
+            <a href="illust.html" class="nav-item">illust</a>
+        </nav>
+    </div>
+</body>
+</html>

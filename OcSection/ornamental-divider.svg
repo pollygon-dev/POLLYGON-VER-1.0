@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 20">
+  <!-- Center flourish -->
+  <circle cx="100" cy="10" r="2" fill="#1b4d3e"/>
+  <!-- Left side -->
+  <path d="M40,10 H90 M110,10 H160" 
+        stroke="#1b4d3e" 
+        stroke-width="0.75"/>
+  <!-- Decorative elements -->
+  <path d="M95,10 C97,8 98,7 100,10 C102,7 103,8 105,10" 
+        fill="none" 
+        stroke="#1b4d3e" 
+        stroke-width="0.5"/>
+  <!-- Side flourishes -->
+  <path d="M50,10 Q55,7 60,10 Q65,13 70,10" 
+        fill="none" 
+        stroke="#1b4d3e" 
+        stroke-width="0.5"/>
+  <path d="M130,10 Q135,7 140,10 Q145,13 150,10" 
+        fill="none" 
+        stroke="#1b4d3e" 
+        stroke-width="0.5"/>
+  <!-- Small dots -->
+  <circle cx="35" cy="10" r="1.5" fill="#1b4d3e"/>
+  <circle cx="165" cy="10" r="1.5" fill="#1b4d3e"/>
+</svg>

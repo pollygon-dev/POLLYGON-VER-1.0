@@ -1,0 +1,2871 @@
+/* Base Variables */
+:root {
+    --brand-purple: #916892;
+    --brand-pink: #ffafd7;
+    --retro-pink: #ff9fd7;
+    --soft-pink: #ffe5f0;
+    --dark-pink: #b1c9e6;
+    --header-height: 42px;
+    --mobile-nav-height: 60px;
+    --z-logo: 10;
+    --z-window: 100;
+    --z-window-active: 100;
+    --z-window-maximized: 30;
+    --z-taskbar: 2000;
+    --z-modal: 100;
+}
+
+* {
+    font-family: 'Synonym', sans-serif;
+}
+
+body {
+    background: var(--dark-pink);
+    overflow: hidden;
+    color: #333;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Window Styles */
+.window {
+    position: fixed;
+    min-width: 400px;
+    min-height: 200px;
+    max-height: calc(100vh - 100px);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--retro-pink);
+    box-shadow: 
+        0 8px 32px rgba(255, 175, 215, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    animation: windowPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    height: auto;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,175,215,0.2));
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.window.maximized {
+    border-radius: 0;
+    border: none;
+    animation: windowMaximize 0.3s ease-in-out;
+}
+
+.window.maximized::before {
+    border-radius: 0;
+}
+
+.window.minimizing {
+    animation: windowMinimize 0.3s ease-in-out;
+}
+
+/* Window Header and Controls */
+.window-header {
+    padding: 12px;
+    background: linear-gradient(to bottom, var(--retro-pink), var(--brand-pink));
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid var(--dark-pink);
+    flex-shrink: 0;
+    height: 20px;
+}
+
+.window.maximized .window-header {
+    border-radius: 0;
+}
+
+.window-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 8px;
+    transition: all 0.2s ease;
+}
+
+.control:hover {
+    transform: scale(1.2);
+}
+
+.control.close {
+    background: #ff5f57;
+}
+
+.control.minimize {
+    background: #febc2e;
+}
+
+.control.maximize {
+    background: #28c841;
+}
+
+.control i {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.control:hover i {
+    opacity: 1;
+}
+
+/* Window Content */
+.window-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-pink) var(--soft-pink);
+}
+
+.window-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+    background: var(--soft-pink);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+    background-color: var(--brand-pink);
+    border-radius: 4px;
+}
+
+/* Window type specific styles */
+.window[data-type="about"] {
+    width: 400px;
+}
+
+.window[data-type="gallery"] {
+    width: 800px;
+}
+
+.window[data-type="projects"],
+.window[data-type="commissions"] {
+    width: 700px;
+}
+
+.window[data-type="contact"],
+.window[data-type="links"] {
+    width: 500px;
+}
+
+/* Content Type Specific Styles */
+.window[data-type="about"] .window-content {
+    padding: 24px;
+}
+
+.window[data-type="gallery"] .window-content {
+    padding: 16px;
+}
+
+.window[data-type="projects"] .window-content,
+.window[data-type="commissions"] .window-content {
+    padding: 20px;
+}
+
+.window[data-type="contact"] .window-content,
+.window[data-type="links"] .window-content {
+    padding: 24px;
+}
+
+/* Resize Handle */
+.window-resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    z-index: 10;
+}
+
+.window.maximized .window-resize-handle {
+    display: none;
+}
+
+/* Desktop Icons */
+.desktop-icon {
+    width: 90px;
+    text-align: center;
+    margin: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--retro-pink);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 8px 24px rgba(255, 175, 215, 0.3),
+        0 2px 4px rgba(255, 175, 215, 0.2);
+}
+
+.desktop-icon i {
+    font-size: 28px;
+    color: var(--brand-purple);
+    background: rgba(255, 255, 255, 0.9);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 12px rgba(145, 104, 146, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.desktop-icon:hover i {
+    transform: scale(1.1);
+    background: white;
+    box-shadow: 
+        0 6px 16px rgba(145, 104, 146, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 1);
+}
+
+.desktop-icon span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--brand-purple);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.start-menu {
+    position: fixed;
+    top: 40px;
+    left: 16px;
+    width: 280px;
+    background: rgba(42, 42, 42, 0.95);
+    border: 2px solid var(--brand-pink);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(255, 175, 215, 0.3);
+    padding: 16px;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.start-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--brand-pink);
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--brand-pink);
+}
+
+.menu-item:hover {
+    background: rgba(255, 175, 215, 0.1);
+    transform: translateX(4px);
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.menu-divider {
+    height: 2px;
+    background: var(--brand-pink);
+    margin: 8px 0;
+    opacity: 0.3;
+}
+
+/* Animation */
+@keyframes menuSlideUp {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.start-menu {
+    animation: menuSlideUp 0.2s ease-out;
+}
+
+.menu-item.power {
+    color: #ff4d4d;
+}
+
+.menu-item.power:hover {
+    background: rgba(255, 77, 77, 0.1);
+}
+
+/* Dark theme support */
+.dark-theme .start-menu {
+    background: rgba(42, 42, 42, 0.95);
+    border-color: var(--brand-purple);
+}
+
+.dark-theme .menu-item {
+    color: var(--brand-pink);
+}
+
+.dark-theme .menu-item:hover {
+    background: rgba(145, 104, 146, 0.15);
+}
+
+/* Background Pattern */
+/* Add this to your CSS file */
+.retro-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: radial-gradient(var(--dark-pink) 1px, transparent 1px);
+    background-size: 20px 20px;
+    transition: opacity 0.3s ease;
+}
+
+.retro-pattern.dark {
+    opacity: 0.03;
+    background-image: radial-gradient(var(--brand-pink) 1px, transparent 1px);
+}
+
+.fixed.inset-0 {
+    transition: background 0.3s ease;
+}
+
+/* Dark theme specific styles */
+.dark-theme .fixed.inset-0 {
+    background: var(--soft-pink);
+}
+
+/* Light theme specific styles */
+body:not(.dark-theme) .fixed.inset-0 {
+    background: var(--soft-pink);
+}
+
+/* Floating Logo - Updated */
+.floating-logo {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    width: 300px;
+    height: 300px;
+    z-index: 10;
+    animation: floatAnimation 6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 175, 215, 0.4));
+    transition: all 0.3s ease;
+    pointer-events: none; /* Ensure logo doesn't interfere with clicks */
+}
+
+.floating-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Add to your nstyles.css */
+
+/* Modern Taskbar Base */
+#taskbar {
+    height: 42px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 192, 203, 0.2);
+    box-shadow: 0 2px 12px rgba(255, 192, 203, 0.1);
+}
+
+/* Logo Container */
+.menu-bar-item:first-child {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Logo Icon Container */
+.menu-bar-item:first-child .logo-container {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #ffafd7, #916892);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-bar-item:first-child .logo-container i {
+    color: white;
+    font-size: 14px;
+}
+
+/* Changed the menu bar to use flex-grow */
+.menu-bar {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 16px;
+    flex: 1; /* Added this to allow menu to take available space */
+}
+
+/* Re-enabled the active windows section and positioned it after Help */
+#active-windows {
+    display: flex;
+    gap: 8px;
+    margin-left: 16px; /* Space between Help and window tabs */
+}
+
+/* Kept status icons right-aligned */
+.ml-auto {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.menu-bar {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 4px;  /* Reduced gap between menu items */
+}
+
+/* Main menu items */
+.menu-bar > .menu-bar-item {
+    padding: 0 8px;  /* Added consistent padding to menu items */
+}
+
+/* Window tabs styling */
+#active-windows {
+    display: flex;
+    gap: 6px;
+    margin-left: 4px;  /* Smaller margin after Help menu */
+}
+
+.menu-bar-item {
+    color: rgba(145, 104, 146, 0.8);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-bar-item:hover {
+    color: rgba(145, 104, 146, 1);
+    background: rgba(255, 192, 203, 0.1);
+}
+
+/* Status Area */
+.ml-auto {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+/* Status Group */
+.status-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(145, 104, 146, 0.05);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-right: 8px;
+}
+
+.status-group i {
+    color: rgba(145, 104, 146, 0.6);
+    font-size: 14px;
+}
+
+/* Time Display */
+#time {
+    color: #916892;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Theme Toggle */
+.theme-toggle-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(145, 104, 146, 0.1);
+    color: #916892;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(145, 104, 146, 0.15);
+    transform: scale(1.05);
+}
+
+/* Dark Theme Adjustments */
+body.dark-theme #taskbar {
+    background: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(255, 192, 203, 0.1);
+}
+
+body.dark-theme .menu-bar-item {
+    color: rgba(255, 192, 203, 0.8);
+}
+
+body.dark-theme .menu-bar-item:hover {
+    color: rgba(255, 192, 203, 1);
+    background: rgba(255, 192, 203, 0.1);
+}
+
+body.dark-theme .status-group {
+    background: rgba(255, 192, 203, 0.1);
+}
+
+body.dark-theme .status-group i {
+    color: rgba(255, 192, 203, 0.8);
+}
+
+body.dark-theme #time {
+    color: rgba(255, 192, 203, 0.9);
+}
+
+body.dark-theme .theme-toggle-btn {
+    background: rgba(255, 192, 203, 0.1);
+    color: rgba(255, 192, 203, 0.9);
+}
+
+body.dark-theme .theme-toggle-btn:hover {
+    background: rgba(255, 192, 203, 0.15);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #taskbar {
+        height: 38px;
+    }
+
+    .menu-bar-item:not(:first-child) {
+        display: none;
+    }
+
+    .status-group {
+        padding: 4px 8px;
+    }
+
+    .theme-toggle-btn {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Status Icons */
+.ml-auto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ml-auto i {
+    font-size: 14px;
+}
+
+.ml-auto i.fa-wifi {
+    color: var(--retro-pink) !important;
+}
+
+.ml-auto i.fa-battery-three-quarters {
+    color: var(--brand-purple) !important;
+}
+
+.ml-auto i.fa-volume-up {
+    color: var(--dark-pink) !important;
+}
+
+#time {
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 65px;
+    text-align: right;
+    color: var(--brand-purple);
+}
+
+/* Taskbar Item */
+.taskbar-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--brand-purple);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    border: 1px solid transparent;
+}
+
+.taskbar-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--retro-pink);
+}
+
+.taskbar-item.active {
+    background: white;
+    border-color: var(--retro-pink);
+    box-shadow: 0 2px 8px rgba(255, 175, 215, 0.2);
+}
+
+.taskbar-item.minimized {
+    opacity: 0.6;
+}
+
+/* Lightbox */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 175, 215, 0.3);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.window.lightbox {
+    position: relative;
+    width: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    margin: 24px;
+}
+
+/* Mobile Navigation
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--mobile-nav-height);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid var(--retro-pink);
+    padding: 8px;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--brand-purple);
+    font-size: 18px;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.mobile-nav-item span {
+    font-size: 10px;
+}
+
+.mobile-nav-item:active {
+    background: var(--soft-pink);
+} */
+
+/* Update just the theme toggle portion in your nstyles.css */
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 192, 203, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+    box-shadow: 0 2px 8px rgba(145, 104, 146, 0.1);
+}
+
+.theme-toggle-btn i {
+    color: #916892;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(145, 104, 146, 0.15);
+}
+
+/* Dark Theme Adjustments */
+body.dark-theme .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .theme-toggle-btn i {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.dark-theme .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Theme Colors */
+body.dark-theme {
+    --soft-pink: #1a1a1a;
+    --modal-bg: #2A2A2A;
+    --modal-text: #E1E1E1;
+    --modal-header: linear-gradient(to bottom, #916892, #cc6699);
+    background: var(--soft-pink);
+}
+
+body.dark-theme .window {
+    background: var(--modal-bg);
+    color: var(--modal-text);
+    border-color: var(--brand-pink);
+    box-shadow: 
+        0 8px 32px rgba(145, 104, 146, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .window::before {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(145,104,146,0.1));
+}
+
+body.dark-theme .window-header {
+    background: var(--modal-header);
+    border-bottom-color: var(--brand-pink);
+}
+
+body.dark-theme .window-content {
+    scrollbar-color: var(--brand-pink) var(--modal-bg);
+}
+
+body.dark-theme .window-content::-webkit-scrollbar-track {
+    background: var(--modal-bg);
+}
+
+body.dark-theme #taskbar {
+    background: rgba(0, 0, 0, 0.85);
+    border-color: var(--brand-pink);
+}
+
+body.dark-theme .mobile-nav {
+    background: rgba(0, 0, 0, 0.85);
+    border-color: var(--brand-pink);
+}
+
+body.dark-theme .theme-toggle-btn {
+    color: var(--brand-pink);
+}
+
+/* Dark mode specific element colors */
+body.dark-theme .text-gray-600 {
+    color: #B0B0B0;
+}
+
+body.dark-theme .bg-pink-50,
+body.dark-theme .bg-purple-50 {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .text-purple-600 {
+    color: var(--brand-pink);
+}
+
+body.dark-theme .text-pink-600 {
+    color: var(--retro-pink);
+}
+
+/* Dark Theme Icon & Menu Styles */
+body.dark-theme .desktop-icon {
+    background: rgba(42, 42, 42, 0.7);
+}
+
+body.dark-theme .desktop-icon:hover {
+    background: rgba(42, 42, 42, 0.9);
+    border-color: var(--brand-pink);
+    box-shadow: 
+        0 8px 24px rgba(145, 104, 146, 0.3),
+        0 2px 4px rgba(145, 104, 146, 0.2);
+}
+
+body.dark-theme .desktop-icon i {
+    background: rgba(42, 42, 42, 0.9);
+    color: var(--brand-pink);
+    box-shadow: 
+        0 4px 12px rgba(145, 104, 146, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .desktop-icon:hover i {
+    background: rgba(42, 42, 42, 1);
+    box-shadow: 
+        0 6px 16px rgba(145, 104, 146, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-theme .desktop-icon span {
+    color: var(--brand-pink);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-theme .start-menu {
+    background: rgba(42, 42, 42, 0.95);
+    border-color: var(--brand-pink);
+}
+
+body.dark-theme .start-menu-item {
+    color: var(--brand-pink);
+}
+
+body.dark-theme .start-menu-item:hover {
+    background: rgba(145, 104, 146, 0.15);
+}
+
+body.dark-theme .menu-bar-item {
+    color: var(--brand-pink);
+}
+
+body.dark-theme .menu-bar-item:hover {
+    background: rgba(145, 104, 146, 0.15);
+}
+
+body.dark-theme .taskbar-item {
+    background: rgba(42, 42, 42, 0.6);
+    color: var(--brand-pink);
+    border-color: transparent;
+}
+
+body.dark-theme .taskbar-item:hover {
+    background: rgba(42, 42, 42, 0.8);
+    border-color: var(--brand-pink);
+}
+
+body.dark-theme .taskbar-item.active {
+    background: rgba(42, 42, 42, 0.95);
+    border-color: var(--brand-pink);
+    box-shadow: 0 2px 8px rgba(145, 104, 146, 0.2);
+}
+
+/* Dark Theme Mobile Nav */
+body.dark-theme .mobile-nav-item {
+    color: var(--brand-pink);
+}
+
+body.dark-theme .mobile-nav-item:active {
+    background: rgba(145, 104, 146, 0.15);
+}
+
+/* Animations */
+@keyframes windowPop {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes windowMaximize {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes windowMinimize {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes menuSlideUp {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatAnimationMobile {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+/* Transitions */
+.window {
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.theme-toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* General Utilities */
+.hidden {
+    display: none !important;
+}
+
+.contents {
+    display: contents !important;
+}
+
+/* Print Styles */
+@media print {
+    .window {
+        position: relative;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .window-controls,
+    .taskbar,
+    .mobile-nav,
+    .floating-logo {
+        display: none !important;
+    }
+}
+
+/* Base Variables */
+:root {
+    --header-height: 42px;
+    --mobile-nav-height: 60px;
+}
+
+/* Base Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Windows */
+    .window {
+        min-width: 300px;
+        width: 95vw !important;
+        max-height: calc(100vh - var(--header-height) - 20px);
+        margin: 10px auto;
+        border-radius: 12px;
+        position: fixed;
+        left: 50% !important;
+        transform: translateX(-50%);
+        top: calc(var(--header-height) + 10px);
+    }
+
+    .window-header {
+        padding: 8px 12px;
+        height: auto;
+        min-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .window-controls {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    .control {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+    }
+
+    .control i {
+        font-size: 8px;
+        opacity: 1;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .window-title {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .window-content {
+        padding: 16px !important;
+        max-height: calc(100vh - var(--header-height) - 100px);
+        overflow-y: auto;
+    }
+
+    /* Taskbar */
+    #taskbar {
+        height: var(--header-height);
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 2px solid var(--retro-pink);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .menu-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 100%;
+    }
+
+    .menu-bar-item {
+        padding: 8px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        color: var(--brand-purple);
+    }
+
+    .menu-bar-item:first-child span {
+        display: inline-block;
+        margin-left: 6px;
+        font-size: 14px;
+    }
+
+    .menu-bar-item:not(:first-child) span {
+        display: none;
+    }
+
+    .menu-bar-item i {
+        font-size: 14px;
+        display: inline-block !important;
+    }
+
+    /* Status Icons */
+    .ml-auto {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .ml-auto i {
+        font-size: 14px;
+    }
+
+    .ml-auto i.fa-wifi {
+        color: var(--retro-pink) !important;
+    }
+
+    .ml-auto i.fa-battery-three-quarters {
+        color: var(--brand-purple) !important;
+    }
+
+    .ml-auto i.fa-volume-up {
+        color: var(--dark-pink) !important;
+    }
+
+    #time {
+        font-size: 13px;
+        font-weight: 500;
+        min-width: 65px;
+        text-align: right;
+        color: var(--brand-purple);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle-btn {
+        padding: 6px;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--brand-purple);
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 8px;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--mobile-nav-height);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 2px solid var(--retro-pink);
+        padding: 8px;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: var(--brand-purple);
+        font-size: 18px;
+        padding: 4px 12px;
+        border-radius: 8px;
+    }
+
+    .mobile-nav-item span {
+        font-size: 10px;
+    }
+
+    .mobile-nav-item:active {
+        background: var(--soft-pink);
+    }
+
+    /* Floating Logo */
+    .floating-logo {
+        position: fixed;
+        top: auto;
+        bottom: calc(var(--mobile-nav-height) + 20px);
+        right: 20px;
+        width: 120px;
+        height: 120px;
+        animation: floatAnimationMobile 4s ease-in-out infinite;
+    }
+
+    /* Content Specific */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    /* Hide desktop elements */
+    .fixed.top-16.left-4 {
+        display: none;
+    }
+
+    #active-windows {
+        display: none;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 380px) {
+    :root {
+        --header-height: 38px;
+        --mobile-nav-height: 50px;
+    }
+
+    #taskbar {
+        padding: 0 8px;
+    }
+
+    .menu-bar {
+        gap: 6px;
+    }
+
+    .menu-bar-item {
+        padding: 6px;
+    }
+
+    .menu-bar-item i {
+        font-size: 12px;
+    }
+
+    .ml-auto i {
+        font-size: 12px;
+    }
+
+    #time {
+        font-size: 12px;
+        min-width: 58px;
+    }
+
+    .theme-toggle-btn {
+        padding: 4px;
+    }
+
+    .window {
+        min-width: 280px;
+        border-radius: 10px;
+    }
+
+    .window-header {
+        padding: 6px 10px;
+    }
+
+    .control {
+        width: 14px;
+        height: 14px;
+    }
+
+    .window-title {
+        font-size: 12px;
+    }
+
+    .mobile-nav-item {
+        font-size: 16px;
+        padding: 4px 8px;
+    }
+
+    .mobile-nav-item span {
+        font-size: 9px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* Updated Floating Logo for small phones */
+    .floating-logo {
+        width: 90px;
+        height: 90px;
+        right: 10px;
+        bottom: calc(var(--mobile-nav-height) + 15px);
+    }
+}
+
+/* Landscape Mode */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    :root {
+        --header-height: 36px;
+    }
+
+    .window {
+        max-height: calc(100vh - var(--header-height) - 20px);
+    }
+
+    .window-content {
+        max-height: calc(100vh - var(--header-height) - 80px);
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    /* Hide floating logo in landscape */
+    .floating-logo {
+        display: none;
+    }
+}
+
+/* Tablet Portrait */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .window {
+        max-width: 90vw;
+    }
+
+    #taskbar {
+        height: 44px;
+    }
+
+    .menu-bar-item span {
+        display: inline-block !important;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    /* Tablet floating logo */
+    .floating-logo {
+        width: 200px;
+        height: 200px;
+        top: auto;
+        bottom: 40px;
+        right: 30px;
+    }
+}
+
+/* Tablet Landscape */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    .window {
+        max-width: 85vw;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    /* Adjusted floating logo for tablet landscape */
+    .floating-logo {
+        width: 250px;
+        height: 250px;
+        top: 40px;
+        right: 40px;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .control i {
+        opacity: 1;
+    }
+
+    .window-controls {
+        gap: 12px;
+    }
+
+    .menu-bar-item:active,
+    .theme-toggle-btn:active {
+        background: var(--soft-pink);
+    }
+
+    .mobile-nav-item:active {
+        background: rgba(var(--brand-pink), 0.1);
+    }
+
+    .floating-logo {
+        transition: none;
+    }
+}
+
+/* High DPI Screen Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .window {
+        border-width: 0.5px;
+    }
+
+    .control {
+        border-width: 0.5px;
+    }
+
+    .floating-logo {
+        filter: drop-shadow(0 4px 12px rgba(255, 175, 215, 0.6));
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .floating-logo {
+        animation: none !important;
+    }
+}
+
+/* Base Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Taskbar adjustments */
+    #taskbar {
+        height: var(--header-height);
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+    }
+
+    .menu-bar {
+        gap: 2px;
+        height: 100%;
+    }
+
+    .menu-bar-item {
+        padding: 4px;
+        height: 100%;
+    }
+
+    /* Ensure controls are visible and properly sized */
+    .window-controls {
+        display: flex;
+        gap: 6px;
+        margin-left: 8px;
+    }
+
+    .control {
+        width: 18px;
+        height: 18px;
+    }
+
+    .control i {
+        font-size: 10px;
+        opacity: 1;
+    }
+
+    /* Status icons spacing */
+    .ml-auto {
+        gap: 8px;
+    }
+
+    .theme-toggle-btn {
+        padding: 4px;
+        margin: 0 4px;
+    }
+
+    /* Repositioned floating logo */
+    .floating-logo {
+        position: fixed;
+        top: auto;
+        bottom: calc(var(--mobile-nav-height) + 30px);
+        right: 16px;
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 380px) {
+    #taskbar {
+        padding: 0 6px;
+        gap: 2px;
+    }
+
+    .menu-bar {
+        gap: 1px;
+    }
+
+    .menu-bar-item {
+        padding: 3px;
+    }
+
+    .menu-bar-item i {
+        font-size: 12px;
+    }
+
+    .control {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ml-auto {
+        gap: 6px;
+    }
+
+    .floating-logo {
+        position: fixed;
+        top: auto;
+        bottom: calc(var(--mobile-nav-height) + 30px);
+        right: 16px;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Ensure controls are visible in dark mode */
+body.dark-theme .control i {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark-theme .window-controls {
+    opacity: 1;
+}
+
+/* Mobile Navigation Base Styles */
+.mobile-nav {
+    display: none; /* Hidden by default on desktop */
+}
+
+/* Mobile Breakpoint */
+@media screen and (max-width: 768px) {
+    /* Show mobile navigation */
+    .mobile-nav {
+        display: flex !important; /* Force display for mobile */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--mobile-nav-height);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 2px solid var(--retro-pink);
+        padding: 8px;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    /* Style mobile navigation items */
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: var(--brand-purple);
+        font-size: 18px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    .mobile-nav-item:active {
+        background: var(--soft-pink);
+    }
+
+    .mobile-nav-item i {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
+
+    .mobile-nav-item span {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    /* Hide desktop icons */
+    .desktop-icon {
+        display: none;
+    }
+
+    /* Adjust window positioning for mobile */
+    .window {
+        width: 92vw !important;
+        left: 4vw !important;
+        transform: none !important;
+        margin-bottom: var(--mobile-nav-height);
+    }
+
+    /* Dark theme support for mobile nav */
+    body.dark-theme .mobile-nav {
+        background: rgba(42, 42, 42, 0.95);
+        border-color: var(--brand-pink);
+    }
+
+    body.dark-theme .mobile-nav-item {
+        color: var(--brand-pink);
+    }
+
+    body.dark-theme .mobile-nav-item:active {
+        background: rgba(145, 104, 146, 0.15);
+    }
+}
+
+/* Small screens adjustments */
+@media screen and (max-width: 380px) {
+    .mobile-nav {
+        height: calc(var(--mobile-nav-height) - 10px);
+        padding: 4px;
+    }
+
+    .mobile-nav-item {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+
+    .mobile-nav-item i {
+        font-size: 20px;
+    }
+
+    .mobile-nav-item span {
+        font-size: 10px;
+    }
+}
+
+/* Mobile Window Styles */
+@media screen and (max-width: 768px) {
+    .window {
+        position: fixed !important;
+        border-radius: 12px !important;
+        max-height: calc(100vh - 120px) !important; /* Account for header and mobile nav */
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Simplified header for mobile */
+    .window-header {
+        padding: 12px !important;
+        height: auto !important;
+    }
+
+    /* Larger controls for touch */
+    .window-controls .control {
+        width: 24px !important;
+        height: 24px !important;
+        margin-left: 8px !important;
+    }
+
+    .control i {
+        font-size: 12px !important;
+        opacity: 1 !important;
+    }
+
+    /* Adjust content padding */
+    .window-content {
+        padding: 16px !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+    }
+
+    /* Hide desktop-only elements */
+    .window-resize-handle,
+    .minimize,
+    .maximize {
+        display: none !important;
+    }
+
+    /* Responsive grids */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    /* Responsive forms */
+    input, textarea, select {
+        font-size: 16px !important; /* Prevent zoom on iOS */
+    }
+
+    /* Animation adjustments */
+    .window {
+        animation: mobileWindowPop 0.3s ease-out !important;
+    }
+
+    @keyframes mobileWindowPop {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+/* Small screens adjustments */
+@media screen and (max-width: 380px) {
+    .window {
+        width: 96vw !important;
+        left: 2vw !important;
+    }
+
+    .window-header {
+        padding: 8px !important;
+    }
+
+    .window-content {
+        padding: 12px !important;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Landscape mode adjustments */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .window {
+        max-height: calc(100vh - 80px) !important;
+        top: 40px !important;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .window-content {
+        cursor: default !important;
+    }
+
+    .window-content::-webkit-scrollbar {
+        width: 0 !important;
+    }
+}
+
+/* Add these styles to your nstyles.css file */
+.mobile-nav-item {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--brand-purple);
+    cursor: pointer;
+    width: auto;
+    flex: 1;
+}
+
+.mobile-nav-item i {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.mobile-nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mobile-nav-item:active {
+    background: var(--soft-pink);
+}
+
+/* Dark theme support */
+body.dark-theme .mobile-nav-item {
+    color: var(--brand-pink);
+}
+
+body.dark-theme .mobile-nav-item:active {
+    background: rgba(145, 104, 146, 0.15);
+}
+
+/* Small screen adjustments */
+@media screen and (max-width: 380px) {
+    .mobile-nav-item {
+        padding: 6px 12px;
+    }
+
+    .mobile-nav-item i {
+        font-size: 20px;
+    }
+
+    .mobile-nav-item span {
+        font-size: 10px;
+    }
+}
+
+/* Add these styles to your nstyles.css */
+
+@media screen and (max-width: 768px) {
+    /* Hide menu items but keep Polly button */
+    .menu-bar-item:not(:first-child) {
+        display: none !important;
+    }
+
+    /* Keep only essential items in taskbar */
+    #taskbar {
+        justify-content: space-between;
+    }
+
+    .menu-bar {
+        flex-shrink: 0;
+    }
+
+    /* Adjust spacing for remaining elements */
+    .ml-auto {
+        margin-left: 0;
+        gap: 8px;
+    }
+
+    /* Make time more visible */
+    #time {
+        min-width: 50px;
+        font-size: 14px;
+    }
+}
+/* Dark mode specialty badges */
+body.dark-theme .bg-white.rounded-full.text-sm.text-purple-600,
+body.dark-theme .px-3.py-1.bg-white.rounded-full.text-sm.text-purple-600 {
+    color: #916892 !important; /* Darker purple color */
+}
+
+/* Make background slightly darker too for better contrast */
+body.dark-theme .bg-white.rounded-full,
+body.dark-theme .px-3.py-1.bg-white.rounded-full {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Add to your nstyles.css */
+
+/* Add these styles */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--soft-pink);  /* Using your site's background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.preloader.fade-out {
+    opacity: 0;
+}
+
+.loader-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate 2s infinite ease-in-out;
+}
+
+.cube-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--brand-pink), var(--retro-pink)); /* Using your brand colors */
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 146, 165, 0.3);
+}
+
+
+.front  { transform: translateZ(24px); }
+.back   { transform: translateZ(-24px) rotateY(180deg); }
+.right  { transform: translateX(24px) rotateY(90deg); }
+.left   { transform: translateX(-24px) rotateY(-90deg); }
+.top    { transform: translateY(-24px) rotateX(90deg); }
+.bottom { transform: translateY(24px) rotateX(-90deg); }
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+        transform: rotateX(180deg) rotateY(180deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+.loader-text {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--retro-pink);  /* Using your accent color */
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    animation: pulse 1.5s infinite;
+}
+
+/* Improved progress bar */
+.progress {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 146, 165, 0.2);
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #FF92A5;
+    border-radius: 4px;
+    transition: width 0.3s ease-out;
+    animation: progress 2s ease-out forwards;
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes load {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Window Mobile Styles */
+.window.mobile {
+    position: fixed;
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 92vw !important;
+    max-height: calc(100vh - var(--header-height) - var(--mobile-nav-height));
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.window.mobile .window-header {
+    padding: 16px;
+    height: auto;
+}
+
+.window.mobile .window-controls {
+    gap: 12px;
+}
+
+.window.mobile .control {
+    width: 24px;
+    height: 24px;
+}
+
+.window.mobile .control i {
+    font-size: 12px;
+    opacity: 1;
+}
+
+/* Maximize/Restore Transitions */
+.window {
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+}
+
+.window.maximized {
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.window.maximized .window-header {
+    border-radius: 0;
+}
+
+.window.maximized .window-resize-handle {
+    display: none;
+}
+
+/* Window States and Animations */
+.window.closing {
+    animation: windowClose 0.2s ease-out forwards;
+}
+
+.window.minimizing {
+    animation: windowMinimize 0.2s ease-out forwards;
+}
+
+@keyframes windowClose {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes windowMinimize {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Improved Mobile Touch Handling */
+@media (max-width: 768px) {
+    .window-content {
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+    
+    .window-header {
+        cursor: default;
+    }
+    
+    .control {
+        padding: 8px;
+        touch-action: manipulation;
+    }
+}
+
+/* Better Desktop Interactions */
+@media (min-width: 769px) {
+    .window {
+        will-change: transform, width, height;
+    }
+    
+    .window-resize-handle {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 16px;
+        height: 16px;
+        cursor: se-resize;
+        z-index: 10;
+    }
+    
+    .window-resize-handle:hover::after {
+        content: '';
+        position: absolute;
+        right: 3px;
+        bottom: 3px;
+        width: 6px;
+        height: 6px;
+        border-right: 2px solid var(--brand-pink);
+        border-bottom: 2px solid var(--brand-pink);
+        opacity: 0.5;
+    }
+}
+
+/* High DPI Screen Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .window {
+        border-width: 0.5px;
+    }
+    
+    .control {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .window {
+        transition: none !important;
+    }
+    
+    .window.closing,
+    .window.minimizing {
+        animation: none !important;
+    }
+}
+
+/* Hide logo when any window is maximized */
+.has-maximized-window .floating-logo {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+/* Window Z-index Management */
+.window {
+    z-index: var(--z-window);
+}
+
+.window.active {
+    z-index: var(--z-window-active);
+}
+
+.window.maximized {
+    z-index: var(--z-window-maximized) !important;
+}
+
+#taskbar {
+    z-index: var(--z-taskbar);
+}
+
+/* Ensure modals stay on top */
+.modal, 
+.overlay {
+    z-index: var(--z-modal);
+}
+
+/* Terms of Service List Styles */
+.term-section ul {
+    margin-left: 1rem;
+}
+
+.term-section ul.list-disc {
+    margin-left: 2rem;
+}
+
+/* Regular list items */
+.term-section ul:not(.list-disc) li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.term-section ul:not(.list-disc) li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--brand-pink);
+}
+
+/* Nested list items */
+.term-section ul ul {
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+.term-section ul ul li::before {
+    content: '◦';
+    color: var(--retro-pink);
+}
+
+/* Adjustments for What I Draw section */
+.term-section .list-disc {
+    margin-top: 0.5rem;
+}
+
+.term-section .list-disc li {
+    margin-bottom: 0.25rem;
+}
+
+.term-section .list-disc li::marker {
+    color: var(--brand-pink);
+}
+
+/* Form Styles */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    color: #000000;  /* Black text */
+}
+
+/* For placeholder text - making it slightly lighter but still readable */
+input::placeholder,
+textarea::placeholder {
+    color: #6B7280;  /* Gray-500 */
+}
+
+/* For dark theme - make text white */
+body.dark-theme input[type="text"],
+body.dark-theme input[type="email"],
+body.dark-theme select,
+body.dark-theme textarea {
+    color: #000000;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+    color: #686868;  /* Gray-400 */
+}
+
+/* Make select options black even in dark mode since they use system dropdown */
+select option {
+    color: #000000;
+}
+
+/* Base Mobile Styles */
+@media screen and (max-width: 768px) {
+    /* Window Adjustments */
+    .window {
+        width: 92vw !important;
+        min-width: unset;
+        left: 4vw !important;
+        max-height: calc(100vh - var(--header-height) - var(--mobile-nav-height) - 20px);
+        border-radius: 12px;
+        position: fixed;
+        transform: none !important;
+        top: calc(var(--header-height) + 10px);
+        overflow: hidden;
+        touch-action: none;
+    }
+
+    /* Improved Touch Controls */
+    .window-header {
+        padding: 12px !important;
+        height: auto !important;
+        min-height: 48px;
+        cursor: default;
+    }
+
+    .window-controls .control {
+        width: 32px !important;
+        height: 32px !important;
+        margin-left: 8px !important;
+    }
+
+    .control i {
+        font-size: 14px !important;
+        opacity: 1 !important;
+    }
+
+    /* Better Content Scrolling */
+    .window-content {
+        -webkit-overflow-scrolling: touch;
+        padding: 16px !important;
+        overflow-y: auto !important;
+    }
+
+    /* Hide Desktop Elements */
+    .window-resize-handle,
+    .minimize,
+    .maximize,
+    .desktop-icon,
+    #active-windows {
+        display: none !important;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+        display: flex !important;
+        height: var(--mobile-nav-height);
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 2px solid var(--retro-pink);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--z-taskbar);
+    }
+
+    /* Simplified Menu Bar */
+    #taskbar {
+        height: var(--header-height);
+        padding: 0 8px;
+    }
+
+    .menu-bar-item:not(:first-child) {
+        display: none !important;
+    }
+
+    /* Form Elements */
+    input, textarea, select {
+        font-size: 16px !important;
+        padding: 12px !important;
+    }
+}
+
+/* Small Screen Optimizations */
+@media screen and (max-width: 380px) {
+    :root {
+        --header-height: 38px;
+        --mobile-nav-height: 50px;
+    }
+
+    .window {
+        width: 96vw !important;
+        left: 2vw !important;
+    }
+
+    .window-controls .control {
+        width: 28px !important;
+        height: 28px !important;
+    }
+
+    .mobile-nav {
+        padding: 4px;
+    }
+}
+
+/* Landscape Mode */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .window {
+        max-height: calc(100vh - var(--header-height) - 20px);
+    }
+
+    .mobile-nav {
+        display: none !important;
+    }
+}
+
+/* Touch Optimizations */
+@media (hover: none) {
+    .window-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .control, 
+    .mobile-nav-item {
+        touch-action: manipulation;
+    }
+}
+
+.mobile-window {
+    transition: transform 0.3s ease;
+}
+
+.window-opening {
+    animation: slideInUp 0.3s ease;
+}
+
+.window-closing {
+    animation: slideOutDown 0.3s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    #taskbar {
+        height: 42px;
+        padding: 0 8px;
+    }
+
+    .menu-bar {
+        width: 100%;
+    }
+
+    .menu-bar-item:not(:first-child) {
+        display: none;
+    }
+
+    .menu-bar-item:first-child {
+        font-size: 14px;
+    }
+
+    #active-windows {
+        display: none;
+    }
+
+    .status-group {
+        gap: 12px;
+    }
+
+    .status-group i {
+        font-size: 14px;
+    }
+
+    #time {
+        min-width: 48px;
+        font-size: 12px;
+    }
+
+    .theme-toggle-btn {
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-bar-item span {
+        display: none;
+    }
+
+    .status-group i:not(:last-child) {
+        display: none;
+    }
+}
+
+/* Submenu styles */
+.menu-item.has-submenu {
+    position: relative;
+}
+
+.menu-item.has-submenu .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.2s ease;
+}
+
+.menu-item.has-submenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Hover effect for submenu items */
+.submenu .menu-item {
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+}
+
+.submenu .menu-item:hover {
+    background: rgba(255, 192, 203, 0.1);
+}
+
+/* Chevron animation */
+.menu-item.has-submenu:hover .fa-chevron-right {
+    transform: rotate(90deg);
+    transition: transform 0.2s ease;
+}
+
+.fa-chevron-right {
+    font-size: 0.8em;
+    transition: transform 0.2s ease;
+}
+
+/* Light theme submenu styles */
+.menu-item.has-submenu .submenu {
+    background: white;
+    border: 1px solid rgba(255, 192, 203, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submenu .menu-item:hover {
+    background: rgba(255, 192, 203, 0.1);
+}
+
+/* Dark theme submenu styles */
+.dark-theme .menu-item.has-submenu .submenu {
+    background: #252525;
+    border: 1px solid rgba(255, 192, 203, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .submenu .menu-item {
+    color: #e1e1e1;
+}
+
+.dark-theme .submenu .menu-item:hover {
+    background: rgba(255, 192, 203, 0.05);
+    color: #fff;
+}
+
+.dark-theme .submenu .menu-item i {
+    color: rgba(255, 192, 203, 0.8);
+}
+
+/* Transition for smooth theme switching */
+.menu-item.has-submenu .submenu,
+.submenu .menu-item {
+    transition: all 0.2s ease;
+}
+
+/* For items with submenu that use flex layout */
+.menu-item.has-submenu > div {
+    gap: 2rem;  /* Match the spacing in regular menu items */
+}
+
+.menu-item.has-submenu i {
+    width: 1.5rem;  /* Fixed width for icons to align text */
+    text-align: center;
+    margin-right: 0.5rem;  /* Additional space after icon */
+}
+
+.menu-item.has-submenu .fa-chevron-right {
+    margin-left: auto;  /* Push chevron to the right */
+    width: auto;  /* Don't apply fixed width to chevron */
+    margin-right: 0;  /* Remove right margin from chevron */
+}
+
+/* Add this to your nstyles.css */
+.desktop-icon {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.desktop-icon img {
+    width: 48px;
+    height: 48px;
+    transition: transform 0.2s ease;
+}
+
+.desktop-icon:hover img {
+    transform: scale(1.1);
+}
+
+.desktop-icon span {
+    font-size: 12px;
+    text-align: center;
+    color: #916892;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Dark theme adjustments */
+.dark-theme .desktop-icon {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .desktop-icon:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .desktop-icon span {
+    color: #FFB7D5;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.wc-container {
+    padding: 10px;
+  }
+  
+ @media screen and (max-width: 768px) {
+    .window {
+        width: 92vw !important;
+        min-width: unset;
+        left: 4vw !important;
+        max-height: calc(100vh - var(--header-height) - 100px) !important; /* Account for dock */
+        border-radius: 12px;
+        position: fixed;
+        transform: none !important;
+        top: calc(var(--header-height) + 10px);
+        overflow: hidden;
+        touch-action: none;
+        margin-bottom: 80px !important; /* Add margin for dock */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding-bottom: 80px !important; /* Height of the dock */
+    }
+}
+
+.start-menu-header button {
+    position: relative;
+    border: 1px solid rgba(255, 175, 215, 0.3);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: all 0.2s ease;
+}
+
+.start-menu-header button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 175, 215, 0.5);
+}
+
+.start-menu-header button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme support */
+body.dark-theme .start-menu-header button {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 175, 215, 0.2);
+}
+
+body.dark-theme .start-menu-header button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 175, 215, 0.4);
+}
+
+/* Add these to your CSS */
+.menu-bar-item:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    margin-right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 175, 215, 0.3);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.menu-bar-item:first-child:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 175, 215, 0.5);
+    transform: translateY(-1px);
+}
+
+.menu-bar-item:first-child:active {
+    transform: translateY(0);
+}
+
+.menu-bar-item:first-child .logo-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    padding: 2px;
+    border: 1px solid rgba(255, 175, 215, 0.2);
+}
+
+/* Dark theme enhancements */
+body.dark-theme .menu-bar-item:first-child {
+    background: rgba(255, 175, 215, 0.15);  /* More visible pink background */
+    border: 1px solid rgba(255, 175, 215, 0.4);
+    box-shadow: 0 0 10px rgba(255, 175, 215, 0.1);
+}
+
+body.dark-theme .menu-bar-item:first-child:hover {
+    background: rgba(255, 175, 215, 0.25);
+    border-color: rgba(255, 175, 215, 0.6);
+    box-shadow: 
+        0 0 15px rgba(255, 175, 215, 0.2),
+        inset 0 0 8px rgba(255, 175, 215, 0.1);
+}
+
+body.dark-theme .menu-bar-item:first-child .logo-container {
+    background: rgba(255, 175, 215, 0.1);
+    border: 1px solid rgba(255, 175, 215, 0.3);
+    box-shadow: 0 0 8px rgba(255, 175, 215, 0.1);
+}
+
+body.dark-theme .menu-bar-item:first-child span {
+    color: rgba(255, 175, 215, 0.9);  /* Brighter text */
+    text-shadow: 0 0 8px rgba(255, 175, 215, 0.3);
+}
+
+body.dark-theme .menu-bar-item:first-child:active {
+    background: rgba(255, 175, 215, 0.3);
+    transform: translateY(1px);
+    box-shadow: 0 0 5px rgba(255, 175, 215, 0.1);
+}
+
+
+/* Light Theme Styles */
+body:not(.dark-theme) .start-menu {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 192, 203, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+body:not(.dark-theme) .start-menu-header {
+    background: linear-gradient(to right, rgba(255, 192, 203, 0.1), rgba(255, 192, 203, 0.2));
+    border-bottom: 1px solid rgba(255, 192, 203, 0.2);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body:not(.dark-theme) .menu-items {
+    padding: 8px;
+}
+
+body:not(.dark-theme) .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--brand-purple);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+body:not(.dark-theme) .menu-item:hover {
+    background: rgba(255, 192, 203, 0.1);
+}
+
+body:not(.dark-theme) .menu-divider {
+    height: 1px;
+    background: rgba(255, 192, 203, 0.2);
+    margin: 8px 0;
+}
+
+body:not(.dark-theme) .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 192, 203, 0.5);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    display: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .menu-item.has-submenu:hover .submenu {
+    display: block;
+}
+
+/* Dark Theme Styles */
+.dark-theme .start-menu {
+    background: rgba(28, 28, 28, 0.95);
+    border: 1px solid rgba(70, 70, 70, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.dark-theme .start-menu-header {
+    background: linear-gradient(to right, rgba(40, 40, 40, 0.9), rgba(50, 50, 50, 0.9));
+    border-bottom: 1px solid rgba(70, 70, 70, 0.5);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dark-theme .menu-items {
+    padding: 8px;
+}
+
+.dark-theme .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.dark-theme .menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .menu-divider {
+    height: 1px;
+    background: rgba(70, 70, 70, 0.5);
+    margin: 8px 0;
+}
+
+.dark-theme .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: rgba(28, 28, 28, 0.95);
+    border: 1px solid rgba(70, 70, 70, 0.5);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    display: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .menu-item.has-submenu:hover .submenu {
+    display: block;
+}
+
+/* Common hover effects for both themes */
+.menu-item.power {
+    color: #ff4757 !important;
+}
+
+.menu-item.power:hover {
+    background: rgba(255, 71, 87, 0.1);
+}
+
+/* Animation */
+@keyframes menuSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLLYGON Guestbook</title>
+    <link rel="stylesheet" href="nstyles.css">
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-title">POLLY'S GUESTBOOK!</div>
+            <div class="date-display" id="date-display">
+                <span id="week-range"></span>
+                <span id="current-year"></span>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="guestbook-form" method="POST" enctype="multipart/form-data">
+                <div class="char-counter">0/500</div>
+                
+                <label>Name:</label>
+                <input type="text" id="name" required placeholder="Your name">
+
+                <label>Site URL (optional):</label>
+                <input type="url" id="website" placeholder="https://your-site.com">
+
+                <label>Message:</label>
+                <div class="toolbar">
+                    <button type="button" onclick="formatText('i')" title="Italic">I</button>
+                    <button type="button" onclick="formatText('b')" title="Bold">B</button>
+                    <button type="button" onclick="formatText('align')" title="Align Text">⫷</button>
+                    <button type="button" onclick="formatText('font')" title="Font">A</button>
+                    <button type="button" onclick="formatText('size')" title="Size">A+</button>
+                    <button type="button" onclick="formatText('code')" title="Code">⟨/⟩</button>
+                    <button type="button" onclick="formatText('emoji', '❤️')" title="Heart">❤️</button>
+                    <input type="file" id="image" accept="image/*" title="Upload Image">
+                </div>
+                <textarea id="message" rows="6" required placeholder="Write your message here or show me a doodle you made in the paint app!"></textarea>
+                <img id="preview-image">
+
+                <button type="submit">Send Message <3</button>
+            </form>
+        </div>
+
+        <div class="messages" id="messages">
+            <!-- Messages will be loaded here -->
+            <div class="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

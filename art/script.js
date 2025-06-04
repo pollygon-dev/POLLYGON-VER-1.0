@@ -1,336 +1,337 @@
 (function() {
     // State management
-    let currentModal = null;
-    let highestZIndex = 1000;
-    const modalStates = new Map();
-    let isDragging = false;
-    let initialX;
-    let initialY;
-    let currentX;
-    let currentY;
-
-    // Modal mapping
-    const modalMap = {
-        'Gallery': 'galleryModal',
-        'Commissions': 'commissionsModal',
-        'Tracker': 'trackerModal'
-    };
+    let currentGalleryModal = null;
+    let galleryModalHighestZIndex = 1000;
+    const galleryModalStates = new Map();
+    let galleryModalIsDragging = false;
+    let galleryModalInitialX;
+    let galleryModalInitialY;
+    let galleryModalCurrentX;
+    let galleryModalCurrentY;
 
     // Modal Functions
-    function centerModal(modal) {
-        if (!modal || !modal.style) return;
+    function centerGalleryModal(galleryModal) {
+        if (!galleryModal || !galleryModal.style) return;
         
-        const state = modalStates.get(modal.id);
-        if (!state) return;
+        const galleryModalState = galleryModalStates.get(galleryModal.id);
+        if (!galleryModalState) return;
 
-        if (state.isFullscreen) {
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.transform = 'none';
+        if (galleryModalState.isFullscreen) {
+            galleryModal.style.top = '0';
+            galleryModal.style.left = '0';
+            galleryModal.style.transform = 'none';
             return;
         }
 
-        modal.style.top = '50%';
-        modal.style.left = '50%';
-        modal.style.transform = 'translate(-50%, -50%)';
+        galleryModal.style.top = '50%';
+        galleryModal.style.left = '50%';
+        galleryModal.style.transform = 'translate(-50%, -50%)';
     }
 
-    function bringToFront(modal) {
-        if (!modal || !modal.style) return;
-        highestZIndex++;
-        modal.style.zIndex = highestZIndex;
+    function bringGalleryModalToFront(galleryModal) {
+        if (!galleryModal || !galleryModal.style) return;
+        galleryModalHighestZIndex++;
+        galleryModal.style.zIndex = galleryModalHighestZIndex;
     }
 
-    function closeModal(modal) {
-        if (!modal) return;
+    function updateGalleryTaskbarState(galleryModal, isVisible) {
+        if (!galleryModal) return;
         
-        modal.classList.remove('show');
-        
-        const modalTitle = Object.keys(modalMap).find(key => modalMap[key] === modal.id);
-        if (modalTitle) {
-            const taskbarItem = Array.from(document.querySelectorAll('.taskbar-item'))
-                .find(item => item.querySelector('span')?.textContent.trim() === modalTitle);
-            if (taskbarItem) {
-                taskbarItem.classList.remove('active');
+        const galleryModalTitle = galleryModal.querySelector('.modal-title')?.textContent;
+        if (!galleryModalTitle) return;
+
+        const galleryTaskbarItems = document.querySelectorAll('.taskbar-item');
+        galleryTaskbarItems.forEach(item => {
+            if (item.dataset.modalId === galleryModal.id) {
+                item.classList.toggle('active', isVisible);
             }
-        }
-
-        const state = modalStates.get(modal.id);
-        if (state?.isFullscreen) {
-            toggleFullscreen(modal);
-        }
+        });
     }
 
-    function setupModal(modal) {
-        if (!modal) return;
+    function closeGalleryModal(galleryModal) {
+        if (!galleryModal) return;
         
-        const modalHeader = modal.querySelector('.modal-header');
-        const closeButton = modal.querySelector('.close-button');
-        const minimizeButton = modal.querySelector('.minimize-button');
-        const fullscreenButton = modal.querySelector('.fullscreen-button');
-
-        modalHeader?.addEventListener('mousedown', (e) => {
-            dragStart(e, modal);
-            bringToFront(modal);
+        galleryModal.classList.remove('show');
+        
+        // Remove taskbar item completely when closing
+        const galleryTaskbarItems = document.querySelectorAll('.taskbar-item');
+        galleryTaskbarItems.forEach(item => {
+            if (item.dataset.modalId === galleryModal.id) {
+                item.remove();
+            }
         });
 
-        modal.addEventListener('mousedown', () => bringToFront(modal));
-        closeButton?.addEventListener('click', () => closeModal(modal));
-        minimizeButton?.addEventListener('click', () => minimizeModal(modal));
-        fullscreenButton?.addEventListener('click', () => toggleFullscreen(modal));
+        const galleryModalState = galleryModalStates.get(galleryModal.id);
+        if (galleryModalState?.isFullscreen) {
+            toggleGalleryModalFullscreen(galleryModal);
+        }
+    }
 
-        modalStates.set(modal.id, {
+    function setupGalleryModal(galleryModal) {
+        if (!galleryModal) return;
+        
+        const galleryModalHeader = galleryModal.querySelector('.modal-header');
+        const galleryCloseButton = galleryModal.querySelector('.close-button');
+        const galleryMinimizeButton = galleryModal.querySelector('.minimize-button');
+        const galleryFullscreenButton = galleryModal.querySelector('.fullscreen-button');
+
+        galleryModalHeader?.addEventListener('mousedown', (e) => {
+            galleryModalDragStart(e, galleryModal);
+            bringGalleryModalToFront(galleryModal);
+        });
+
+        galleryModal.addEventListener('mousedown', () => bringGalleryModalToFront(galleryModal));
+        galleryCloseButton?.addEventListener('click', () => closeGalleryModal(galleryModal));
+        galleryMinimizeButton?.addEventListener('click', () => minimizeGalleryModal(galleryModal));
+        galleryFullscreenButton?.addEventListener('click', () => toggleGalleryModalFullscreen(galleryModal));
+
+        galleryModalStates.set(galleryModal.id, {
             isFullscreen: false,
             prevState: null
         });
 
         // Watch for show class changes
-        const observer = new MutationObserver((mutations) => {
+        const galleryModalObserver = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'class' && 
-                    mutation.target.classList.contains('show')) {
-                    centerModal(mutation.target);
+                if (mutation.attributeName === 'class') {
+                    const isVisible = galleryModal.classList.contains('show');
+                    updateGalleryTaskbarState(galleryModal, isVisible);
+                    if (isVisible) {
+                        centerGalleryModal(galleryModal);
+                    }
                 }
             });
         });
         
-        observer.observe(modal, { attributes: true });
+        galleryModalObserver.observe(galleryModal, { attributes: true });
     }
 
-    function dragStart(e, modal) {
-        if (!modal || e.target.closest('.modal-controls')) return;
+    function galleryModalDragStart(e, galleryModal) {
+        if (!galleryModal || e.target.closest('.modal-controls')) return;
         
-        const state = modalStates.get(modal.id);
-        if (!state || state.isFullscreen) return;
+        const galleryModalState = galleryModalStates.get(galleryModal.id);
+        if (!galleryModalState || galleryModalState.isFullscreen) return;
 
-        currentModal = modal;
+        currentGalleryModal = galleryModal;
         
-        const transform = window.getComputedStyle(modal).transform;
-        const matrix = new DOMMatrix(transform);
+        const galleryModalTransform = window.getComputedStyle(galleryModal).transform;
+        const galleryModalMatrix = new DOMMatrix(galleryModalTransform);
         
-        initialX = e.clientX - matrix.m41;
-        initialY = e.clientY - matrix.m42;
+        galleryModalInitialX = e.clientX - galleryModalMatrix.m41;
+        galleryModalInitialY = e.clientY - galleryModalMatrix.m42;
         
         if (e.target.closest('.modal-header')) {
-            isDragging = true;
-            modal.style.transition = 'none';
+            galleryModalIsDragging = true;
+            galleryModal.style.transition = 'none';
         }
     }
 
-    function drag(e) {
-        if (!isDragging || !currentModal || !currentModal.style) return;
+    function galleryModalDrag(e) {
+        if (!galleryModalIsDragging || !currentGalleryModal || !currentGalleryModal.style) return;
         e.preventDefault();
         
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
+        galleryModalCurrentX = e.clientX - galleryModalInitialX;
+        galleryModalCurrentY = e.clientY - galleryModalInitialY;
         
-        currentModal.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        currentGalleryModal.style.transform = `translate(${galleryModalCurrentX}px, ${galleryModalCurrentY}px)`;
     }
 
-    function dragEnd() {
-        if (!currentModal) return;
+    function galleryModalDragEnd() {
+        if (!currentGalleryModal) return;
         
-        isDragging = false;
-        if (currentModal.style) {
-            currentModal.style.transition = 'transform 0.3s ease';
+        galleryModalIsDragging = false;
+        if (currentGalleryModal.style) {
+            currentGalleryModal.style.transition = 'transform 0.3s ease';
         }
-        currentModal = null;
+        currentGalleryModal = null;
     }
 
-    function toggleFullscreen(modal) {
-        if (!modal || !modal.style) return;
+    function toggleGalleryModalFullscreen(galleryModal) {
+        if (!galleryModal || !galleryModal.style) return;
         
-        const state = modalStates.get(modal.id);
-        if (!state) return;
+        const galleryModalState = galleryModalStates.get(galleryModal.id);
+        if (!galleryModalState) return;
 
-        state.isFullscreen = !state.isFullscreen;
+        galleryModalState.isFullscreen = !galleryModalState.isFullscreen;
         
-        if (state.isFullscreen) {
-            state.prevState = {
-                width: modal.offsetWidth,
-                height: modal.offsetHeight,
-                transform: modal.style.transform
+        if (galleryModalState.isFullscreen) {
+            galleryModalState.prevState = {
+                width: galleryModal.offsetWidth,
+                height: galleryModal.offsetHeight,
+                transform: galleryModal.style.transform
             };
             
-            modal.classList.add('fullscreen');
-            modal.style.transform = 'none';
+            galleryModal.classList.add('fullscreen');
+            galleryModal.style.transform = 'none';
         } else {
-            modal.classList.remove('fullscreen');
+            galleryModal.classList.remove('fullscreen');
             
-            if (state.prevState) {
-                modal.style.width = `${state.prevState.width}px`;
-                modal.style.height = `${state.prevState.height}px`;
+            if (galleryModalState.prevState) {
+                galleryModal.style.width = `${galleryModalState.prevState.width}px`;
+                galleryModal.style.height = `${galleryModalState.prevState.height}px`;
                 
-                if (state.prevState.transform) {
-                    modal.style.transform = state.prevState.transform;
+                if (galleryModalState.prevState.transform) {
+                    galleryModal.style.transform = galleryModalState.prevState.transform;
                 } else {
-                    centerModal(modal);
+                    centerGalleryModal(galleryModal);
                 }
             }
         }
 
-        const fullscreenButton = modal.querySelector('.fullscreen-button');
-        if (fullscreenButton) {
-            fullscreenButton.innerHTML = state.isFullscreen ? 
+        const galleryFullscreenButton = galleryModal.querySelector('.fullscreen-button');
+        if (galleryFullscreenButton) {
+            galleryFullscreenButton.innerHTML = galleryModalState.isFullscreen ? 
                 '<i class="fas fa-compress"></i>' : 
                 '<i class="fas fa-expand"></i>';
         }
     }
 
-    function minimizeModal(modal) {
-        if (!modal) return;
+    function minimizeGalleryModal(galleryModal) {
+        if (!galleryModal) return;
         
-        modal.classList.remove('show');
-        
-        const modalTitle = Object.keys(modalMap).find(key => modalMap[key] === modal.id);
-        if (modalTitle) {
-            const taskbarItem = Array.from(document.querySelectorAll('.taskbar-item'))
-                .find(item => item.querySelector('span')?.textContent.trim() === modalTitle);
-            if (taskbarItem) {
-                taskbarItem.classList.remove('active');
-            }
-        }
+        galleryModal.classList.remove('show');
+        updateGalleryTaskbarState(galleryModal, false);
 
-        const state = modalStates.get(modal.id);
-        if (state?.isFullscreen) {
-            toggleFullscreen(modal);
+        const galleryModalState = galleryModalStates.get(galleryModal.id);
+        if (galleryModalState?.isFullscreen) {
+            toggleGalleryModalFullscreen(galleryModal);
         }
     }
 
-    function addTaskbarItem(title, icon) {
-        const taskbarItems = document.querySelector('.taskbar-items');
-        if (!taskbarItems) return;
+    function addGalleryTaskbarItem(galleryTitle, galleryIcon, galleryModalId) {
+        const galleryTaskbarItems = document.querySelector('.taskbar-items');
+        if (!galleryTaskbarItems) return;
 
-        const existingItem = Array.from(taskbarItems.children)
-            .find(item => item.querySelector('span')?.textContent.trim() === title);
-        
-        if (existingItem) {
-            const modalId = modalMap[title];
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                if (modal.classList.contains('show')) {
-                    minimizeModal(modal);
-                } else {
-                    modal.classList.add('show');
-                    bringToFront(modal);
-                    existingItem.classList.add('active');
-                }
-            }
-            return existingItem;
-        }
+        // Remove any existing taskbar items for this modal
+        const galleryExistingItems = Array.from(galleryTaskbarItems.children)
+            .filter(item => item.dataset.modalId === galleryModalId);
+        galleryExistingItems.forEach(item => item.remove());
 
-        const taskbarItem = document.createElement('button');
-        taskbarItem.className = 'taskbar-item active';
-        taskbarItem.innerHTML = `
-            <i class="${icon}"></i>
-            <span>${title}</span>
+        const galleryTaskbarItem = document.createElement('button');
+        galleryTaskbarItem.className = 'taskbar-item active';
+        galleryTaskbarItem.innerHTML = `
+            <i class="${galleryIcon}"></i>
+            <span>${galleryTitle}</span>
         `;
         
-        taskbarItems.appendChild(taskbarItem);
+        // Store the modal ID on the taskbar item
+        galleryTaskbarItem.dataset.modalId = galleryModalId;
+        
+        galleryTaskbarItems.appendChild(galleryTaskbarItem);
 
-        taskbarItem.addEventListener('click', () => {
-            const modalId = modalMap[title];
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
+        galleryTaskbarItem.addEventListener('click', () => {
+            const galleryModal = document.getElementById(galleryModalId);
+            if (!galleryModal) return;
             
-            if (modal.classList.contains('show')) {
-                minimizeModal(modal);
+            if (galleryModal.classList.contains('show')) {
+                minimizeGalleryModal(galleryModal);
             } else {
-                modal.classList.add('show');
-                taskbarItem.classList.add('active');
-                bringToFront(modal);
-                centerModal(modal);
+                galleryModal.classList.add('show');
+                bringGalleryModalToFront(galleryModal);
+                centerGalleryModal(galleryModal);
+                galleryTaskbarItem.classList.add('active');
             }
         });
 
-        return taskbarItem;
+        return galleryTaskbarItem;
     }
 
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('show');
-            bringToFront(modal);
-            centerModal(modal);
+    function openGalleryModal(galleryModalId, galleryCustomTitle = null, galleryCustomIcon = null) {
+        const galleryModal = document.getElementById(galleryModalId);
+        if (!galleryModal) return;
+
+        const galleryTitle = galleryCustomTitle || galleryModal.querySelector('.modal-title')?.textContent;
+        const galleryIcon = galleryCustomIcon || document.querySelector(`[data-modal="${galleryModalId}"] i`)?.className || '';
+        
+        galleryModal.classList.add('show');
+        bringGalleryModalToFront(galleryModal);
+        centerGalleryModal(galleryModal);
+        
+        if (galleryTitle) {
+            addGalleryTaskbarItem(galleryTitle, galleryIcon, galleryModalId);
         }
     }
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize UI elements
-        const startButton = document.querySelector('.taskbar-start');
-        const startMenu = document.querySelector('.start-menu');
-        const navIcons = document.querySelectorAll('.nav-icon');
-        const startMenuItems = document.querySelectorAll('.start-menu-item');
+        const galleryStartButton = document.querySelector('.taskbar-start');
+        const galleryStartMenu = document.querySelector('.start-menu');
+        const galleryNavIcons = document.querySelectorAll('.nav-icon');
+        const galleryStartMenuItems = document.querySelectorAll('.start-menu-item');
 
         // Set up start menu
-        if (startButton && startMenu) {
-            startButton.addEventListener('click', (e) => {
+        if (galleryStartButton && galleryStartMenu) {
+            galleryStartButton.addEventListener('click', (e) => {
                 e.stopPropagation();
-                startMenu.classList.toggle('show');
+                galleryStartMenu.classList.toggle('show');
             });
 
             document.addEventListener('click', (e) => {
-                if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
-                    startMenu.classList.remove('show');
+                if (!galleryStartMenu.contains(e.target) && !galleryStartButton.contains(e.target)) {
+                    galleryStartMenu.classList.remove('show');
                 }
             });
         }
 
         // Initialize modals
-        document.querySelectorAll('.modal').forEach(modal => {
-            if (!modal) return;
-            setupModal(modal);
+        document.querySelectorAll('.modal').forEach(galleryModal => {
+            if (!galleryModal) return;
+            setupGalleryModal(galleryModal);
         });
 
         // Handle nav icon clicks
-        navIcons.forEach(icon => {
-            icon.addEventListener('click', () => {
-                const modalId = icon.dataset.modal;
-                if (modalId) {
-                    openModal(modalId);
-                    const title = icon.textContent.trim();
-                    const iconEl = icon.querySelector('i');
-                    const iconClass = iconEl ? iconEl.className : '';
-                    addTaskbarItem(title, iconClass);
+        galleryNavIcons.forEach(galleryIcon => {
+            galleryIcon.addEventListener('click', () => {
+                const galleryModalId = galleryIcon.dataset.modal;
+                if (galleryModalId) {
+                    const galleryModal = document.getElementById(galleryModalId);
+                    if (galleryModal) {
+                        const galleryTitle = galleryModal.querySelector('.modal-title')?.textContent;
+                        const galleryIconEl = galleryIcon.querySelector('i');
+                        const galleryIconClass = galleryIconEl ? galleryIconEl.className : '';
+                        openGalleryModal(galleryModalId, galleryTitle, galleryIconClass);
+                    }
                 }
             });
         });
 
         // Handle start menu item clicks
-        startMenuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const modalId = item.dataset.modal;
-                if (modalId) {
-                    openModal(modalId);
-                    const title = item.querySelector('span').textContent.trim();
-                    const iconEl = item.querySelector('i');
-                    const iconClass = iconEl ? iconEl.className : '';
-                    addTaskbarItem(title, iconClass);
-                    startMenu.classList.remove('show');
+        galleryStartMenuItems.forEach(galleryItem => {
+            galleryItem.addEventListener('click', () => {
+                const galleryModalId = galleryItem.dataset.modal;
+                if (galleryModalId) {
+                    const galleryModal = document.getElementById(galleryModalId);
+                    if (galleryModal) {
+                        const galleryTitle = galleryModal.querySelector('.modal-title')?.textContent;
+                        const galleryIconEl = galleryItem.querySelector('i');
+                        const galleryIconClass = galleryIconEl ? galleryIconEl.className : '';
+                        openGalleryModal(galleryModalId, galleryTitle, galleryIconClass);
+                        galleryStartMenu.classList.remove('show');
+                    }
                 }
             });
         });
 
         // Set up global event listeners
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('mousemove', galleryModalDrag);
+        document.addEventListener('mouseup', galleryModalDragEnd);
 
         // Initialize clock
-        function updateTime() {
-            const timestamp = document.querySelector('.timestamp');
-            if (!timestamp) return;
+        function updateGalleryTime() {
+            const galleryTimestamp = document.querySelector('.timestamp');
+            if (!galleryTimestamp) return;
             
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            timestamp.textContent = `${hours}:${minutes}`;
+            const galleryNow = new Date();
+            const galleryHours = String(galleryNow.getHours()).padStart(2, '0');
+            const galleryMinutes = String(galleryNow.getMinutes()).padStart(2, '0');
+            galleryTimestamp.textContent = `${galleryHours}:${galleryMinutes}`;
         }
 
-        updateTime();
-        setInterval(updateTime, 60000);
+        updateGalleryTime();
+        setInterval(updateGalleryTime, 60000);
 
         // Export necessary functions
-        window.closeModal = closeModal;
+        window.closeGalleryModal = closeGalleryModal;
     });
 })();

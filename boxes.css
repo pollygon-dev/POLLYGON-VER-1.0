@@ -12,9 +12,11 @@
   border-right: 2px solid #808080;
   border-bottom: 2px solid #808080;
   font-family: Kubasta;
+  /* Add smooth transitions for responsive changes */
+  transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, right 0.3s ease, bottom 0.3s ease;
 }
 
-/* Box positions and sizes */
+/* Box positions and sizes - Desktop (default) */
 .microblog-box {
   right: 20px;
   top: 20px;
@@ -28,7 +30,8 @@
 .music-player {
   bottom: 60px;
   left: 20px;
-  width: 450px;
+  width: 620px;
+  height: 290px;
   padding: 2px;
   user-select: none;
 }
@@ -83,6 +86,9 @@
   text-decoration: none;
   line-height: 1;
   padding-bottom: 2px;
+  /* Make buttons touch-friendly on mobile */
+  min-width: 16px;
+  min-height: 14px;
 }
 
 .window-button:hover {
@@ -105,6 +111,10 @@
   border-right: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
   padding: 4px;
+}
+
+.player-content {
+  padding-left: 10px;
 }
 
 .microblog-content {
@@ -191,7 +201,7 @@
   align-items: center;
   padding: 4px;
   gap: 8px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 /* Playback controls */
@@ -214,6 +224,8 @@
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
+  /* Make buttons more touch-friendly */
+  touch-action: manipulation;
 }
 
 .control-button:active {
@@ -269,6 +281,8 @@
   background-color: #f2e6ef;
   border: 1px solid #8b728b;
   height: 4px;
+  /* Make sliders more touch-friendly on mobile only */
+  cursor: pointer;
 }
 
 .seek_slider {
@@ -333,6 +347,10 @@ bsky-embed {
   background-color: #fcdde1;
   border: 2px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
+  /* Make more touch-friendly */
+  min-height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .read-more a {
@@ -402,4 +420,602 @@ bsky-embed {
 /* Utility classes */
 .hidden {
   display: none;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Large Desktop (1440px and up) - Default styles apply */
+
+/* Medium Desktop (1200px - 1439px) */
+@media screen and (max-width: 1439px) {
+  .gif-box {
+    right: 420px;
+    width: 600px;
+    height: 375px;
+  }
+  
+  .microblog-box {
+    width: 400px;
+  }
+  
+  .music-player {
+    width: 400px;
+  }
+}
+
+/* Small Desktop (992px - 1199px) */
+@media screen and (max-width: 1199px) {
+  .gif-box {
+    right: 320px;
+    width: 500px;
+    height: 312px;
+  }
+  
+  .microblog-box {
+    width: 350px;
+    max-height: calc(100vh - 400px);
+  }
+  
+  .music-player {
+    width: 350px;
+  }
+  
+  .player-controls {
+    gap: 4px;
+  }
+  
+  .volume_slider {
+    width: 50px;
+  }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media screen and (max-width: 991px) {
+  .gif-box {
+    right: 20px;
+    top: 350px;
+    width: 400px;
+    height: 250px;
+  }
+  
+  .microblog-box {
+    width: 300px;
+    max-height: calc(100vh - 450px);
+  }
+  
+  .music-player {
+    width: 300px;
+    bottom: 50px;
+  }
+  
+  .player-controls {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  
+  .time-controls {
+    order: 1;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .seek_slider {
+    flex: 1;
+    min-width: 150px;
+    margin: 0 8px;
+  }
+  
+  .controls {
+    order: 2;
+    justify-content: center;
+    align-self: center;
+  }
+  
+  .volume-control {
+    order: 3;
+    justify-content: center;
+    align-self: center;
+  }
+  
+  /* Make buttons larger for touch */
+  .window-button {
+    width: 20px;
+    height: 18px;
+    font-size: 11px;
+  }
+  
+  .control-button {
+    min-width: 24px;
+    height: 24px;
+  }
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media screen and (max-width: 767px) {
+  .microblog-box {
+    right: 10px;
+    top: 10px;
+    width: 280px;
+    max-height: calc(100vh - 300px);
+  }
+  
+  .gif-box {
+    right: 10px;
+    top: calc(100vh - 250px);
+    width: 300px;
+    height: 180px;
+  }
+  
+  .music-player {
+    left: 10px;
+    bottom: 50px;
+    width: 280px;
+  }
+  
+  .player-controls {
+    padding: 8px 4px;
+  }
+  
+  .seek_slider, .volume_slider {
+    min-height: 30px;
+    height: 30px;
+  }
+  
+  .time-display {
+    font-size: 11px;
+    min-width: 80px;
+  }
+}
+
+/* Mobile Landscape (480px - 599px) */
+@media screen and (max-width: 599px) {
+  .microblog-box {
+    right: 5px;
+    top: 5px;
+    width: 250px;
+    max-height: calc(100vh - 200px);
+  }
+  
+  .gif-box {
+    right: 5px;
+    top: calc(100vh - 200px);
+    width: 250px;
+    height: 150px;
+  }
+  
+  .music-player {
+    left: 5px;
+    bottom: 45px;
+    width: 250px;
+  }
+  
+  .title-bar, .microblog-title-bar, .music-title-bar, .gif-title-bar {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+  
+  .microblog-content {
+    padding: 8px;
+    max-height: calc(100vh - 180px);
+  }
+  
+  .gif-content {
+    padding: 5px;
+  }
+  
+  .player-controls {
+    flex-direction: column;
+    gap: 8px;
+    padding: 6px 4px;
+    align-items: stretch;
+  }
+  
+  .time-controls {
+    order: 1;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .seek_slider {
+    flex: 1;
+    min-width: 100px;
+    height: 25px;
+    margin: 0 6px;
+  }
+  
+  .time-display {
+    font-size: 10px;
+    min-width: 70px;
+    flex-shrink: 0;
+  }
+  
+  .controls {
+    order: 2;
+    justify-content: center;
+    align-self: center;
+  }
+  
+  .volume-control {
+    order: 3;
+    justify-content: center;
+    align-self: center;
+  }
+}
+
+/* Mobile Portrait (320px - 479px) */
+@media screen and (max-width: 479px) {
+  /* Stack boxes vertically for very small screens */
+  .microblog-box {
+    right: 5px;
+    top: 5px;
+    width: calc(100vw - 20px);
+    max-width: 300px;
+    max-height: 200px;
+  }
+  
+  .gif-box {
+    right: 5px;
+    top: 220px;
+    width: calc(100vw - 20px);
+    max-width: 300px;
+    height: 120px;
+  }
+  
+  .music-player {
+    left: 5px;
+    bottom: 45px;
+    width: calc(100vw - 20px);
+    max-width: 300px;
+  }
+  
+  .player-controls {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 4px;
+    align-items: stretch;
+  }
+  
+  .time-controls {
+    order: 1;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  
+  .seek_slider {
+    flex: 1;
+    min-width: 80px;
+    height: 30px;
+    margin: 0;
+  }
+  
+  .time-display {
+    font-size: 11px;
+    min-width: 75px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  
+  .controls {
+    order: 2;
+    justify-content: space-around;
+    width: 100%;
+    gap: 8px;
+  }
+  
+  .volume-control {
+    order: 3;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+  
+  .volume_slider {
+    width: 80px;
+    height: 30px;
+  }
+  
+  /* Larger touch targets */
+  .window-button {
+    width: 24px;
+    height: 22px;
+    font-size: 12px;
+  }
+  
+  .control-button {
+    min-width: 28px;
+    height: 28px;
+  }
+  
+  .control-button i {
+    font-size: 14px;
+  }
+  
+  .read-more {
+    min-height: 35px;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+}
+
+/* Extra small mobile (max 319px) */
+@media screen and (max-width: 319px) {
+  .microblog-box, .gif-box, .music-player {
+    width: calc(100vw - 10px);
+    left: 5px !important;
+    right: 5px !important;
+  }
+  
+  .gif-box {
+    height: 100px;
+  }
+  
+  .microblog-box {
+    max-height: 150px;
+  }
+  
+  .title-bar-text {
+    font-size: 10px;
+  }
+  
+  .window-button {
+    width: 20px;
+    height: 18px;
+    font-size: 10px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .microblog-box {
+    max-height: calc(100vh - 120px);
+  }
+  
+  .gif-box {
+    height: calc(100vh - 150px);
+    max-height: 200px;
+  }
+  
+  .music-player {
+    bottom: 40px;
+  }
+}
+
+/* High DPI displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2), 
+       screen and (min-resolution: 192dpi) {
+  .window-button, .control-button {
+    /* Ensure crisp rendering on high DPI */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Hover states - disable on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .window-button:hover,
+  .control-button:hover {
+    background: initial;
+  }
+  
+  .control-button:hover i {
+    color: initial;
+  }
+  
+  .close-microblog:hover, 
+  .close-player:hover, 
+  .close-gif:hover {
+    background: initial;
+    color: initial;
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .microblog-box, .music-player, .gif-box {
+    transition: none;
+  }
+  
+  .gif-container img {
+    transition: none;
+  }
+}
+
+/* Add these styles to your boxes.css file to make the music box iframe responsive */
+
+/* Base music player iframe styling */
+.player-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Ensure player-content adapts to container */
+.player-content {
+  background-color: #e8e6f2;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  padding: 4px;
+  height: calc(100% - 20px); /* Account for title bar height */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Music player responsive adjustments */
+
+/* Medium Desktop (1200px - 1439px) */
+@media screen and (max-width: 1439px) {
+  .music-player {
+    width: 400px;
+    height: 260px; /* Slightly smaller */
+  }
+}
+
+/* Small Desktop (992px - 1199px) */
+@media screen and (max-width: 1199px) {
+  .music-player {
+    width: 350px;
+    height: 240px;
+  }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media screen and (max-width: 991px) {
+  .music-player {
+    width: 300px;
+    height: 220px;
+    bottom: 50px;
+  }
+  
+  .player-content {
+    padding: 2px;
+  }
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media screen and (max-width: 767px) {
+  .music-player {
+    left: 10px;
+    bottom: 50px;
+    width: 280px;
+    height: 200px;
+  }
+}
+
+/* Mobile Landscape (480px - 599px) */
+@media screen and (max-width: 599px) {
+  .music-player {
+    left: 5px;
+    bottom: 45px;
+    width: 250px;
+    height: 180px;
+  }
+  
+  .music-title-bar {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+}
+
+/* Mobile Portrait (320px - 479px) */
+@media screen and (max-width: 479px) {
+  .music-player {
+    left: 5px;
+    bottom: 45px;
+    width: calc(100vw - 20px);
+    max-width: 300px;
+    height: 160px;
+  }
+  
+  .player-content {
+    padding: 2px;
+  }
+}
+
+/* Extra small mobile (max 319px) */
+@media screen and (max-width: 319px) {
+  .music-player {
+    width: calc(100vw - 10px);
+    left: 5px !important;
+    right: 5px !important;
+    height: 140px;
+  }
+  
+  .title-bar-text {
+    font-size: 10px;
+  }
+  
+  .window-button {
+    width: 20px;
+    height: 18px;
+    font-size: 10px;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .music-player {
+    height: calc(100vh - 120px);
+    max-height: 180px;
+    bottom: 40px;
+  }
+}
+
+/* Prevent iframe from overflowing its container */
+.music-player {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.player-content {
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Ensure iframe scales properly within its container */
+.player-content iframe {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+}
+
+/* Fix for very small screens - make sure content is accessible */
+@media screen and (max-width: 280px) {
+  .music-player {
+    position: fixed;
+    left: 2px !important;
+    right: 2px !important;
+    width: calc(100vw - 4px) !important;
+    height: 120px;
+    bottom: 40px;
+  }
+  
+  .music-title-bar {
+    font-size: 9px;
+    padding: 1px 2px;
+  }
+  
+  .window-button {
+    width: 16px;
+    height: 14px;
+    font-size: 8px;
+  }
+}
+
+/* High DPI displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2), 
+       screen and (min-resolution: 192dpi) {
+  .player-content iframe {
+    /* Ensure crisp rendering on high DPI */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Hover states - disable on touch devices for better mobile experience */
+@media (hover: none) and (pointer: coarse) {
+  .window-button:hover {
+    background: initial;
+  }
+}
+
+/* Accessibility: Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .music-player {
+    transition: none;
+  }
 }

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../profile.css">
+    <title>Jean</title>
+    
+</head>
+<style>
+      .story {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .story p {
+            margin-bottom: 1.5em;
+        }
+
+        .story .dialogue {
+            margin: 1em 0;
+        }
+
+        .story .thought {
+            font-style: italic;
+            color: #555;
+        }
+
+        .story .narrative-note {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            margin: 2em 0;
+        }
+</style>
+<body>
+    <div class="container">
+        <div class="page-border"></div>
+        <img src="../../corner-decoration.svg" alt="" class="corner corner-top-left" />
+        <img src="../../corner-decoration.svg" alt="" class="corner corner-top-right" />
+        <img src="../../corner-decoration.svg" alt="" class="corner corner-bottom-left" />
+        <img src="../../corner-decoration.svg" alt="" class="corner corner-bottom-right" />
+        
+        <div class="header">
+            <h1 class="character-name">Jean Cromwell</h1>
+            <div class="subtitle">The Runaway Noble</div>
+        </div>
+        
+        <img src="../../ornamental-divider.svg" alt="" class="section-divider" />
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="character-image-container">
+                    <div class="element-corner">
+                        <img src="../../elements/5.png" alt="Wind" class="element-corner-icon">
+                    </div>
+                    <img src="../../portrait/jean.png" alt="Character Portrait" class="character-image">
+                </div>
+                
+                <div class="section">
+                    <button class="stillmoor-button wind">Affinity: Wind</button>
+                    <button class="stillmoor-button">Job: Investigator</button>
+                    <button class="stillmoor-button">Region: Kingdom of Herad</button>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Quick Facts</h2>
+                    <div class="info-item">
+                        <span class="info-label">Pronouns</span>
+                        <span class="info-value">He/Him</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Age</span>
+                        <span class="info-value">38</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Born</span>
+                        <span class="info-value">June 2</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Species</span>
+                        <span class="info-value">Human</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Height</span>
+                        <span class="info-value">179cm</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Affiliation</span>
+                        <span class="info-value">Myrna</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Preferences</h2>
+                    <div class="info-item">
+                        <span class="info-label">Favorite</span>
+                        <span class="info-value">Reno & Annie</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Study</span>
+                        <span class="info-value">Alchemy</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Location</span>
+                        <span class="info-value">His Atelier</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Season</span>
+                        <span class="info-value">Autumn</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="tabs">
+                    <div class="tab active" data-tab="profile">Profile</div>
+                    <div class="tab" data-tab="abilities">Anecdotes</div>
+                    <div class="tab" data-tab="story">Story</div>
+                    <div class="tab" data-tab="relationships">Connections</div>
+                </div>
+
+                <div id="profile" class="tab-content active">
+                    <div class="section">
+                        <h2 class="section-title">Character Overview</h2>
+                        <p>A brilliant alchemist from the noble House of Cromwell who chose freedom over family legacy. Despite his genius in alchemy, Jean's rude and insufferable behavior drove wedges between him and his peers. <br> <br>
+                            After leaving his family's gilded cage, he forged his own path as an investigator, using his alchemical talents to solve cases. His life changed dramatically after meeting Reno and later adopting Annie, softening his sharp edges while maintaining his brilliant mind and quick wit.</p>
+                            <br>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Affinity</span>
+                                <span class="info-value">Wind</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Job</span>
+                                <span class="info-value">Investigator</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Specialty</span>
+                                <span class="info-value">Alchemy & Investigation</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Origin</span>
+                                <span class="info-value">Kingdom of Herad</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Personality</h2>
+                        <p>
+                            Jean Cromwell is a complex individual whose personality has evolved significantly through his experiences. In his early twenties, he was known for being brash, cocky, and difficult to work with, his genius often accompanied by an insufferable attitude that pushed others away. However, beneath this prickly exterior lay a deep desire for freedom and authenticity. His relationship with Reno and their eventual adoption of Annie revealed his capacity for profound tenderness and devotion, though he remains "insufferable to work with" even after mellowing with age. <br> <br>
+
+                            Jean possesses a quick mind and even quicker tongue, often using his sharp wit as both weapon and shield. He's resourceful and innovative, able to apply his alchemical knowledge in creative ways during investigations. Despite his noble upbringing, he's not above using his family's status to achieve his goals, showing a pragmatic streak that borders on manipulative. However, his genuine care for those close to him transforms these traits into protective instincts, willing to sacrifice anything - even his own arm - to keep his family safe. <br> <br>
+
+                            The influence of fatherhood has particularly impacted his character, teaching him patience and humility he never knew he possessed. His interactions with Annie reveal a gentle side that few would have believed possible in his younger years, showing how love has tempered his harshest edges without diminishing his essential nature. <br> <br>
+
+                        </p>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Virtues</span>
+                                <span class="info-value">Brilliant mind, protective nature</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Challenges</span>
+                                <span class="info-value"> Insufferable attitude</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Interests</span>
+                                <span class="info-value">Alchemy, mechanical innovation</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Aspirations</span>
+                                <span class="info-value">Freedom, protecting family</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div id="abilities" class="tab-content">
+                    <div class="section">
+                        <h2 class="section-title">A Fortuitous Fall</h2>
+                        <p>
+                            When a mercenary helps a noble's runaway son escape his family's ball, neither expects it to be the start of something extraordinary.
+                        </p>
+                        <br>
+                        <button class="stillmoor-button open-modal-btn" data-story="story1">Read</button>
+                          
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Birthday Flowers</h2>
+                        <p>
+                            On his forgotten birthday, an absent-minded alchemist discovers what truly matters when his daughter's quest for wildflowers leads to a desperate choice between his arm and her life.
+                        </p>
+                        <br>
+                        <button class="stillmoor-button open-modal-btn" data-story="story2">Read</button>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">A Brief Respite</h2>
+                        <p>
+                            In the quiet aftermath of tragedy, Jean learns that sometimes strength means letting yourself be cared for.
+                        </p>
+                        <br>
+                        <button class="stillmoor-button open-modal-btn" data-story="story3">Read</button>
+                    </div>
+
+
+
+                </div>
+
+                
+                <div id="story" class="tab-content">
+                    <div class="section">
+                        <h2 class="section-title">Background</h2>
+                        <p>
+                            Born into the prestigious House of Cromwell, Jean showed extraordinary talent in alchemy from an early age. By his twenties, he had earned recognition as a genius among his peers, though his difficult personality often overshadowed his achievements. The suffocating expectations of his noble family and their attempts to control his talents eventually drove him to abandon his position, choosing freedom over privilege. <br> <br>
+
+                            After leaving home, Jean began using his alchemical skills for investigation work, building a new life away from his family's influence. A fateful encounter with Reno during a ball - where the mercenary saved him from his family's hired forces - led to an unexpected partnership that would change both their lives. Their relationship deepened over time, moving from professional cooperation to something far more personal. <br> <br>
+                            
+                            The discovery of Annie in an abandoned cathedral marked another turning point in Jean's life. Despite his initial reluctance, he chose to raise her alongside Reno, establishing their home in the flower-filled village of Myrna. This decision not only gave him a chance at fatherhood but also helped heal some of his own wounds from family trauma. <br> <br>
+                            
+                        </p>
+                        
+                        <div class="quote-box">
+                            "I might have left behind the Cromwell name, but I found something far more precious - a family built on choice rather than blood."
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Early Life</h2>
+                        <p>Jean's early years were shaped by the weight of being a prodigy in a noble house known for alchemy. While his talent brought pride to his family, it also meant intense pressure and rigid expectations. His relationship with his family deteriorated as his rebellious nature clashed with their traditional values and attempts to control his future. This period fostered both his exceptional skills in alchemy and his deep-seated resistance to authority, setting the stage for his eventual departure from the family.</p>
+                    </div>
+
+                </div>
+
+                <div id="relationships" class="tab-content">
+                    <div class="section">
+                        <h2 class="section-title">Notable Connections</h2>
+                        <div class="relationship-card">
+                            <div class="relationship-info">
+                                <h3 class="relationship-name">Reno</h3>
+                                <div class="relationship-title">Partner, Protector, and Unspoken Love</div>
+                                <p>
+                                    The mercenary who changed Jean's life the night he carried him away from the Cromwell family ball. What started as an impulsive partnership proposal in a moonlit garden grew into something deeper than either of them have yet dared to name. Reno's steady presence serves as the perfect counterbalance to Jean's chaotic brilliance - he's one of the few people who can handle Jean's difficult personality while appreciating the genius beneath it. Their dynamic often mirrors that of Watson to Holmes, with Reno's practical approach complementing Jean's theoretical brilliance. <br> <br>
+
+                                    Despite his usual calm demeanor, Reno shows a different side with Jean, being the only person capable of making him feel genuine anger or annoyance. Yet these moments only underscore their deep connection - Reno's irritation usually stems from Jean's self-neglectful habits, shown in how he keeps careful track of Jean's meals and work patterns. His protective nature manifests in both grand gestures (like making half-day trips to Alryne just to bring Jean's favorite sweets) and small ones (like ensuring Jean takes breaks from his research). <br> <br>
+
+                                    Together, they've built a partnership that spans investigation work, combat, and family life. Reno's combat expertise perfectly complements Jean's alchemy, creating a formidable team. When Jean lost his arm protecting Annie, it was Reno's unwavering support that helped him through recovery. Their relationship continues to deepen with time, marked by lingering touches, shared looks over Annie's head, quiet moments in Jean's workshop, and the weight of feelings that grow stronger with each passing day - even if neither has found the courage to voice them yet. <br> <br>
+
+                                </p>
+                            </div>
+                        </div>
+                
+                        <div class="relationship-card">
+                            <div class="relationship-info">
+                                <h3 class="relationship-name">Annie</h3>
+                                <div class="relationship-title">Adoptive Daughter</div>
+                                <p>A child found abandoned in a cathedral who changed his life completely. Despite initial reluctance to take on a parental role, Jean found unexpected joy in fatherhood, his love for Annie helping to soften his sharp edges.</p>
+                            </div>
+                        </div>
+
+                        <div class="relationship-card">
+                            <div class="relationship-info">
+                                <h3 class="relationship-name">Duke Cromwell</h3>
+                                <div class="relationship-title">Estranged Father</div>
+                                <p>
+                                    Head of House Cromwell who continues to send mercenaries after Jean, wanting to bring his genius son back to the family. Their strained relationship represents everything Jean fled from - control, obligation, and the weight of noble expectations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relationship-card">
+                            <div class="relationship-info">
+                                <h3 class="relationship-name">Courier</h3>
+                                <div class="relationship-title">Former Student</div>
+                                <p>
+                                    A talented student who sought Jean's expertise in alchemy. Her fierce protective nature toward her younger brother Julian and willingness to break taboos for those she loves resonates with Jean's own protective instincts toward his family. Her determination and strong personality likely made their mentor-student relationship interesting, given Jean's own difficult nature.
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <img src="/api/placeholder/150/15" alt="" class="section-divider" />
+        
+        <div class="section">
+            <h2 class="section-title">Archives</h2>
+            <div class="gallery">
+                <img src="bg.png" alt="In his old Atelier">
+                <img src="sunsenya.png" alt="In Myrna by Liya (@sunsenya)">
+                <img src="rainna_arts.jpg" alt="by Rina (@rainna_arts)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="galleryLightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close">&times;</button>
+            <button class="lightbox-nav prev">&lt;</button>
+            <button class="lightbox-nav next">&gt;</button>
+            <img src="" alt="" class="lightbox-image">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Story -->
+    <div class="story-modal" data-story="story1">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-border"></div>
+                <div class="modal-corner modal-corner-tl"></div>
+                <div class="modal-corner modal-corner-tr"></div>
+                <div class="modal-corner modal-corner-bl"></div>
+                <div class="modal-corner modal-corner-br"></div>
+                
+                <div class="modal-inner">
+                    <h2 class="modal-title">A Fortuitous Fall</h2>
+                    <div class="modal-scroll-content">
+                        <div class="story">
+                            <p>The annual Cromwell ball was in full swing, music and laughter spilling from every window of the grand manor. Reno shifted in his position among the shadows of the courtyard, already regretting accepting this assignment from the Guild. Guard duty was beneath his skills, even if it was for one of the most prestigious households in the Kingdom of Herad.</p>
+                    
+                            <p>He'd been watching the nobles twirl and preen for hours, their jewels glinting like stars as they danced beneath crystal chandeliers. The Cromwell family certainly knew how to put on a show – everything dripped with wealth and power, from the golden fixtures to the elaborate alchemical displays that drew gasps of wonder from the guests.</p>
+                    
+                            <p>But there was one notable absence that had the crowd buzzing with gossip: the family's genius son, Jean Cromwell, hadn't been seen at a social function in months. Reno had overheard at least three different theories about his whereabouts, each more outlandish than the last. Studying advanced alchemy in distant lands, one claimed. Secretly engaged to a foreign princess, whispered another. Trapped in an alchemical experiment gone wrong, theorized a third.</p>
+                    
+                            <p>None of the gossips seemed to notice the tall, bespectacled man who occasionally slipped through the edges of the crowd, carefully observing before disappearing again. But Reno had. He'd been tracking the stranger's movements for the past hour, intrigued by his purposeful wandering.</p>
+                    
+                            <p>A commotion from the east wing interrupted his surveillance. Raised voices, running feet, and... was that an explosion?</p>
+                    
+                            <p class="dialogue">"Get back here, young master!"</p>
+                    
+                            <p class="dialogue">"Like hell I will!" came an indignant reply, followed by another small blast that sent guards stumbling back in confusion. "I got what I came for, now leave me alone!"</p>
+                    
+                            <p>A figure burst through the french doors onto the balcony - tall, blonde, dressed in formal attire that was now slightly singed at the edges. Even from a distance, Reno could see the man's face was flushed with exertion and anger as he looked frantically for an escape route.</p>
+                    
+                            <p>The famous young master Cromwell, Reno realized. The genius alchemist he'd been watching all evening, though he hadn't known it at the time. Though none of the gossip had mentioned how striking he looked when thoroughly annoyed, hair wild and eyes blazing.</p>
+                    
+                            <p class="dialogue">"ARGH! those mercs are way too energetic today," the man muttered, loud enough for Reno to hear. "Do they really want to catch me and bring me back to my family this badly?!"</p>
+                    
+                            <p>He paced the balcony, running fingers through already disheveled golden hair. "Well, I guess in the first place attending a ball hosted by my family is a bad idea. Of course people would recognize me. I am way too good-looki-- ARGH!"</p>
+                    
+                            <p>The self-aggrandizing speech cut off as he misstepped and stumbled, crying out in pain. Something fell from his coat – papers, Reno realized, covered in complex alchemical formulae. Jean scrambled to collect them, his movements hampered by what appeared to be a sprained ankle.</p>
+                    
+                            <p class="dialogue">"Great. JUST GREAT. I shouldn't have attended this ball," he groaned, clutching his ankle. "But of course they'd keep Father's research notes here, the pretentious—"</p>
+                    
+                            <p class="dialogue">"He stopped moving! Now's our chance!"</p>
+                    
+                            <p>The mercenaries were closing in, their weapons drawn. These weren't the manor's regular guards, Reno noted. These men moved with professional precision, clearly hired specifically to capture the young master. The noble was cornered, injured, and - despite his earlier display - looking increasingly desperate.</p>
+                    
+                            <p>Reno knew he should stay out of it. This was clearly a family matter, and interfering would only complicate things. He had a job to do, a reputation to maintain, a comfortable life working for the Guild.</p>
+                    
+                            <p>But something in the man's expression, a flash of genuine fear beneath the bluster, had Reno moving before he could think better of it.</p>
+                    
+                            <p>He scaled the balcony in three quick movements, scooped up the startled alchemist, and started running.</p>
+                    
+                            <p class="dialogue">"Hey! Put me down!" The noble squawked indignantly, flailing in Reno's arms. "Wh- Do you even know who I am?! You'll get in trouble for helping m-"</p>
+                    
+                            <p class="dialogue">"I really can't just leave you there and watch you," Reno cut him off, adjusting his grip as he vaulted over a low wall. His heart was racing, and not just from the exertion. "Don't worry, I'll bring you somewhere safe. You can leave after that. Just hold tight."</p>
+                    
+                            <p class="dialogue">"This is completely undignified," Jean complained, though he made no actual attempt to escape. "I had a perfectly good plan for getting away."</p>
+                    
+                            <p class="dialogue">"Did this plan account for your sprained ankle?"</p>
+                    
+                            <p class="dialogue">"... I would have figured something out."</p>
+                    
+                            <p class="dialogue">"Like what?" Reno couldn't help asking as he ducked them behind a hedge.</p>
+                    
+                            <p class="dialogue">"Well, I have several experimental alchemical compounds that could—"</p>
+                    
+                            <p class="dialogue">"Please tell me you're not carrying explosives while I'm holding you."</p>
+                    
+                            <p class="dialogue">"Of course not!" Jean sounded offended. "They're not explosives, they're merely highly reactive catalysts for rapid molecular transformation that occasionally result in energetic decomposition—"</p>
+                    
+                            <p class="dialogue">"Those are explosives."</p>
+                    
+                            <p class="dialogue">"The terminology is completely different!"</p>
+                    
+                            <p class="dialogue">"!!!"</p>
+                    
+                            <p>Reno glanced down at his passenger, concerned by the sudden silence, only to find the young master's face had turned bright red. "Are you okay? Your face is red."</p>
+                    
+                            <p class="dialogue">"WH- I'M FINE just. Just look forward, we might crash into something!" Jean clutched the papers to his chest with one hand, the other gripping Reno's shoulder perhaps a bit tighter than strictly necessary.</p>
+                    
+                            <p>"I-I see..." Reno couldn't quite suppress his smile. <span class="thought">Cute.</span> Not a word he'd expected to associate with the infamous rebel son of House Cromwell, but there was something endearing about how quickly his haughty demeanor had crumbled into flustered indignation.</p>
+                    
+                            <p>They made their escape through the manor's grounds, Reno's knowledge of the patrol routes proving invaluable. He took them through hidden paths and secret corners, always staying one step ahead of their pursuers. Jean gradually stopped protesting, though Reno noticed how he tensed at every sound of pursuit, how his breath caught whenever they had a close call.</p>
+                    
+                            <p class="dialogue">"Why..." Jean asked during a quiet moment as they waited for a patrol to pass, "why are you helping me? You clearly work here, given how well you know the grounds."</p>
+                    
+                            <p>Reno considered his answer carefully. "Let's just say I'm not fond of cages, golden or otherwise."</p>
+                    
+                            <p>Jean's eyes widened behind his glasses, and something passed between them – recognition, understanding, a shared distaste for constraints.</p>
+                    
+                            <p>Finally, in a secluded corner of the gardens far from the sounds of pursuit, Reno set his charge down carefully. The music from the ball was barely audible here, replaced by the gentle sound of crickets and rustling leaves.</p>
+                    
+                            <p class="dialogue">"I'm sorry, I must've been heavy," the blonde said, suddenly seeming unsure of himself. He was still clutching the papers, Reno noticed, as if they were precious beyond measure.</p>
+                    
+                            <p class="dialogue">"It's fine. I'm glad you're okay." Reno turned to leave, already wondering what excuse he'd give the Guild for abandoning his post.</p>
+                    
+                            <p class="dialogue">"Wait! What's your name?"</p>
+                    
+                            <p>Reno paused. He shouldn't answer. Shouldn't get any more involved than he already was. But... "It's Reno."</p>
+                    
+                            <p class="dialogue">"Nice to meet you, Reno. Where are my manners? I forgot to introduce myself properly." He attempted a formal bow, only to wince and grab his ankle. "My name is Jean Cromwell, though I suppose you'd gathered that from all the shouting earlier."</p>
+                    
+                            <p class="dialogue">"! You're the son of Duke Cromwell." As if Reno hadn't already known exactly who he was carrying. "The one they call the Golden Alchemist."</p>
+                    
+                            <p class="dialogue">"Oh god, are they still using that ridiculous title?" Jean groaned. "I blow up ONE laboratory using gold phosphorus, and suddenly it's my trademark. Nobody talks about all the blue explosions I've made. Or the purple ones. I'm quite proud of the purple ones, actually—"</p>
+                    
+                            <p class="dialogue">"I believe they were referring to your hair."</p>
+                    
+                            <p class="dialogue">"... oh." Jean touched his reddish-gold hair self-consciously. "Well, that's far less interesting."</p>
+                    
+                            <p class="dialogue">"Also. Please. Don't associate me with my family." Jean's expression darkened, then transformed into what had to be the most aggressively pleasant smile Reno had ever seen. "I hate them."</p>
+                    
+                            <p class="dialogue">"I-I'm sorry. So, is the reason why they're chasing you is..?"</p>
+                    
+                            <p class="dialogue">"They want me back, but I am SOOO tired of them telling me what to do. Can't they even prove their oh-so noble alchemist blood without me?" Jean started muttering, his hands moving animatedly. "Always 'Jean do this' and 'Jean make that' and 'Jean stop experimenting with volatile compounds in the dining room' and 'Jean you must uphold the family legacy' and—" He caught himself, adjusting his glasses sheepishly. "Ah, I'm sorry for rambling on."</p>
+                    
+                            <p>Reno opened his mouth to say it was fine, to make his exit, to end what was already too much involvement in noble family drama. Instead, he found himself caught in Jean's gaze as the alchemist suddenly seized his hands.</p>
+                    
+                            <p class="thought">(His eyes are shining.. Why do I feel like I'm about to hear something ridiculous)</p>
+                    
+                            <p class="dialogue">"Please... Wait."</p>
+                    
+                            <p class="dialogue">"I've taken a liking to you."</p>
+                    
+                            <p>Reno blinked, thrown by the direct statement. But Jean wasn't finished.</p>
+                    
+                            <p class="dialogue">"Would you like... to work together as partners?"</p>
+                    
+                            <p class="dialogue">"Partners?" Reno repeated, bewildered. "You don't even know what I do."</p>
+                    
+                            <p class="dialogue">"You're a mercenary, aren't you? Working for the Guild, given your training, but not particularly happy about being assigned to guard duty." Jean's eyes sparkled with intelligence. "You're skilled – your movements earlier proved that. You know these grounds perfectly, suggesting extensive reconnaissance work. And you have a strong moral compass, or you wouldn't have helped me."</p>
+                    
+                            <p>Reno stared at him, impressed despite himself. "You got all that just from our brief encounter?"</p>
+                    
+                            <p class="dialogue">"I am a genius," Jean said with absolutely no modesty, before his expression softened into something more genuine. "And... you're interesting. Most people who know who I am either want to use my talents or return me to my family. You just... helped. Even though it complicated things for you."</p>
+                    
+                            <p>Standing there in the moonlit garden, holding hands with a noble's runaway son who'd just proposed they become partners mere minutes after meeting, Reno knew he should say no. Should walk away. Should return to his sensible life of taking straightforward jobs from the Guild.</p>
+                    
+                            <p>But looking into those earnest, brilliant eyes, seeing the way Jean clutched those stolen research notes like they were his ticket to freedom, Reno found himself wondering how much trouble one genius alchemist could really be.</p>
+                    
+                            <p class="dialogue">"Your ankle," he said instead of answering. "Can you walk?"</p>
+                    
+                            <p>Jean tested it gingerly. "I'll manage. Though..." He glanced up at Reno through his lashes, a hint of mischief in his smile. "I wouldn't object to further assistance."</p>
+                    
+                            <p class="dialogue">"You're going to be impossible to work with, aren't you?"</p>
+                    
+                            <p class="dialogue">"Me? Impossible?" Jean pressed a hand to his chest in mock offense. "I'll have you know I'm merely highly particular about certain things. Like proper laboratory safety protocols."</p>
+                    
+                            <p class="dialogue">"The ones about not carrying explosives?"</p>
+                    
+                            <p class="dialogue">"Those are more like... guidelines. Very flexible guidelines." Jean's expression turned earnest. "But I am excellent at teamwork! Just ask any of my former research partners!"</p>
+                    
+                            <p class="dialogue">"And where are they now?"</p>
+                    
+                            <p class="dialogue">"Ah." Jean coughed delicately. "Perhaps that's not the best reference. But I promise I've grown as a person since those minor laboratory incidents. And you seem much more durable than most academics."</p>
+                    
+                            <p class="dialogue">"Is that supposed to be reassuring?"</p>
+                    
+                            <p class="dialogue">"Is it working?"</p>
+                    
+                            <p class="dialogue">"Strangely, yes." Reno found himself fighting back a smile. "Though I'm already regretting this."</p>
+                    
+                            <p class="dialogue">"Is that a yes?" Jean's eyes lit up with that dangerous sparkle again.</p>
+                    
+                            <p>Reno sighed, but he was already moving to support Jean's weight. "Let's find somewhere safe first. Then we can discuss terms of this... partnership." He paused. "And establish some ground rules about experimental alchemy."</p>
+                    
+                            <p class="dialogue">"Oh, wonderful! I have several theories about combining mercenary combat techniques with alchemical enhancement that I've been dying to test—"</p>
+                    
+                            <p class="dialogue">"Rule number one: No using me as a test subject."</p>
+                    
+                            <p class="dialogue">"But—"</p>
+                    
+                            <p class="dialogue">"No."</p>
+                    
+                            <p>Jean's brilliant smile lit up the night. "I know just the place! There's a fascinating old cathedral in Norbury that's said to house some unique alchemical manuscripts—"</p>
+                    
+                            <p class="dialogue">"No heists until your ankle heals."</p>
+                    
+                            <p class="dialogue">"But—"</p>
+                    
+                            <p class="dialogue">"No."</p>
+                    
+                            <p>They bickered quietly as they made their way into the night, leaving behind the glittering ball and its golden cage. Neither of them knew it yet, but this was the beginning of something extraordinary – a partnership that would grow into love, a chance encounter that would lead to family, a moment that would change both their lives forever.
+                    
+                            <p class="narrative-note">(As it turned out, the amount of trouble one genius alchemist could be was: quite a lot. But that's another story.)</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="stillmoor-button close-modal-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="story-modal" data-story="story2">
+        <!-- Same structure as above, different content -->
+        <div class="modal-container">
+            <div class="modal-content">
+                <!-- ... decorative elements ... -->
+                <div class="modal-inner">
+                    <h2 class="modal-title">Birthday Flowers</h2>
+                    <div class="modal-scroll-content">
+                    <div class="story">
+                        <p>Jean hadn't even remembered it was his birthday. He'd been too absorbed in his latest alchemical research, papers scattered across his workshop desk, when Reno mentioned going to Alryne for a special errand. It wasn't until Annie whispered something about flowers and presents that he realized why.</p>
+
+                        <p class="dialogue">"Don't work too hard," Reno had said before leaving, that familiar worried crease between his brows. "Try to remember to eat something."</p>
+
+                        <p class="dialogue">"Yes, yes," Jean had waved him off, already lost in his calculations again. "I know how to take care of myself."</p>
+
+                        <p>Reno's doubtful look had spoken volumes, but he'd left anyway, likely to fetch one of those cakes Jean pretended not to love from the bakery in Alryne.</p>
+
+                        <p>Now, racing through the woods with his heart in his throat, none of that mattered.</p>
+
+                        <p class="dialogue">"Annie!" His voice echoed through the trees. No response. "Annie, where are you?"</p>
+
+                        <p>The shadows were growing longer as afternoon slipped toward evening. He shouldn't have let himself get so caught up in work. Should have noticed sooner when she'd slipped out. Should have—</p>
+
+                        <p>A child's scream split the air.</p>
+
+                        <p>Jean moved without thinking, his body responding before his mind could process the sound. He burst through a thicket into a small clearing and his heart stopped.</p>
+
+                        <p>Annie stood frozen against a tree, clutching a bundle of wildflowers. Before her, a monster raised its claws – some twisted thing that had wandered too close to the village. Her wide eyes met his, filled with terror.</p>
+
+                        <p class="dialogue">"Mr. Jean—"</p>
+
+                        <p>He didn't think. Didn't plan. Didn't even consider using alchemy. In that fraction of a second, there was only one thought: <span class="thought">Not her</span>.</p>
+
+                        <p>Jean threw himself forward just as the monster struck. There was a moment of searing pain as claws meant for his daughter tore through his right arm instead. He barely registered his own scream, focused only on keeping Annie behind him as they fell.</p>
+
+                        <p class="dialogue">"Mr. Jean! MR. JEAN!"</p>
+
+                        <p>Blood soaked his sleeve, but his left arm still worked. He pushed Annie further behind him, trying to keep his voice steady despite the agony radiating from his shoulder. "Run. Now!"</p>
+
+                        <p class="dialogue">"But—"</p>
+
+                        <p class="dialogue">"RUN!"</p>
+
+                        <p>The monster lunged again. Jean's vision swam, his right arm hanging useless and mangled at his side. He couldn't move, couldn't defend, couldn't—</p>
+
+                        <p>A familiar battle cry rang out, followed by the singing arc of a greatsword. Reno burst into the clearing like an avenging angel, his blade finding its mark with lethal precision. The monster fell with a horrible shriek, and then there was only the sound of harsh breathing and Annie's sobs.</p>
+
+                        <p class="dialogue">"Jean!" Reno was at his side in an instant, face pale with horror as he took in the damage. "Gods, your arm—"</p>
+
+                        <p class="dialogue">"Annie," Jean managed through gritted teeth. "Is she—"</p>
+
+                        <p class="dialogue">"Mr. Jean!" Small hands clutched at his good arm. "I'm sorry, I'm so sorry, I just wanted to get you flowers for your birthday, I didn't mean—"</p>
+
+                        <p class="dialogue">"Shh." Jean tried to smile, though he suspected it came out more like a grimace. "Not your fault, little one. Never your fault."</p>
+
+                        <p>The last thing he saw before consciousness slipped away was Reno's face above him, typically stoic expression shattered with fear, and Annie's flowers scattered across the bloodstained grass.</p>
+
+                        <p><span class="thought">Some birthday</span>, he thought distantly. Then darkness took him.</p>
+
+                        <p>The next few hours came in hazy flashes of consciousness. He remembered Reno's voice first, steady despite the fear Jean could hear underneath, telling Annie to run ahead and fetch the healer. Then there was burning agony as they moved him, each step sending waves of pain through his shattered arm. Through the fog, he caught fragments of conversation – someone saying the arm couldn't be saved, Annie's quiet sobs from somewhere nearby. Through it all, Reno's hand remained warm and anchoring on his remaining one, never letting go, as if afraid Jean might slip away entirely if he did.</p>
+
+                        <p>When he finally surfaced fully, the afternoon had faded to evening. He was in his bed, the right side of his body a mass of bandages and pain. Annie sat curled in a chair by the window, watching him with red-rimmed eyes but maintaining that careful distance she always kept, as if afraid to get too close.</p>
+
+                        <p class="dialogue">"Mr. Jean?" Her voice was barely a whisper. "Mr. Reno said... he said I should go to bed, but..."</p>
+
+                        <p class="dialogue">"It's okay," he tried to say, though his throat was raw. "You can stay."</p>
+
+                        <p>She didn't move closer, but some of the tension left her small shoulders. Outside, he could hear Reno speaking quietly with the healer.</p>
+
+                        <p class="dialogue">"The flowers," Annie said suddenly. "They were supposed to be for your birthday. Mr. Reno said... he said you forget about taking care of yourself sometimes, but you always remember to take care of me and him. So I wanted..." Her voice wobbled. "I wanted to do something nice for you too."</p>
+
+                        <p>Jean's heart ached far more than his missing arm. "Annie..."</p>
+
+                        <p class="dialogue">"I'll go to bed now," she said quickly, sliding off the chair. "Mr. Reno said you need rest."</p>
+
+                        <p>She hesitated at the door, then added so quietly he almost missed it: "I'm glad you're okay."</p>
+
+                        <p>After she left, Reno entered, his usual composure back in place save for the lingering worry in his eyes. He settled into the chair Annie had vacated, his hand finding Jean's remaining one with practiced ease.</p>
+
+                        <p class="dialogue">"You don't have to stay," Jean whispered, though everything in him hoped Reno would ignore the weak protest.</p>
+
+                        <p class="dialogue">"I know," Reno replied simply, but didn't move.</p>
+
+                        <p>And so began the longest night of their lives – the first of many as they adjusted to their new reality. But even then, watching Annie peer anxiously around the door frame and feeling Reno's steady presence beside him, Jean knew with absolute certainty that he would make the same choice again.</p>
+
+                        <p>After all, what was an arm compared to the family who, though they might not have the words for it yet, had become his whole world?</p>
+
+                        <p>The night deepened around their little cottage in Myrna, where torn and bloodied flowers lay forgotten on a workshop desk. Inside, a genius alchemist finally allowed himself to drift back to sleep, anchored by the gentle touch of the man who had become his home in all the ways that mattered most.</p>
+
+                        <p>Tomorrow would bring its own challenges – a new reality to face, a traumatized child to comfort, a future to rebuild. But for now, in this quiet moment, Jean let himself be held together by the two people who, though they might not say it yet, had become father and partner in all but name.</p>
+
+                        <p>As he drifted off, he thought he felt Reno's fingers brush his hair back from his face with infinite tenderness. But maybe that was just the pain making him imagine things.</p>
+
+                        <p>Days passed in a haze of pain and medicine. From his room, Jean could hear Annie's heartbreaking sobs through the walls. He wanted desperately to go to her, to comfort her, but he couldn't bear the thought of her seeing him like this – bandaged, weak, missing an arm. The last thing she needed was more trauma.</p>
+
+                        <p>Instead, Reno moved between them both, a steady bridge keeping their little family connected. He would sit with Jean, helping him with the simplest tasks that now seemed mountainous, then go to Annie, murmuring gentle reassurances as she cried. Jean's heart ached every time he heard her hiccuping apologies, her formal "Mr. Reno" broken by sobs.</p>
+
+                        <p>Finally, on a quiet evening, Jean managed to sit up properly, the worst of the initial trauma past. He could hear Reno upstairs, still trying to soothe Annie to sleep. Her crying had softened but hadn't stopped entirely – it hadn't really stopped since that day in the woods.</p>
+
+                        <p><span class="thought">I should be up there</span>, he thought, frustration burning in his chest. <span class="thought">I should be helping</span>. But he couldn't. Not yet. Not when his missing arm would only remind her of what she blamed herself for.</p>
+
+                        <p>He made his way to the porch instead, needing air, needing space to think. The sound of Annie's muffled crying from upstairs made his heart clench. She'd been so brave, their reserved little girl, trying so hard not to be a burden even now.</p>
+
+                        <p>Jean settled carefully on the porch steps, his remaining hand clenching into a fist as he waited for Reno to return, hoping his partner could help him make sense of this new reality they found themselves in.</p>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="stillmoor-button close-modal-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="story-modal" data-story="story3">
+        <div class="modal-container">
+            <div class="modal-content">
+                <!-- ... decorative elements ... -->
+                <div class="modal-inner">
+                    <h2 class="modal-title">A Brief Respite</h2>
+                    <div class="modal-scroll-content">
+                        <div class="story">
+                            <p class="dialogue">"Is she asleep now?"</p>
+                    
+                            <p>In their backyard in Myrna, Jean's voice was barely above a whisper, as if speaking louder might shatter the peaceful night that had finally fallen after such a harrowing day. He sat carefully on the porch steps, trying not to jostle his heavily bandaged right side where his arm had been mere hours ago. Somewhere in the house, the birthday cake Reno had brought from Alryne still sat untouched, forgotten in the chaos that followed.</p>
+                    
+                            <p class="dialogue">"Mhm," Reno confirmed softly, his usual stoic expression betrayed by the lingering worry in his eyes. He hesitated, then added, "It took a while. She wouldn't stop crying. Kept apologizing about the flowers, saying if she hadn't gone to pick them..."</p>
+                    
+                            <p>Jean's head dropped, his remaining hand clenching into a fist. "I should have been there to help put her to bed, but I couldn't... couldn't let her see how much it..." He glanced down at the bandaged remains of his right arm. "The flowers were just supposed to be a birthday surprise."</p>
+                    
+                            <p class="dialogue">"She understands," Reno said gently, settling beside him on the steps. Not touching, but close enough that Jean could feel his warmth. "She's stronger than you think."</p>
+                    
+                            <p class="dialogue">"She shouldn't have to be." The bitterness in Jean's voice was sharp enough to cut. "She's just a child. She shouldn't have to watch her father lose an arm to a monster. I should have been faster, should have seen it coming sooner—"</p>
+                    
+                            <p class="dialogue">"Jean." There was a weight to how Reno said his name, heavy with things neither of them had ever dared to voice. "You protected her. That's what matters."</p>
+                    
+                            <p class="dialogue">"I... I know." Jean shifted, clearly uncomfortable with trying to find a position that didn't pull at his injuries. His voice took on a slightly manic edge as he continued, "I've already started thinking about a replacement arm. If I combine alchemy with mechanical parts, I might be able to make something even better than before. I just need to figure out how to—"</p>
+                    
+                            <p class="dialogue">"The designs can wait until morning," Reno interrupted softly. "You need to rest."</p>
+                    
+                            <p class="dialogue">"Rest?" Jean laughed, though it came out more like a sob. "How can I rest? I can't even write properly right now! There's so much work to do, so many things to figure out before I can even start building it—"</p>
+                    
+                            <p>His rambling cut off abruptly as Reno's hand covered his remaining one, warm and steady. The simple touch broke something in Jean. His shoulders began to shake, though whether from pain, shock, or something deeper, neither could say.</p>
+                    
+                            <p class="dialogue">"I couldn't let it hurt her," he whispered. "I saw it coming for her and I just... I just moved. Didn't even think about it. All those birthday flowers she picked, scattered in the blood..."</p>
+                    
+                            <p class="dialogue">"I know." Reno's thumb traced gentle circles on the back of Jean's hand. "I... I'm sorry I wasn't there in time."</p>
+                    
+                            <p class="dialogue">"Don't." Jean turned to face him, eyes fierce despite the pain evident in them. "Don't you dare apologize. If you hadn't arrived when you did..."</p>
+                    
+                            <p>They both fell silent, remembering those terrifying moments – Jean collapsed and bleeding, Annie screaming, the monster looming over them both until Reno's blade had ended the threat with lethal precision.</p>
+                    
+                            <p class="dialogue">"Thank you," Jean said quietly after a long moment. "For remembering my birthday despite... everything."</p>
+                    
+                            <p>Reno's smile in the moonlight made Jean's heart skip. "Well, someone has to remember these things. You'd forget your own head if it wasn't attached."</p>
+                    
+                            <p class="dialogue">"I am not—" Jean started to protest, then stopped as pain lanced through his right side.</p>
+                    
+                            <p>Instantly, Reno's free hand was at his back, steadying him. "Easy. The medicine should be wearing off soon. We should get you back inside."</p>
+                    
+                            <p>Jean nodded, too exhausted to argue. As Reno helped him to his feet with careful hands, Jean found himself leaning more heavily on his partner than he'd intended. Reno didn't seem to mind, his arm strong and secure around Jean's waist.</p>
+                    
+                            <p>They made their way inside quietly, mindful of Annie sleeping upstairs, her pillow likely still wet with tears. At Jean's door, they paused.</p>
+                    
+                            <p class="dialogue">"You don't have to stay," Jean whispered, though everything in him hoped Reno would ignore the weak protest.</p>
+                    
+                            <p class="dialogue">"I know," Reno replied simply, but didn't move from Jean's side. Instead, he helped Jean settle onto the bed, careful of his injuries.</p>
+                    
+                            <p>As exhaustion and medicine pulled him toward sleep, Jean felt Reno's hand find his again in the darkness. Tomorrow would bring its own challenges – designs to draft, Annie's fears to soothe, a new reality to face. But for now, in this quiet moment, he let himself take comfort in Reno's steady presence beside him.</p>
+                    
+                            <p>The night deepened around their little cottage in Myrna, where flowers swayed in the breeze outside their window, so different from the bloodstained blooms that had marked this birthday. Inside, a genius alchemist finally allowed himself to rest, anchored by the gentle touch of the man who had become his home in all the ways that mattered most.</p>
+                    
+                            <p>As Jean drifted off to sleep, he thought he felt Reno's fingers brush his hair back from his face with infinite tenderness. But maybe that was just a dream.</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="stillmoor-button close-modal-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLLYGON - Sitemap</title>
+    <style>
+        @font-face {
+            font-family: Kubasta;
+            src: url('font/Kubasta.ttf') format("truetype");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Kubasta, 'MS Sans Serif', sans-serif;
+            background: #f2e6ef;
+            margin: 0;
+            padding: 8px;
+            height: calc(100vh - 16px);
+            overflow-y: auto;
+            user-select: none;
+        }
+
+        .sitemap-container {
+            width: 100%;
+            height: 100%;
+            background-color: #e8e6f2;
+            border-top: 2px solid #808080;
+            border-left: 2px solid #808080;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sitemap-header {
+            text-align: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        .sitemap-title {
+            font-size: 16px;
+            color: #7b547c;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        .sitemap-subtitle {
+            font-size: 10px;
+            color: #7b547c;
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sitemap-section {
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 10px;
+            height: fit-content;
+        }
+
+        .section-header {
+            background: #f2e6ef;
+            margin: -10px -10px 10px -10px;
+            padding: 8px 10px;
+            border-bottom: 1px solid #808080;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #7b547c;
+        }
+
+        .section-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .page-list {
+            list-style: none;
+        }
+
+        .page-item {
+            margin-bottom: 6px;
+            padding: 6px 8px;
+            background: #f2e6ef;
+            border: 1px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .page-item:hover {
+            background: #e8d8e8;
+        }
+
+        .page-item:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #d8c8d8;
+        }
+
+        .page-link {
+            color: #7b547c;
+            text-decoration: none;
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .page-status {
+            font-size: 10px;
+            padding: 2px 4px;
+            border: 1px solid;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #90ee90;
+            border-color: #006400;
+            color: #006400;
+        }
+
+        .status-wip {
+            background: #ffeb3b;
+            border-color: #ff8f00;
+            color: #ff8f00;
+        }
+
+        .status-external {
+            background: #87ceeb;
+            border-color: #4682b4;
+            color: #4682b4;
+        }
+
+        .status-game {
+            background: #ff69b4;
+            border-color: #7b547c;
+            color: #7b547c;
+        }
+
+        .footer-info {
+            margin-top: 8px;
+            padding: 6px;
+            background: #f6cbda;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            text-align: center;
+            font-size: 9px;
+            color: #7b547c;
+        }
+
+        /* Responsive for iframe */
+        @media (max-width: 500px) {
+            .sitemap-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .sitemap-title {
+                font-size: 14px;
+            }
+            
+            .page-item {
+                font-size: 9px;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f2e6ef;
+            border: 1px solid #7b547c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #7b547c;
+            border: 2px solid #f2e6ef;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b647c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sitemap-container">
+        <div class="sitemap-header">
+            <div class="sitemap-title">SITEMAP</div>
+            <div class="sitemap-subtitle">Navigate POLLYGON!</div>
+        </div>
+
+        <div class="sitemap-grid">
+            <!-- Row 1 -->
+            <div class="sitemap-row">
+                <!-- Main Pages -->
+                <div class="sitemap-section">
+                    <div class="section-header">
+                        <div class="section-icon">🏠</div>
+                        Main Pages
+                    </div>
+                    <ul class="page-list">
+                        <li class="page-item" onclick="openPage('index.html')">
+                            <span class="page-link">Landing Page</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openPage('desktop.html')">
+                            <span class="page-link">Desktop Environment</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(3)">
+                            <span class="page-link">Welcome.txt</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Personal -->
+                <div class="sitemap-section">
+                    <div class="section-header">
+                        <div class="section-icon">👤</div>
+                        Personal
+                    </div>
+                    <ul class="page-list">
+                        <li class="page-item" onclick="openWindow(11)">
+                            <span class="page-link">About Me</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(0)">
+                            <span class="page-link">Shrines</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(4)">
+                            <span class="page-link">POLLY'S BLOG</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(5)">
+                            <span class="page-link">polly.log (Bluesky)</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(2)">
+                            <span class="page-link">OCs</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="sitemap-row">
+                <!-- Creative Works -->
+                <div class="sitemap-section">
+                    <div class="section-header">
+                        <div class="section-icon">🎨</div>
+                        Creative Works
+                    </div>
+                    <ul class="page-list">
+                        <li class="page-item" onclick="openWindow(1)">
+                            <span class="page-link">Projects</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(10)">
+                            <span class="page-link">Art Gallery</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Games & Interactive -->
+                <div class="sitemap-section">
+                    <div class="section-header">
+                        <div class="section-icon">🎮</div>
+                        Games
+                    </div>
+                    <ul class="page-list">
+                        <li class="page-item" onclick="openWindow(13)">
+                            <span class="page-link">Snake Game</span>
+                            <span class="page-status status-game">GAME</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(15)">
+                            <span class="page-link">Paint</span>
+                            <span class="page-status status-game">GAME</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="sitemap-row">
+                <!-- Social & External -->
+                <div class="sitemap-section">
+                    <div class="section-header">
+                        <div class="section-icon">🔗</div>
+                        Social & Links
+                    </div>
+                    <ul class="page-list">
+                        <li class="page-item" onclick="openWindow(12)">
+                            <span class="page-link">Links & Contacts</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                        <li class="page-item" onclick="openWindow(9)">
+                            <span class="page-link">Guestbook</span>
+                            <span class="page-status status-active">ACTIVE</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <strong>Last Updated:</strong> May 2025 | <strong>Total Pages:</strong> 13+ pages
+        </div>
+    </div>
+
+    <script>
+        // Function to open windows (for iframe use)
+        function openWindow(id) {
+            // Try to call parent window function if available
+            try {
+                if (window.parent && window.parent.openWindow) {
+                    window.parent.openWindow(id);
+                } else {
+                    alert(`Opening window ${id}. This would work in the desktop environment.`);
+                }
+            } catch (e) {
+                alert(`Opening window ${id}. This would work in the desktop environment.`);
+            }
+        }
+
+        // Function to open external links
+        function openExternal(url) {
+            try {
+                window.parent.open(url, '_blank');
+            } catch (e) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Function to navigate to pages
+        function openPage(page) {
+            try {
+                window.parent.location.href = page;
+            } catch (e) {
+                window.location.href = page;
+            }
+        }
+
+        // Add hover effects
+        document.querySelectorAll('.page-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(2px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close sitemap if possible
+                try {
+                    if (window.parent && window.parent.closeWindow) {
+                        window.parent.closeWindow();
+                    }
+                } catch (e) {
+                    // Ignore if can't close
+                }
+            }
+        });
+    </script>
+</body>
+</html>

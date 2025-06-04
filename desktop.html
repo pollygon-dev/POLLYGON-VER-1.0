@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="icons.css" />
 	<link rel="stylesheet" type="text/css" href="loader.css" />
 	<link rel="stylesheet" href="boxes.css">
-	<link rel="icon" type="image/png" href="windose.png">
+	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="stylesheet" type="text/css" href="custom-scrollbars.css">
 	<title>POLLYGON</title>
 </head>
@@ -108,7 +108,8 @@
 			</div>
 		
 			<div class="player-content">
-				<div class="player-info">
+				<iframe src="/webdeck-player/indexx.html" height="250" width="600"></iframe>
+				<!-- <div class="player-info">
 					<div class="track-info">
 						<div class="track-name">
 							Song
@@ -146,7 +147,7 @@
 						</a>
 						<input type="range" class="volume_slider" min="0" max="100" value="100">
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -160,7 +161,7 @@
 		</div>
 
 		<div class="window closed" data-title="OCs"> <!--2-->
-			<h1>Still a work-in-progress.... come back later!</h1>
+			<iframe width="100%" height="100%" src="OcSection/index.html"></iframe>
 
 		</div>
 
@@ -169,7 +170,7 @@
 			<h1><img src="newpollygon2.png" class="float"></h1>
 			<P> Thanks for stopping by! This is my little website, POLLYGON! In here, you'll find stuff about me and my interests, as well as my projects and OCs. (and maybe many more?)
 				<br> <br>
-				So.. Let me introduce myself! I'm Apollo, a gamedev student who enjoys playing games and reading stuff. I also have millions of interests and into way too many things. (haha) Feel free to explore around and hope you enjoy your stay! (P.S. the windows can be minimized and maximized!) <br> <br> Also! The code here on my site is meant to be shared! Feel free to get any code, and if you need anything, just reach out to me and I'll help! <br> <br> <i>Is the site looking funny? Try doing a hard reload (Ctrl+Shift+R)</i></P>
+				So.. Let me introduce myself! I'm Apollo, a gamedev student who enjoys playing games and reading stuff. I also have millions of interests and into way too many things. (haha) Feel free to explore around, listen to some of my fave songs if you'd like, and hope you enjoy your stay! (P.S. the windows can be minimized and maximized!) <br> <br> Also! The code here on my site is meant to be shared! Feel free to get any code, and if you need anything, just reach out to me and I'll help! <br> <br> <i>Is the site looking funny? Try doing a hard reload (Ctrl+Shift+R)</i></P>
 		</div>
 
 		<!--MUSIC-->
@@ -181,12 +182,12 @@
 			<iframe width="100%" height="100%" src="bsky/index.html"></iframe>
 		</div>
 
-		<div class="window closed" data-title="Corpse Husband"> <!--6-->
-			<iframe width="100%" height="100%" src="corpsehusband.html"></iframe>
+		<div class="window closed" data-title="Undecided"> <!--6-->
+			<h1>Still a work-in-progress.... come back later!</h1>
 		</div>
 
-		<div class="window closed" data-title="R.F. Kuang"> <!--7-->
-			<iframe width="100%" height="100%" src="rfkuang.html"></iframe>
+		<div class="window closed" data-title="Undecided"> <!--7-->
+			<h1>Still a work-in-progress.... come back later!</h1>
 		</div>
 
 		<div class="window closed" data-title="WiP"> <!--8-->
@@ -194,7 +195,7 @@
 		</div>
 
 		<div class="window closed fullSizeWindow" data-title="Guestbook"> <!--9-->
-			<iframe width="100%" height="100%" src="https://pollygon.atabook.org/"></iframe>
+			<iframe width="100%" height="100%" src="guestbook/guestbook.html"></iframe>
 		</div>
 
 		<div class="window closed fullSizeWindow" data-title="Art"> <!--10-->
@@ -207,7 +208,20 @@
 		</div>
 
 		<div class="window closed" data-title="Links"> <!--12-->
-			<iframe width="100%" height="100%" src="links.html"></iframe>
+			<iframe width="100%" height="100%" src="mobile/links.html"></iframe>
+		</div>
+
+		<div class="window closed" data-title="Snake"> <!--13-->
+			<iframe width="100%" height="100%" src="snake.html"></iframe>
+		</div>
+		<div class="window closed" data-title="Sitemap"> <!--14-->
+			<iframe width="100%" height="100%" src="sitemap.html"></iframe>
+		</div>
+		<div class="window closed" data-title="Paint"> <!--15-->
+			<iframe width="100%" height="100%" src="paint.html"></iframe>
+		</div>
+		<div class="window closed" data-title="Guestbook Doodles"> <!--15-->
+			<iframe width="100%" height="100%" src="guestbook/doodlegallery.html"></iframe>
 		</div>
 		
 		<!-- taskbar footer -->
@@ -268,12 +282,23 @@
 									</a>
 								</div>
 							</div>
+							<div class="menu-item has-submenu">
+								<span><u>G</u>ames</span>
+								<div class="submenu">
+									<a id="menu-item" class="openWindow" data-id="13">
+										<span><u>S</u>nake</span>
+									</a>
+									<a id="menu-item" class="openWindow" data-id="15">
+										<span><u>P</u>aint</span>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
-					<a id="menu-item" class="openWindow" data-id="9">
+					<a id="menu-item" class="openWindow">
 						<span><u>H</u>elp</span>
 					</a>
-					<a id="menu-item" class="openWindow" data-id="8">
+					<a id="menu-item" class="openWindow" data-id="14">
 						<span><u>S</u>itemap</span>
 					</a>
 					<div class="separator"></div>
@@ -324,6 +349,9 @@
 
 			<div class="icon">
                 <a class="openWindow" data-id="9"><img src="new-icons/book.png" alt="Guestbook" title="Guestbook"/><span class="icon-text"> Guestbook</span></a>
+            </div>
+			<div class="icon">
+                <a class="openWindow" data-id="16"><img src="new-icons/cake.png" alt="Guestbook" title="Guestbook"/><span class="icon-text"> Guestbook Doodles</span></a>
             </div>
     
              <!--<div class="icon">

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Layout Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-image {
+            width: 450px;
+            height: 800px;
+            flex-shrink: 0;
+        }
+
+        .left-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        .content-panel {
+            background-color: white;
+            color: black;
+            width: 500px;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .main-heading {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+        }
+
+        .content-section {
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+        }
+
+        .paragraph {
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 0.9rem;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .highlight {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 5px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .bullet-list li:before {
+            content: "•";
+            color: #000;
+            font-weight: bold;
+            position: absolute;
+            left: -12px;
+        }
+
+        .content-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            margin: 15px 0;
+        }
+
+        .smiley {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+
+        .navigation {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: lowercase;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #ccc;
+        }
+
+        .nav-item:not(:last-child):after {
+            content: ". ";
+            color: white;
+        }
+
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 3px;
+            margin-top: 10px;
+        }
+
+        .thumbnail {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            border: 1px solid #ccc;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #666;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumbnail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 4px;
+            font-size: 9px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbnail:hover .thumbnail-overlay {
+            opacity: 1;
+        }
+
+        .warning-tag {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 1px 3px;
+            font-size: 8px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        /* Video indicator for thumbnails */
+        .video-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .thumbnail:hover .video-indicator {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+        }
+
+        .lightbox-info {
+            padding: 15px;
+            background: white;
+        }
+
+        .lightbox-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .lightbox-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+            z-index: 1001;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 1);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            z-index: 1001;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 1);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        /* Lightbox media container */
+        #lightbox-media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        /* Loading and error states */
+        .media-loading, .media-error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            color: #666;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .media-error {
+            color: #e74c3c;
+        }
+
+        /* Video styling in lightbox */
+        #lightbox-video {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 10px;
+            }
+            
+            .content-row {
+                flex-direction: column;
+            }
+            
+            .left-image {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .content-panel {
+                width: 100%;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                gap: 2px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .video-indicator {
+                width: 20px;
+                height: 20px;
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="content-row">
+            <div class="left-image">
+                <img src="ariakesann.png" alt="Main artwork"/>
+            </div>
+            
+            <div class="content-panel">
+                <h1 class="main-heading">Illust.</h1>
+                <div class="gallery-grid" id="gallery">
+                    <!-- Gallery thumbnails will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <a href="../../shrines.html" class="nav-item">home</a>
+            <a href="index.html" class="nav-item">main</a>
+            <a href="loveletter.html" class="nav-item">my thoughts</a>
+            <a href="illust.html" class="nav-item">illust</a>
+        </nav>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div id="lightbox-media">
+                <!-- Images or videos will be inserted here dynamically -->
+            </div>
+            
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightbox-title"></div>
+                <div class="lightbox-description" id="lightbox-description"></div>
+            </div>
+        </div>
+        
+        <!-- Move buttons outside lightbox-content to ensure they're clickable -->
+        <button class="close-btn" id="close-btn">&times;</button>
+        <button class="nav-btn prev-btn" id="prev-btn">&#8249;</button>
+        <button class="nav-btn next-btn" id="next-btn">&#8250;</button>
+    </div>
+
+    <script>
+        // Sample image and video data
+        const images = [
+            {
+                thumb: "thumbnail/1.png",
+                full: "art/ariakw.png",
+                title: "Chibi",
+                description: null,
+                warning: null,
+                type: "image"
+            },
+            {
+                thumb: "thumbnail/2.png",
+                full: "art/ariake.png", 
+                title: "Chibi 2",
+                description: null,
+                warning: null,
+                type: "image"
+            },
+            {
+                thumb: "thumbnail/3.png",
+                full: "art/ariakemonitoring.mp4",
+                title: "Monitoring",
+                description: null,
+                warning: null,
+                type: "video"
+            },
+            {
+                thumb: "thumbnail/4.png",
+                full: "art/Illustration78.png",
+                title: "Ariake Sketch",
+                description: null,
+                warning: null,
+                type: "image"
+            },
+            {
+                thumb: "thumbnail/5.png",
+                full: "art/ariakebun.png",
+                title: "Bun Cheeb",
+                description: null,
+                warning: null,
+                type: "image"
+            }
+        ];
+
+        let currentImageIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // Helper function to detect if file is video based on extension
+        function isVideo(url) {
+            const videoExtensions = ['.mp4', '.webm', '.mov', '.avi', '.mkv', '.m4v'];
+            return videoExtensions.some(ext => url.toLowerCase().includes(ext));
+        }
+
+        // Generate gallery thumbnails
+        function generateGallery() {
+            const gallery = document.getElementById('gallery');
+            
+            // Clear existing content
+            gallery.innerHTML = '';
+            
+            images.forEach((image, index) => {
+                const thumbDiv = document.createElement('div');
+                thumbDiv.className = 'thumbnail';
+                thumbDiv.onclick = () => openLightbox(index);
+                
+                // Create thumbnail image
+                const img = document.createElement('img');
+                img.src = image.thumb;
+                img.alt = image.title;
+                thumbDiv.appendChild(img);
+                
+                // Add video indicator for video files
+                if (image.type === 'video' || isVideo(image.full)) {
+                    const videoIndicator = document.createElement('div');
+                    videoIndicator.className = 'video-indicator';
+                    videoIndicator.innerHTML = '▶';
+                    thumbDiv.appendChild(videoIndicator);
+                }
+                
+                // Add hover overlay with title
+                const overlay = document.createElement('div');
+                overlay.className = 'thumbnail-overlay';
+                overlay.textContent = image.title;
+                thumbDiv.appendChild(overlay);
+                
+                // Add warning tag if present
+                if (image.warning) {
+                    const warningTag = document.createElement('div');
+                    warningTag.className = 'warning-tag';
+                    warningTag.textContent = image.warning;
+                    thumbDiv.appendChild(warningTag);
+                }
+                
+                gallery.appendChild(thumbDiv);
+            });
+        }
+
+        // Lightbox functions with video support
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxContent();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Pause and cleanup any playing video
+            const video = document.getElementById('lightbox-video');
+            if (video) {
+                video.pause();
+                video.currentTime = 0; // Reset video to beginning
+            }
+        }
+
+        function nextImage() {
+            // Pause current video if playing
+            const video = document.getElementById('lightbox-video');
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+            
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateLightboxContent();
+        }
+
+        function previousImage() {
+            // Pause current video if playing
+            const video = document.getElementById('lightbox-video');
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+            
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const item = images[currentImageIndex];
+            const mediaContainer = document.getElementById('lightbox-media');
+            
+            // Clear previous content
+            mediaContainer.innerHTML = '';
+            
+            // Show loading state
+            mediaContainer.innerHTML = '<div class="media-loading">Loading...</div>';
+            
+            if (item.type === 'video' || isVideo(item.full)) {
+                // Create video element
+                const video = document.createElement('video');
+                video.id = 'lightbox-video';
+                video.src = item.full;
+                video.controls = true;
+                video.autoplay = false;
+                video.preload = 'metadata';
+                video.style.maxWidth = '100%';
+                video.style.maxHeight = '80vh';
+                video.style.display = 'block';
+                
+                // Add event listeners for video
+                video.addEventListener('loadeddata', function() {
+                    // Remove loading state when video is ready
+                    mediaContainer.innerHTML = '';
+                    mediaContainer.appendChild(video);
+                });
+                
+                video.addEventListener('error', function(e) {
+                    console.error('Error loading video:', item.full, e);
+                    mediaContainer.innerHTML = '<div class="media-error">Error loading video. Please check the file path.</div>';
+                });
+                
+                // Set video source and try to load
+                video.load();
+                
+            } else {
+                // Create image element
+                const img = document.createElement('img');
+                img.id = 'lightbox-img';
+                img.src = item.full;
+                img.alt = item.title;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '80vh';
+                img.style.display = 'block';
+                
+                // Add event listeners for image
+                img.addEventListener('load', function() {
+                    // Remove loading state when image is loaded
+                    mediaContainer.innerHTML = '';
+                    mediaContainer.appendChild(img);
+                });
+                
+                img.addEventListener('error', function(e) {
+                    console.error('Error loading image:', item.full, e);
+                    mediaContainer.innerHTML = '<div class="media-error">Error loading image. Please check the file path.</div>';
+                });
+            }
+            
+            // Update title and description
+            document.getElementById('lightbox-title').textContent = item.title;
+            document.getElementById('lightbox-description').textContent = item.description || '';
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped left - next image
+                    nextImage();
+                } else {
+                    // Swiped right - previous image
+                    previousImage();
+                }
+            }
+        }
+
+        // Utility function to add new media to gallery (for dynamic content)
+        function addMediaToGallery(mediaItem) {
+            images.push(mediaItem);
+            generateGallery(); // Regenerate gallery
+        }
+
+        // Utility function to remove media from gallery
+        function removeMediaFromGallery(index) {
+            if (index >= 0 && index < images.length) {
+                images.splice(index, 1);
+                generateGallery(); // Regenerate gallery
+            }
+        }
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox && lightbox.classList.contains('active')) {
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        previousImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                    case ' ': // Space bar for video play/pause
+                        e.preventDefault();
+                        const video = document.getElementById('lightbox-video');
+                        if (video) {
+                            if (video.paused) {
+                                video.play().catch(e => console.log('Play failed:', e));
+                            } else {
+                                video.pause();
+                            }
+                        }
+                        break;
+                    case 'f': // F key for fullscreen
+                    case 'F':
+                        const video2 = document.getElementById('lightbox-video');
+                        if (video2 && video2.requestFullscreen) {
+                            video2.requestFullscreen().catch(e => console.log('Fullscreen failed:', e));
+                        }
+                        break;
+                }
+            }
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            generateGallery();
+            
+            // Add click handlers for lightbox buttons
+            const closeBtn = document.getElementById('close-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeLightbox();
+                });
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    previousImage();
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nextImage();
+                });
+            }
+            
+            // Close lightbox when clicking on the dark background
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.addEventListener('click', function(e) {
+                    // Only close if clicking on the lightbox itself, not its children
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            // Prevent closing when clicking on the content itself
+            const lightboxContent = document.querySelector('.lightbox-content');
+            if (lightboxContent) {
+                lightboxContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            // Add touch/swipe support for mobile
+            if (lightbox) {
+                lightbox.addEventListener('touchstart', function(e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                lightbox.addEventListener('touchend', function(e) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
